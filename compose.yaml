@@ -1,0 +1,75 @@
+services:
+  mysql:
+    image: hadoop-testing/mysql:${PROJECT_VERSION}
+    hostname: mysql
+    container_name: mysql
+    ports:
+      - 3306:3306
+
+  hadoop-master1:
+    image: hadoop-testing/hadoop-master1:${PROJECT_VERSION}
+    hostname: hadoop-master1
+    container_name: hadoop-master1
+    ports:
+      - 8088:8088
+      - 9870:9870
+      - 10009:10009
+      - 10099:10099
+      - 18080:18080
+      - 19888:19888
+    depends_on:
+      - mysql
+
+  hadoop-worker1:
+    image: hadoop-testing/hadoop-worker1:${PROJECT_VERSION}
+    hostname: hadoop-worker1
+    container_name: hadoop-worker1
+    depends_on:
+      - hadoop-master1
+
+  hadoop-worker2:
+    image: hadoop-testing/hadoop-worker2:${PROJECT_VERSION}
+    hostname: hadoop-worker2
+    container_name: hadoop-worker2
+    depends_on:
+      - hadoop-master1
+
+  hadoop-worker3:
+    image: hadoop-testing/hadoop-worker3:${PROJECT_VERSION}
+    hostname: hadoop-worker3
+    container_name: hadoop-worker3
+    depends_on:
+      - hadoop-master1
+
+  prometheus:
+    image: prom/prometheus
+    hostname: prometheus
+    container_name: prometheus
+    volumes:
+      - ./files/etc/prometheus:/etc/prometheus
+    ports:
+      - 9090:9090
+
+  loki:
+    image: grafana/loki:${LOKI_VERSION}
+    hostname: loki
+    container_name: loki
+    volumes:
+      - ./files/etc/loki:/etc/loki
+    ports:
+      - 3100:3100
+    command: -config.file=/etc/loki/config.yaml
+
+  grafana:
+    image: grafana/grafana-oss:${GRAFANA_VERSION}
+    hostname: grafana
+    container_name: grafana
+    environment:
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+    volumes:
+      - ./files/etc/grafana/provisioning:/etc/grafana/provisioning
+      - ./files/var/lib/grafana/dashboards:/var/lib/grafana/dashboards
+    ports:
+      - 3000:3000

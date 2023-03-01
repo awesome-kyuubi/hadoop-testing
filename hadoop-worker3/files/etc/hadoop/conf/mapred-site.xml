@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<configuration>
+  <property>
+    <name>mapreduce.jobtracker.address</name>
+    <value>hadoop-master1:8021</value>
+  </property>
+  <property>
+    <name>mapreduce.framework.name</name>
+    <value>yarn</value>
+  </property>
+  <property>
+    <name>mapreduce.jobhistory.address</name>
+    <value>hadoop-master1:10020</value>
+  </property>
+  <property>
+    <name>mapreduce.jobhistory.webapp.address</name>
+    <value>hadoop-master1:19888</value>
+  </property>
+  <property>
+    <name>mapreduce.task.tmp.dir</name>
+    <value>/var/lib/hadoop-mapreduce/cache/${user.name}/tasks</value>
+    <description>To set the value of tmp directory for map and reduce tasks.</description>
+  </property>
+</configuration>

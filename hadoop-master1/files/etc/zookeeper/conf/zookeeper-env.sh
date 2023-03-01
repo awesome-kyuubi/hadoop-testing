@@ -1,0 +1,1 @@
+export ZK_SERVER_HEAP=384
