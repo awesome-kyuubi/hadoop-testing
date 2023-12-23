@@ -2,7 +2,7 @@
 <configuration>
   <property>
     <name>yarn.resourcemanager.address</name>
-    <value>hadoop-master1:8032</value>
+    <value>hadoop-master1.orb.local:8032</value>
   </property>
   <property>
     <name>yarn.nodemanager.aux-services</name>
@@ -59,7 +59,7 @@
   </property>
   <property>
     <name>yarn.resourcemanager.hostname</name>
-    <value>hadoop-master1</value>
+    <value>hadoop-master1.orb.local</value>
   </property>
   <property>
     <name>yarn.nodemanager.disk-health-checker.max-disk-utilization-per-disk-percentage</name>
@@ -83,7 +83,7 @@
   </property>
   <property>
     <name>yarn.log.server.url</name>
-    <value>http://hadoop-master1:19888/jobhistory/logs</value>
+    <value>http://hadoop-master1.orb.local:19888/jobhistory/logs</value>
   </property>
   <property>
     <name>yarn.scheduler.minimum-allocation-mb</name>

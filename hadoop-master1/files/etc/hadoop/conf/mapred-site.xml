@@ -2,7 +2,7 @@
 <configuration>
   <property>
     <name>mapreduce.jobtracker.address</name>
-    <value>hadoop-master1:8012</value>
+    <value>hadoop-master1.orb.local:8012</value>
   </property>
   <property>
     <name>mapreduce.framework.name</name>
@@ -10,11 +10,11 @@
   </property>
   <property>
     <name>mapreduce.jobhistory.address</name>
-    <value>hadoop-master1:10020</value>
+    <value>hadoop-master1.orb.local:10020</value>
   </property>
   <property>
     <name>mapreduce.jobhistory.webapp.address</name>
-    <value>hadoop-master1:19888</value>
+    <value>hadoop-master1.orb.local:19888</value>
   </property>
   <property>
     <name>mapreduce.task.tmp.dir</name>

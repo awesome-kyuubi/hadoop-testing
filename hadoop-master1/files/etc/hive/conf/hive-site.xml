@@ -2,7 +2,7 @@
 <configuration>
   <property>
     <name>hive.metastore.uris</name>
-    <value>thrift://hadoop-master1:9083</value>
+    <value>thrift://hadoop-master1.orb.local:9083</value>
   </property>
   <property>
     <name>javax.jdo.option.ConnectionURL</name>

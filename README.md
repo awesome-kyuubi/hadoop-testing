@@ -20,10 +20,10 @@ docker compose up
 
 ## Access services
 
-- Grafana: http://localhost:3000
-- Prometheus: http://localhost:9090
-- Kyuubi UI: http://localhost:10099
-- Spark History Server: http://localhost:18080
-- Hadoop HDFS: http://localhost:9870
-- Hadoop YARN: http://localhost:8088
-- Hadoop MapReduce JobHistory: http://localhost:19888
+- Grafana: http://hadoop-master1.orb.local:3000
+- Prometheus: http://hadoop-master1.orb.local:9090
+- Kyuubi UI: http://hadoop-master1.orb.local:10099
+- Spark History Server: http://hadoop-master1.orb.local:18080
+- Hadoop HDFS: http://hadoop-master1.orb.local:9870
+- Hadoop YARN: http://hadoop-master1.orb.local:8088
+- Hadoop MapReduce JobHistory: http://hadoop-master1.orb.local:19888

@@ -2,7 +2,7 @@
 <configuration>
   <property>
     <name>fs.defaultFS</name>
-    <value>hdfs://hadoop-master1:8020</value>
+    <value>hdfs://hadoop-master1.orb.local:8020</value>
   </property>
   <property>
     <name>hadoop.proxyuser.hadoop.hosts</name>

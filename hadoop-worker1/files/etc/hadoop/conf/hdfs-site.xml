@@ -2,7 +2,7 @@
 <configuration>
   <property>
     <name>dfs.namenode.http-address</name>
-    <value>hadoop-master1:9870</value>
+    <value>hadoop-master1.orb.local:9870</value>
   </property>
   <property>
     <name>dfs.permissions.enabled</name>

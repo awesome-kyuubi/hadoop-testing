@@ -2,7 +2,7 @@
 <configuration>
   <property>
     <name>beeline.hs2.jdbc.url.tcpUrl</name>
-    <value>jdbc:hive2://hadoop-master1:10000/default;user=hive;password=hive</value>
+    <value>jdbc:hive2://hadoop-master1.orb.local:10000/default;user=hive;password=hive</value>
   </property>
   <property>
     <name>beeline.hs2.jdbc.url.default</name>

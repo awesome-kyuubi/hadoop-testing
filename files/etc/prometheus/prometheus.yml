@@ -16,4 +16,4 @@ scrape_configs:
     metrics_path: "/metrics"
     static_configs:
       - targets:
-          - "hadoop-master1:10019"
+          - "hadoop-master1.orb.local:10019"
