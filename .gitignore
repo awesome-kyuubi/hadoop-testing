@@ -11,3 +11,4 @@ flags
 graphviz
 dependency_graph.svg
 *.swp
+build/tmp
