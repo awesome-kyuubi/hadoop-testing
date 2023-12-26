@@ -37,7 +37,7 @@ Once the testing environment is fully operational, the following services will b
 - Hadoop HDFS: http://hadoop-master1.orb.local:9870
 - Hadoop YARN: http://hadoop-master1.orb.local:8088
 - Hadoop MapReduce JobHistory: http://hadoop-master1.orb.local:19888
-- Ranger Admin: http://hadoop-master1.orb.local:6080
+- Ranger Admin: http://hadoop-master1.orb.local:6080 (admin/Ranger@admin123)
 
 Note: the container domain name resolving depends on this [feature](https://docs.orbstack.dev/docker/domains) of OrbStack.
 
