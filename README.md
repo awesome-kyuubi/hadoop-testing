@@ -43,7 +43,7 @@ Note: the container domain name resolving depends on this [feature](https://docs
 
 ## Roadmap
 
-1. Add more components, such as HBase, etc.
+1. Add more components, such as LDAP, Kerberos, Flink, HBase, etc.
 2. This project is in very early stage, and the current way is not flexiable enough to support various testing scenarios.
 For example, there is no switch to turn on/off each components by configuration. To address such issues, we may want
 to leverage the template engine like Ansible plus Jinja2 to generate the docker-compose.yml file and configuration files
