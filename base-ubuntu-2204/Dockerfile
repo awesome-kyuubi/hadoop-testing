@@ -53,4 +53,6 @@ RUN groupadd hadoop --gid 6000 && \
     groupadd kyuubi --gid 6009 && \
     useradd  kyuubi --gid 6009 --uid 6009 -m && \
     groupadd hue --gid 6010 && \
-    useradd  hue --gid 6010 --uid 6010 -m
+    useradd  hue --gid 6010 --uid 6010 -m && \
+    groupadd ranger --gid 6011 && \
+    useradd  ranger --gid 6011 --uid 6011 -m

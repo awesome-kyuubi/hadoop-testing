@@ -53,10 +53,12 @@ function build_hadoop_master_image() {
   local INDEX=$1
   mkdir -p hadoop-master${INDEX}/download
   cp download/apache-zookeeper-${ZOOKEEPER_VERSION}-bin.tar.gz hadoop-master${INDEX}/download/apache-zookeeper-${ZOOKEEPER_VERSION}-bin.tar.gz
-  cp download/hadoop-${HADOOP_VERSION}.tar.gz hadoop-master${INDEX}/download/hadoop-${HADOOP_VERSION}.tar.gz
+  if [ $(uname -m) = "arm64" ] || [ $(uname -m) = "aarch64" ]; then HADOOP_TAR_NAME=hadoop-${HADOOP_VERSION}-aarch64; else HADOOP_TAR_NAME=hadoop-${HADOOP_VERSION}; fi
+  cp download/${HADOOP_TAR_NAME}.tar.gz hadoop-master${INDEX}/download/hadoop-${HADOOP_VERSION}.tar.gz
   cp download/apache-hive-${HIVE_VERSION}-bin.tar.gz hadoop-master${INDEX}/download/apache-hive-${HIVE_VERSION}-bin.tar.gz
   cp download/spark-${SPARK_VERSION}-bin-hadoop3.tgz hadoop-master${INDEX}/download/spark-${SPARK_VERSION}-bin-hadoop3.tgz
   cp download/apache-kyuubi-${KYUUBI_VERSION}-bin.tgz hadoop-master${INDEX}/download/apache-kyuubi-${KYUUBI_VERSION}-bin.tgz
+  cp download/ranger-${RANGER_VERSION}-admin.tar.gz hadoop-master${INDEX}/download/ranger-${RANGER_VERSION}-admin.tar.gz
   cp download/kyuubi-spark-connector-tpch_${SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar hadoop-master${INDEX}/download/kyuubi-spark-connector-tpch_${SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar
   cp download/kyuubi-spark-connector-tpcds_${SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar hadoop-master${INDEX}/download/kyuubi-spark-connector-tpcds_${SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar
   cp download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar hadoop-master${INDEX}/download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar
@@ -70,6 +72,7 @@ function build_hadoop_master_image() {
     --build-arg SPARK_BINARY_VERSION=${SPARK_BINARY_VERSION} \
     --build-arg SCALA_BINARY_VERSION=${SCALA_BINARY_VERSION} \
     --build-arg KYUUBI_VERSION=${KYUUBI_VERSION} \
+    --build-arg RANGER_VERSION=${RANGER_VERSION} \
     --build-arg MYSQL_JDBC_VERSION=${MYSQL_JDBC_VERSION} \
     --build-arg LOKI_APPENDER_VERSION=${LOKI_APPENDER_VERSION} \
     --file "${SELF_DIR}/hadoop-master${INDEX}/Dockerfile" \
@@ -82,7 +85,8 @@ build_hadoop_master_image 1 "$@"
 function build_hadoop_worker_image() {
   local INDEX=$1
   mkdir -p hadoop-worker${INDEX}/download
-  cp download/hadoop-${HADOOP_VERSION}.tar.gz hadoop-worker${INDEX}/download/hadoop-${HADOOP_VERSION}.tar.gz
+  if [ $(uname -m) = "arm64" ] || [ $(uname -m) = "aarch64" ]; then HADOOP_TAR_NAME=hadoop-${HADOOP_VERSION}-aarch64; else HADOOP_TAR_NAME=hadoop-${HADOOP_VERSION}; fi
+  cp download/${HADOOP_TAR_NAME}.tar.gz hadoop-worker${INDEX}/download/hadoop-${HADOOP_VERSION}.tar.gz
   cp download/spark-${SPARK_VERSION}-bin-hadoop3.tgz hadoop-worker${INDEX}/download/spark-${SPARK_VERSION}-bin-hadoop3.tgz
   tar -xzf hadoop-worker${INDEX}/download/spark-${SPARK_VERSION}-bin-hadoop3.tgz -C hadoop-worker${INDEX}/download spark-${SPARK_VERSION}-bin-hadoop3/yarn
   ${BUILD_CMD} \
