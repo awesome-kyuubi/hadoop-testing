@@ -33,7 +33,7 @@ For macOS users, it's recommended to use [OrbStack](https://docs.orbstack.dev/) 
 
 For other platforms, we provide a socks5 server in a container named `socks5`, which listens 18070 port and is exposed to the dockerd host by default, you can forward traffic to this socks server to access services run in other containers.
 
-For example, to access service in Broswer, use [SwitchyOmega](https://github.com/FelisCatus/SwitchyOmega) to forward traffic of `*.orb.local` to `<dockerd-hostname>:18070`.
+For example, to access service in Browser, use [SwitchyOmega](https://github.com/FelisCatus/SwitchyOmega) to forward traffic of `*.orb.local` to `<dockerd-hostname>:18070`.
 
 ![img](docs/imgs/switchy-omega-1.png)
 ![img](docs/imgs/switchy-omega-2.png)
