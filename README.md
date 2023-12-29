@@ -52,6 +52,8 @@ Once the testing environment is fully operational, the following services will b
 - Hadoop MapReduce JobHistory: http://hadoop-master1.orb.local:19888
 - Ranger Admin: http://hadoop-master1.orb.local:6080 (admin/Ranger@admin123)
 
+![img](docs/imgs/namenode-ui.png)
+
 ## Roadmap
 
 1. Add more components, such as LDAP, Kerberos, Flink, HBase, etc.
