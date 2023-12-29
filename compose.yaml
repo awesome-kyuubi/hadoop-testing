@@ -1,7 +1,7 @@
 services:
   mysql:
     image: hadoop-testing/mysql:${PROJECT_VERSION}
-    hostname: mysql
+    hostname: mysql.orb.local
     container_name: mysql
     ports:
       - 3306:3306
@@ -53,7 +53,7 @@ services:
 
   prometheus:
     image: prom/prometheus
-    hostname: prometheus
+    hostname: prometheus.orb.local
     container_name: prometheus
     volumes:
       - ./files/etc/prometheus:/etc/prometheus
@@ -62,7 +62,7 @@ services:
 
   loki:
     image: grafana/loki:${LOKI_VERSION}
-    hostname: loki
+    hostname: loki.orb.local
     container_name: loki
     volumes:
       - ./files/etc/loki:/etc/loki
@@ -72,7 +72,7 @@ services:
 
   grafana:
     image: grafana/grafana-oss:${GRAFANA_VERSION}
-    hostname: grafana
+    hostname: grafana.orb.local
     container_name: grafana
     environment:
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
