@@ -43,8 +43,8 @@ For example, to access service in Browser, use [SwitchyOmega](https://github.com
 
 Once the testing environment is fully operational, the following services will be accessible:
 
-- Grafana: http://hadoop-master1.orb.local:3000
-- Prometheus: http://hadoop-master1.orb.local:9090
+- Grafana: http://grafana.orb.local:3000
+- Prometheus: http://prometheus.orb.local:9090
 - Kyuubi UI: http://hadoop-master1.orb.local:10099
 - Spark History Server: http://hadoop-master1.orb.local:18080
 - Hadoop HDFS: http://hadoop-master1.orb.local:9870
