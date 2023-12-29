@@ -27,7 +27,20 @@ docker compose up
 
 ## Access services
 
-It recommends using [OrbStack](https://docs.orbstack.dev/) as the container runtimes on macOS.
+### Networks
+
+For macOS users, it's recommended to use [OrbStack](https://docs.orbstack.dev/) as the container runtime. OrbStack provides an out-of-box [container domain name resolving feature](https://docs.orbstack.dev/docker/domains) to allow accessing each container via `<container-name>.orb.local`.
+
+For other platforms, we provide a socks5 server in a container named `socks5`, which listens 18070 port and is exposed to the dockerd host by default, you can forward traffic to this socks server to access services run in other containers.
+
+For example, to access service in Browser, use [SwitchyOmega](https://github.com/FelisCatus/SwitchyOmega) to forward traffic of `*.orb.local` to `<dockerd-hostname>:18070`.
+
+![img](docs/imgs/switchy-omega-1.png)
+![img](docs/imgs/switchy-omega-2.png)
+![img](docs/imgs/switchy-omega-3.png)
+
+### Service endponits
+
 Once the testing environment is fully operational, the following services will be accessible:
 
 - Grafana: http://hadoop-master1.orb.local:3000
@@ -39,7 +52,7 @@ Once the testing environment is fully operational, the following services will b
 - Hadoop MapReduce JobHistory: http://hadoop-master1.orb.local:19888
 - Ranger Admin: http://hadoop-master1.orb.local:6080 (admin/Ranger@admin123)
 
-Note: the container domain name resolving depends on this [feature](https://docs.orbstack.dev/docker/domains) of OrbStack.
+![img](docs/imgs/namenode-ui.png)
 
 ## Roadmap
 

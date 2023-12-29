@@ -6,6 +6,15 @@ services:
     ports:
       - 3306:3306
 
+  socks5:
+    image: serjs/go-socks5-proxy
+    hostname: socks5.orb.local
+    container_name: socks5
+    environment:
+      - PROXY_PORT=18070
+    ports:
+      - 18070:18070
+
   hadoop-master1:
     image: hadoop-testing/hadoop-master1:${PROJECT_VERSION}
     hostname: hadoop-master1.orb.local
