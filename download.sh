@@ -51,5 +51,8 @@ download_if_not_exists ${MAVEN_MIRROR}/org/apache/kyuubi/${TPCH_CONNECTOR_JAR_NA
 ICEBERG_SPARK_JAR_NAME=iceberg-spark-runtime-${SPARK_BINARY_VERSION}_${SCALA_BINARY_VERSION}
 download_if_not_exists ${MAVEN_MIRROR}/org/apache/iceberg/${ICEBERG_SPARK_JAR_NAME}/${ICEBERG_VERSION}/${ICEBERG_SPARK_JAR_NAME}-${ICEBERG_VERSION}.jar
 
+HUDI_SPARK_BUNDLE_JAR_NAME=hudi-spark${SPARK_BINARY_VERSION}-bundle_${SCALA_BINARY_VERSION}
+download_if_not_exists https://github.com/yanghua/incubator-hudi/releases/download/release-${HUDI_VERSION}/${HUDI_SPARK_BUNDLE_JAR_NAME}-${HUDI_VERSION}.jar
+
 LOKI_APPENDER_JAR_NAME=log4j2-appender-nodep
 download_if_not_exists ${MAVEN_MIRROR}/pl/tkowalcz/tjahzi/${LOKI_APPENDER_JAR_NAME}/${LOKI_APPENDER_VERSION}/${LOKI_APPENDER_JAR_NAME}-${LOKI_APPENDER_VERSION}.jar
