@@ -63,6 +63,7 @@ function build_hadoop_master_image() {
   cp download/kyuubi-spark-connector-tpcds_${SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar hadoop-master${INDEX}/download/kyuubi-spark-connector-tpcds_${SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar
   cp download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar hadoop-master${INDEX}/download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar
   cp download/log4j2-appender-nodep-${LOKI_APPENDER_VERSION}.jar hadoop-master${INDEX}/download/log4j2-appender-nodep-${LOKI_APPENDER_VERSION}.jar
+  cp download/hudi-spark${SPARK_BINARY_VERSION}-bundle_${SCALA_BINARY_VERSION}-${HUDI_VERSION}.jar hadoop-master${INDEX}/download/hudi-spark${SPARK_BINARY_VERSION}-bundle_${SCALA_BINARY_VERSION}-${HUDI_VERSION}.jar
   ${BUILD_CMD} \
     --build-arg PROJECT_VERSION=${PROJECT_VERSION} \
     --build-arg ZOOKEEPER_VERSION=${ZOOKEEPER_VERSION} \
@@ -74,6 +75,7 @@ function build_hadoop_master_image() {
     --build-arg KYUUBI_VERSION=${KYUUBI_VERSION} \
     --build-arg RANGER_VERSION=${RANGER_VERSION} \
     --build-arg MYSQL_JDBC_VERSION=${MYSQL_JDBC_VERSION} \
+    --build-arg HUDI_VERSION=${HUDI_VERSION} \
     --build-arg LOKI_APPENDER_VERSION=${LOKI_APPENDER_VERSION} \
     --file "${SELF_DIR}/hadoop-master${INDEX}/Dockerfile" \
     --tag hadoop-testing/hadoop-master${INDEX}:${PROJECT_VERSION} \

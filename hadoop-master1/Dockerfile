@@ -23,6 +23,7 @@ ARG KYUUBI_VERSION
 ARG MYSQL_JDBC_VERSION
 ARG LOKI_APPENDER_VERSION
 ARG RANGER_VERSION
+ARG HUDI_VERSION
 
 ENV ZOOKEEPER_HOME=/opt/zookeeper
 ENV ZOOCFGDIR=/etc/zookeeper/conf
@@ -36,6 +37,8 @@ ENV KYUUBI_HOME=/opt/kyuubi
 ENV KYUUBI_CONF_DIR=/etc/kyuubi/conf
 ENV RANGER_HOME=/opt/ranger
 ENV RANGER_VERSION=${RANGER_VERSION}
+ENV HUDI_HOME=/opt/hudi
+ENV HUDI_VERSION=${HUDI_VERSION}
 ENV MYSQL_JDBC_VERSION=${MYSQL_JDBC_VERSION}
 ENV PATH=${KYUUBI_HOME}/bin:${SPARK_HOME}/bin:${HIVE_HOME}/bin:${HADOOP_HOME}/bin:${ZOOKEEPER_HOME}/bin:${PATH}
 
@@ -58,6 +61,7 @@ RUN ln -snf /opt/apache-zookeeper-${ZOOKEEPER_VERSION}-bin ${ZOOKEEPER_HOME} && 
 
 ADD download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar ${HIVE_HOME}/lib/
 ADD download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar ${RANGER_HOME}/
+ADD download/hudi-spark${SPARK_BINARY_VERSION}-bundle_${SCALA_BINARY_VERSION}-${HUDI_VERSION}.jar ${HUDI_HOME}/
 
 RUN /opt/hadoop-init.d/init-hdfs.sh
 
