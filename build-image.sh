@@ -57,6 +57,7 @@ function build_hadoop_master_image() {
   cp download/${HADOOP_TAR_NAME}.tar.gz hadoop-master${INDEX}/download/hadoop-${HADOOP_VERSION}.tar.gz
   cp download/apache-hive-${HIVE_VERSION}-bin.tar.gz hadoop-master${INDEX}/download/apache-hive-${HIVE_VERSION}-bin.tar.gz
   cp download/spark-${SPARK_VERSION}-bin-hadoop3.tgz hadoop-master${INDEX}/download/spark-${SPARK_VERSION}-bin-hadoop3.tgz
+  cp download/flink-${FLINK_VERSION}-bin-scala_${SCALA_BINARY_VERSION}.tgz hadoop-master${INDEX}/download/flink-${FLINK_VERSION}-bin-scala_${SCALA_BINARY_VERSION}.tgz
   cp download/apache-kyuubi-${KYUUBI_VERSION}-bin.tgz hadoop-master${INDEX}/download/apache-kyuubi-${KYUUBI_VERSION}-bin.tgz
   cp download/ranger-${RANGER_VERSION}-admin.tar.gz hadoop-master${INDEX}/download/ranger-${RANGER_VERSION}-admin.tar.gz
   cp download/kyuubi-spark-connector-tpch_${SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar hadoop-master${INDEX}/download/kyuubi-spark-connector-tpch_${SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar
@@ -64,6 +65,7 @@ function build_hadoop_master_image() {
   cp download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar hadoop-master${INDEX}/download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar
   cp download/log4j2-appender-nodep-${LOKI_APPENDER_VERSION}.jar hadoop-master${INDEX}/download/log4j2-appender-nodep-${LOKI_APPENDER_VERSION}.jar
   cp download/hudi-spark${SPARK_BINARY_VERSION}-bundle_${SCALA_BINARY_VERSION}-${HUDI_VERSION}.jar hadoop-master${INDEX}/download/hudi-spark${SPARK_BINARY_VERSION}-bundle_${SCALA_BINARY_VERSION}-${HUDI_VERSION}.jar
+  cp download/jcl-over-slf4j-1.7.36.jar hadoop-master${INDEX}/download/jcl-over-slf4j-1.7.36.jar
   ${BUILD_CMD} \
     --build-arg PROJECT_VERSION=${PROJECT_VERSION} \
     --build-arg ZOOKEEPER_VERSION=${ZOOKEEPER_VERSION} \
@@ -71,6 +73,7 @@ function build_hadoop_master_image() {
     --build-arg HIVE_VERSION=${HIVE_VERSION} \
     --build-arg SPARK_VERSION=${SPARK_VERSION} \
     --build-arg SPARK_BINARY_VERSION=${SPARK_BINARY_VERSION} \
+    --build-arg FLINK_VERSION=${FLINK_VERSION} \
     --build-arg SCALA_BINARY_VERSION=${SCALA_BINARY_VERSION} \
     --build-arg KYUUBI_VERSION=${KYUUBI_VERSION} \
     --build-arg RANGER_VERSION=${RANGER_VERSION} \

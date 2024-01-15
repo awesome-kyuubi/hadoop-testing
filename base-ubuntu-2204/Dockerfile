@@ -55,4 +55,6 @@ RUN groupadd hadoop --gid 6000 && \
     groupadd hue --gid 6010 && \
     useradd  hue --gid 6010 --uid 6010 -m && \
     groupadd ranger --gid 6011 && \
-    useradd  ranger --gid 6011 --uid 6011 -m
+    useradd  ranger --gid 6011 --uid 6011 -m && \
+    groupadd flink --gid 6012 && \
+    useradd  flink --gid 6012 --uid 6012 -m
