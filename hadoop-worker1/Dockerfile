@@ -18,7 +18,7 @@ ARG SPARK_VERSION
 
 ENV HADOOP_HOME=/opt/hadoop
 ENV HADOOP_CONF_DIR=/etc/hadoop/conf
-ENV HADOOP_CLASSPATH=${HADOOP_HOME}/share/hadoop/tools/lib/*
+ENV HADOOP_CLASSPATH=${HADOOP_HOME}/share/hadoop/client/*
 ENV PATH=${HADOOP_HOME}/bin:${PATH}
 
 ADD download/hadoop-${HADOOP_VERSION}.tar.gz /opt
