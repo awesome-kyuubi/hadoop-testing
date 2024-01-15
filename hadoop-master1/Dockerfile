@@ -29,6 +29,7 @@ ENV ZOOKEEPER_HOME=/opt/zookeeper
 ENV ZOOCFGDIR=/etc/zookeeper/conf
 ENV HADOOP_HOME=/opt/hadoop
 ENV HADOOP_CONF_DIR=/etc/hadoop/conf
+ENV HADOOP_CLASSPATH=${HADOOP_HOME}/share/hadoop/client/*
 ENV HIVE_HOME=/opt/hive
 ENV HIVE_CONF_DIR=/etc/hive/conf
 ENV SPARK_HOME=/opt/spark
