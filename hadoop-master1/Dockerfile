@@ -36,6 +36,7 @@ ENV HIVE_CONF_DIR=/etc/hive/conf
 ENV SPARK_HOME=/opt/spark
 ENV SPARK_CONF_DIR=/etc/spark/conf
 ENV FLINK_HOME=/opt/flink
+ENV FLINK_CONF_DIR=/etc/flink/conf
 ENV KYUUBI_HOME=/opt/kyuubi
 ENV KYUUBI_CONF_DIR=/etc/kyuubi/conf
 ENV RANGER_HOME=/opt/ranger
@@ -99,8 +100,8 @@ EXPOSE 9083 10000
 # SPARK ports
 EXPOSE 18080
 
-# FLINK ports
-EXPOSE 8081
+# Flink history server ports
+EXPOSE 8082
 
 # Ranger ports
 EXPOSE 6080

@@ -47,6 +47,7 @@ Once the testing environment is fully operational, the following services will b
 - Prometheus: http://prometheus.orb.local:9090
 - Kyuubi UI: http://hadoop-master1.orb.local:10099
 - Spark History Server: http://hadoop-master1.orb.local:18080
+- Flink History Server: http://hadoop-master1.orb.local:8082
 - Hadoop HDFS: http://hadoop-master1.orb.local:9870
 - Hadoop YARN: http://hadoop-master1.orb.local:8088
 - Hadoop MapReduce JobHistory: http://hadoop-master1.orb.local:19888
