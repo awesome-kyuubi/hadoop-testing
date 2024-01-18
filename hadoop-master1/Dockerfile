@@ -100,7 +100,7 @@ EXPOSE 9083 10000
 # SPARK ports
 EXPOSE 18080
 
-# Flink history server ports
+# Flink ports
 EXPOSE 8082
 
 # Ranger ports
