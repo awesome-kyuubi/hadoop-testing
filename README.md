@@ -24,7 +24,7 @@ The supported components are listed below:
 
 ## JDK
 
-* JDK 8 (8.0.392, default)
+* JDK 8 (1.8.0.392, default)
 * JDK 17 (17.0.9)
 * JDK 21 (21.0.1)
 
