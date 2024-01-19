@@ -23,6 +23,9 @@ download_if_not_exists https://cdn.azul.com/zulu/bin/${JDK8_TAR_NAME}.tar.gz
 if [ $(uname -m) = "arm64" ] || [ $(uname -m) = "aarch64" ]; then JDK17_TAR_NAME=zulu${ZULU17_VERSION}-ca-jdk${JDK17_VERSION}-linux_aarch64; else JDK17_TAR_NAME=zulu${ZULU17_VERSION}-ca-jdk${JDK17_VERSION}-linux_x64; fi
 download_if_not_exists https://cdn.azul.com/zulu/bin/${JDK17_TAR_NAME}.tar.gz
 
+if [ $(uname -m) = "arm64" ] || [ $(uname -m) = "aarch64" ]; then JDK21_TAR_NAME=zulu${ZULU21_VERSION}-ca-jdk${JDK21_VERSION}-linux_aarch64; else JDK21_TAR_NAME=zulu${ZULU21_VERSION}-ca-jdk${JDK21_VERSION}-linux_x64; fi
+download_if_not_exists https://cdn.azul.com/zulu/bin/${JDK21_TAR_NAME}.tar.gz
+
 download_if_not_exists ${APACHE_MIRROR}/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/apache-zookeeper-${ZOOKEEPER_VERSION}-bin.tar.gz
 if [ $(uname -m) = "arm64" ] || [ $(uname -m) = "aarch64" ]; then HADOOP_TAR_NAME=hadoop-${HADOOP_VERSION}-aarch64; else HADOOP_TAR_NAME=hadoop-${HADOOP_VERSION}; fi
 download_if_not_exists ${APACHE_MIRROR}/hadoop/core/hadoop-${HADOOP_VERSION}/${HADOOP_TAR_NAME}.tar.gz

@@ -14,6 +14,7 @@ FROM ubuntu:22.04
 
 ARG JDK8_TAR_NAME
 ARG JDK17_TAR_NAME
+ARG JDK21_TAR_NAME
 
 COPY ./files /
 
@@ -25,9 +26,11 @@ RUN set -xeu && \
 
 ADD download/${JDK8_TAR_NAME}.tar.gz  /opt
 ADD download/${JDK17_TAR_NAME}.tar.gz /opt
+ADD download/${JDK21_TAR_NAME}.tar.gz /opt
 
 RUN ln -snf /opt/${JDK8_TAR_NAME}  /opt/openjdk-8 && \
-    ln -snf /opt/${JDK17_TAR_NAME} /opt/openjdk-17
+    ln -snf /opt/${JDK17_TAR_NAME} /opt/openjdk-17 && \
+    ln -snf /opt/${JDK21_TAR_NAME} /opt/openjdk-21
 
 ENV JAVA_HOME=/opt/openjdk-8
 ENV PATH="$JAVA_HOME/bin:$PATH:/opt/busybox"

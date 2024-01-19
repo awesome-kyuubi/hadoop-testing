@@ -29,12 +29,15 @@ fi
 mkdir -p base-ubuntu-2204/download
 if [ $(uname -m) = "arm64" ] || [ $(uname -m) = "aarch64" ]; then JDK8_TAR_NAME=zulu${ZULU8_VERSION}-ca-jdk${JDK8_VERSION}-linux_aarch64; else JDK8_TAR_NAME=zulu${ZULU8_VERSION}-ca-jdk${JDK8_VERSION}-linux_x64; fi
 if [ $(uname -m) = "arm64" ] || [ $(uname -m) = "aarch64" ]; then JDK17_TAR_NAME=zulu${ZULU17_VERSION}-ca-jdk${JDK17_VERSION}-linux_aarch64; else JDK17_TAR_NAME=zulu${ZULU17_VERSION}-ca-jdk${JDK17_VERSION}-linux_x64; fi
+if [ $(uname -m) = "arm64" ] || [ $(uname -m) = "aarch64" ]; then JDK21_TAR_NAME=zulu${ZULU21_VERSION}-ca-jdk${JDK21_VERSION}-linux_aarch64; else JDK21_TAR_NAME=zulu${ZULU21_VERSION}-ca-jdk${JDK21_VERSION}-linux_x64; fi
 cp download/${JDK8_TAR_NAME}.tar.gz base-ubuntu-2204/download/${JDK8_TAR_NAME}.tar.gz
 cp download/${JDK17_TAR_NAME}.tar.gz base-ubuntu-2204/download/${JDK17_TAR_NAME}.tar.gz
+cp download/${JDK21_TAR_NAME}.tar.gz base-ubuntu-2204/download/${JDK21_TAR_NAME}.tar.gz
 ${BUILD_CMD} \
   --file "${SELF_DIR}/base-ubuntu-2204/Dockerfile" \
   --build-arg JDK8_TAR_NAME=${JDK8_TAR_NAME} \
   --build-arg JDK17_TAR_NAME=${JDK17_TAR_NAME} \
+  --build-arg JDK21_TAR_NAME=${JDK21_TAR_NAME} \
   --tag hadoop-testing/base-ubuntu-2204:${PROJECT_VERSION} \
   "${SELF_DIR}/base-ubuntu-2204" $@
 
