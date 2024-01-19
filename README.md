@@ -3,6 +3,31 @@
 This serves as a testing sandbox for Hadoop, equipped with fundamental components
 of the Hadoop ecosystem to facilitate the rapid establishment of test environments.
 
+# Components
+
+The supported components are listed below:
+
+* Hadoop (3.3.6)
+* Hive (2.3.9)
+* Iceberg (1.4.2)
+* Hudi (0.14.1)
+* Kyuubi (1.8.0)
+* Spark (3.4.2)
+* Flink (1.18.1)
+* ZooKeeper (3.8.3)
+* Ranger (2.4.0)
+* Grafana (9.5.2)
+* Prometheus (latest)
+* Loki (2.8.0)
+* Kafka (2.8.1)
+* MySQL (8.0)
+
+## JDK
+
+* JDK 8 (8.0.392, default)
+* JDK 17 (17.0.9)
+* JDK 21 (21.0.1)
+
 ## How to use
 
 Download all required artifacts, which will be used for building Docker images.
