@@ -34,6 +34,7 @@ download_if_not_exists ${APACHE_MIRROR}/spark/spark-${SPARK_VERSION}/spark-${SPA
 download_if_not_exists ${APACHE_MIRROR}/flink/flink-${FLINK_VERSION}/flink-${FLINK_VERSION}-bin-scala_${SCALA_BINARY_VERSION}.tgz
 download_if_not_exists ${APACHE_MIRROR}/kyuubi/kyuubi-${KYUUBI_VERSION}/apache-kyuubi-${KYUUBI_VERSION}-bin.tgz
 download_if_not_exists https://github.com/pan3793/ranger/releases/download/release-ranger-${RANGER_VERSION}/ranger-${RANGER_VERSION}-admin.tar.gz
+download_if_not_exists ${MAVEN_MIRROR}/io/trino/trino-server/${TRINO_VERSION}/trino-server-${TRINO_VERSION}.tar.gz
 
 MYSQL_JDBC_JAR_NAME=mysql-connector-j
 download_if_not_exists ${MAVEN_MIRROR}/com/mysql/${MYSQL_JDBC_JAR_NAME}/${MYSQL_JDBC_VERSION}/${MYSQL_JDBC_JAR_NAME}-${MYSQL_JDBC_VERSION}.jar

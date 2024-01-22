@@ -60,4 +60,6 @@ RUN groupadd hadoop --gid 6000 && \
     groupadd ranger --gid 6011 && \
     useradd  ranger --gid 6011 --uid 6011 -m && \
     groupadd flink --gid 6012 && \
-    useradd  flink --gid 6012 --uid 6012 -m
+    useradd  flink --gid 6012 --uid 6012 -m && \
+    groupadd trino --gid 6013 && \
+    useradd trino --gid 6013 --uid 6013 -m

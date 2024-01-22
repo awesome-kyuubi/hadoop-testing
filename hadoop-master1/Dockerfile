@@ -25,6 +25,7 @@ ARG MYSQL_JDBC_VERSION
 ARG LOKI_APPENDER_VERSION
 ARG RANGER_VERSION
 ARG HUDI_VERSION
+ARG TRINO_VERSION
 
 ENV ZOOKEEPER_HOME=/opt/zookeeper
 ENV ZOOCFGDIR=/etc/zookeeper/conf
@@ -40,6 +41,7 @@ ENV FLINK_CONF_DIR=/etc/flink/conf
 ENV KYUUBI_HOME=/opt/kyuubi
 ENV KYUUBI_CONF_DIR=/etc/kyuubi/conf
 ENV RANGER_HOME=/opt/ranger
+ENV TRINO_HOME=/opt/trino
 ENV RANGER_VERSION=${RANGER_VERSION}
 ENV HUDI_VERSION=${HUDI_VERSION}
 ENV MYSQL_JDBC_VERSION=${MYSQL_JDBC_VERSION}
@@ -52,6 +54,7 @@ ADD download/spark-${SPARK_VERSION}-bin-hadoop3.tgz /opt
 ADD download/flink-${FLINK_VERSION}-bin-scala_${SCALA_BINARY_VERSION}.tgz /opt
 ADD download/apache-kyuubi-${KYUUBI_VERSION}-bin.tgz /opt
 ADD download/ranger-${RANGER_VERSION}-admin.tar.gz /opt
+ADD download/trino-server-${TRINO_VERSION}.tar.gz /opt
 
 # Copy configuration files
 COPY ./files /
@@ -62,7 +65,8 @@ RUN ln -snf /opt/apache-zookeeper-${ZOOKEEPER_VERSION}-bin ${ZOOKEEPER_HOME} && 
     ln -snf /opt/spark-${SPARK_VERSION}-bin-hadoop3 ${SPARK_HOME} && \
     ln -snf /opt/flink-${FLINK_VERSION} ${FLINK_HOME} && \
     ln -snf /opt/apache-kyuubi-${KYUUBI_VERSION}-bin ${KYUUBI_HOME} && \
-    ln -snf /opt/ranger-${RANGER_VERSION}-admin ${RANGER_HOME}
+    ln -snf /opt/ranger-${RANGER_VERSION}-admin ${RANGER_HOME} && \
+    ln -snf /opt/trino-server-${TRINO_VERSION} ${TRINO_HOME}
 
 ADD download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar ${HIVE_HOME}/lib/
 ADD download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar ${RANGER_HOME}/
@@ -70,6 +74,7 @@ ADD download/hudi-spark${SPARK_BINARY_VERSION}-bundle_${SCALA_BINARY_VERSION}-${
 ADD download/jcl-over-slf4j-1.7.36.jar ${FLINK_HOME}/lib/
 
 RUN /opt/hadoop-init.d/init-hdfs.sh
+RUN /opt/trino-init.d/init-workdir.sh
 
 ADD download/log4j2-appender-nodep-${LOKI_APPENDER_VERSION}.jar ${HIVE_HOME}/lib/
 ADD download/log4j2-appender-nodep-${LOKI_APPENDER_VERSION}.jar ${SPARK_HOME}/jars/
@@ -83,7 +88,8 @@ RUN chown -R zookeeper:hadoop /opt/apache-zookeeper-${ZOOKEEPER_VERSION}-bin && 
     chown -R spark:hadoop /opt/spark-${SPARK_VERSION}-bin-hadoop3 && \
     chown -R flink:hadoop /opt/flink-${FLINK_VERSION} && \
     chown -R kyuubi:hadoop /opt/apache-kyuubi-${KYUUBI_VERSION}-bin && \
-    chown -R ranger:hadoop /opt/ranger-${RANGER_VERSION}-admin
+    chown -R ranger:hadoop /opt/ranger-${RANGER_VERSION}-admin && \
+    chown -R trino:hadoop /opt/trino-server-${TRINO_VERSION}
 
 # Zookeeper ports
 EXPOSE 2181
@@ -105,5 +111,8 @@ EXPOSE 8082
 
 # Ranger ports
 EXPOSE 6080
+
+# Trino ports
+EXPOSE 18081
 
 CMD supervisord -c /etc/supervisord.conf

@@ -31,6 +31,7 @@ RUN ln -snf /opt/hadoop-${HADOOP_VERSION} ${HADOOP_HOME} && \
     ln -snf spark-${SPARK_VERSION}-bin-hadoop3 /opt/spark
 
 RUN /opt/hadoop-init.d/init-hdfs.sh
+RUN /opt/trino-init.d/init-workdir.sh
 
 RUN chown -R hadoop:hadoop /opt/hadoop-${HADOOP_VERSION} && \
     chown -R spark:hadoop /opt/spark-${SPARK_VERSION}-bin-hadoop3

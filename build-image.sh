@@ -69,6 +69,7 @@ function build_hadoop_master_image() {
   cp download/log4j2-appender-nodep-${LOKI_APPENDER_VERSION}.jar hadoop-master${INDEX}/download/log4j2-appender-nodep-${LOKI_APPENDER_VERSION}.jar
   cp download/hudi-spark${SPARK_BINARY_VERSION}-bundle_${SCALA_BINARY_VERSION}-${HUDI_VERSION}.jar hadoop-master${INDEX}/download/hudi-spark${SPARK_BINARY_VERSION}-bundle_${SCALA_BINARY_VERSION}-${HUDI_VERSION}.jar
   cp download/jcl-over-slf4j-1.7.36.jar hadoop-master${INDEX}/download/jcl-over-slf4j-1.7.36.jar
+  cp download/trino-server-${TRINO_VERSION}.tar.gz hadoop-master${INDEX}/download/trino-server-${TRINO_VERSION}.tar.gz
   ${BUILD_CMD} \
     --build-arg PROJECT_VERSION=${PROJECT_VERSION} \
     --build-arg ZOOKEEPER_VERSION=${ZOOKEEPER_VERSION} \
@@ -83,6 +84,7 @@ function build_hadoop_master_image() {
     --build-arg MYSQL_JDBC_VERSION=${MYSQL_JDBC_VERSION} \
     --build-arg HUDI_VERSION=${HUDI_VERSION} \
     --build-arg LOKI_APPENDER_VERSION=${LOKI_APPENDER_VERSION} \
+    --build-arg TRINO_VERSION=${TRINO_VERSION} \
     --file "${SELF_DIR}/hadoop-master${INDEX}/Dockerfile" \
     --tag hadoop-testing/hadoop-master${INDEX}:${PROJECT_VERSION} \
     "${SELF_DIR}/hadoop-master${INDEX}" $2
@@ -96,11 +98,13 @@ function build_hadoop_worker_image() {
   if [ $(uname -m) = "arm64" ] || [ $(uname -m) = "aarch64" ]; then HADOOP_TAR_NAME=hadoop-${HADOOP_VERSION}-aarch64; else HADOOP_TAR_NAME=hadoop-${HADOOP_VERSION}; fi
   cp download/${HADOOP_TAR_NAME}.tar.gz hadoop-worker${INDEX}/download/hadoop-${HADOOP_VERSION}.tar.gz
   cp download/spark-${SPARK_VERSION}-bin-hadoop3.tgz hadoop-worker${INDEX}/download/spark-${SPARK_VERSION}-bin-hadoop3.tgz
+  cp download/trino-server-${TRINO_VERSION}.tar.gz hadoop-worker${INDEX}/download/trino-server-${TRINO_VERSION}.tar.gz
   tar -xzf hadoop-worker${INDEX}/download/spark-${SPARK_VERSION}-bin-hadoop3.tgz -C hadoop-worker${INDEX}/download spark-${SPARK_VERSION}-bin-hadoop3/yarn
   ${BUILD_CMD} \
     --build-arg PROJECT_VERSION=${PROJECT_VERSION} \
     --build-arg HADOOP_VERSION=${HADOOP_VERSION} \
     --build-arg SPARK_VERSION=${SPARK_VERSION} \
+    --build-arg TRINO_VERSION=${TRINO_VERSION} \
     --file "${SELF_DIR}/hadoop-worker${INDEX}/Dockerfile" \
     --tag hadoop-testing/hadoop-worker${INDEX}:${PROJECT_VERSION} \
     "${SELF_DIR}/hadoop-worker${INDEX}" $2
