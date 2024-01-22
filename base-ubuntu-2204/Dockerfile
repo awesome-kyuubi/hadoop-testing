@@ -20,7 +20,7 @@ COPY ./files /
 
 RUN set -xeu && \
     ln -snf /usr/bin/bash /usr/bin/sh && \
-    install_packages busybox python3-pip supervisor xsltproc curl tree && \
+    install_packages busybox python3-pip supervisor xsltproc curl tree python-is-python3 && \
     mkdir /opt/busybox && \
     busybox --install /opt/busybox
 
