@@ -15,25 +15,31 @@ FROM hadoop-testing/base-ubuntu-2204:$PROJECT_VERSION
 
 ARG HADOOP_VERSION
 ARG SPARK_VERSION
+ARG TRINO_VERSION
 
 ENV HADOOP_HOME=/opt/hadoop
 ENV HADOOP_CONF_DIR=/etc/hadoop/conf
 ENV HADOOP_CLASSPATH=${HADOOP_HOME}/share/hadoop/client/*
+ENV TRINO_HOME=/opt/trino
 ENV PATH=${HADOOP_HOME}/bin:${PATH}
 
 ADD download/hadoop-${HADOOP_VERSION}.tar.gz /opt
 ADD download/spark-${SPARK_VERSION}-bin-hadoop3/yarn /opt/spark-${SPARK_VERSION}-bin-hadoop3/yarn
+ADD download/trino-server-${TRINO_VERSION}.tar.gz /opt
 
 # Copy configuration files
 COPY ./files /
 
 RUN ln -snf /opt/hadoop-${HADOOP_VERSION} ${HADOOP_HOME} && \
-    ln -snf spark-${SPARK_VERSION}-bin-hadoop3 /opt/spark
+    ln -snf spark-${SPARK_VERSION}-bin-hadoop3 /opt/spark && \
+    ln -snf /opt/trino-server-${TRINO_VERSION} ${TRINO_HOME}
 
 RUN /opt/hadoop-init.d/init-hdfs.sh
+RUN /opt/trino-init.d/init-workdir.sh
 
 RUN chown -R hadoop:hadoop /opt/hadoop-${HADOOP_VERSION} && \
-    chown -R spark:hadoop /opt/spark-${SPARK_VERSION}-bin-hadoop3
+    chown -R spark:hadoop /opt/spark-${SPARK_VERSION}-bin-hadoop3 && \
+    chown -R trino:hadoop /opt/trino-server-${TRINO_VERSION}
 
 # HDFS ports
 EXPOSE 1004 1006 8020 9866 9867 9870 9864 50470
