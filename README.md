@@ -14,6 +14,7 @@ The supported components are listed below:
 * Kyuubi (1.8.0)
 * Spark (3.4.2)
 * Flink (1.18.1)
+* Trino (436)
 * ZooKeeper (3.8.3)
 * Ranger (2.4.0)
 * Grafana (9.5.2)
@@ -77,6 +78,7 @@ Once the testing environment is fully operational, the following services will b
 - Hadoop YARN: http://hadoop-master1.orb.local:8088
 - Hadoop MapReduce JobHistory: http://hadoop-master1.orb.local:19888
 - Ranger Admin: http://hadoop-master1.orb.local:6080 (admin/Ranger@admin123)
+- Trino Web UI: http://hadoop-master1.orb.local:18081 (admin/)
 
 ![img](docs/imgs/namenode-ui.png)
 
