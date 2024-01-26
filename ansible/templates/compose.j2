@@ -1,10 +1,12 @@
 services:
+{% if mysql_include %}
   mysql:
     image: hadoop-testing/mysql:${PROJECT_VERSION}
     hostname: mysql.orb.local
     container_name: mysql
     ports:
       - 3306:3306
+{% endif %}
 
   socks5:
     image: serjs/go-socks5-proxy
@@ -15,6 +17,7 @@ services:
     ports:
       - 18070:18070
 
+{% if hadoop_include %}
   hadoop-master1:
     image: hadoop-testing/hadoop-master1:${PROJECT_VERSION}
     hostname: hadoop-master1.orb.local
@@ -50,7 +53,9 @@ services:
     container_name: hadoop-worker3
     depends_on:
       - hadoop-master1
+{% endif %}
 
+{% if prometheus_include %}
   prometheus:
     image: prom/prometheus
     hostname: prometheus.orb.local
@@ -59,7 +64,9 @@ services:
       - ./files/etc/prometheus:/etc/prometheus
     ports:
       - 9090:9090
+{% endif %}
 
+{% if loki_include %}
   loki:
     image: grafana/loki:${LOKI_VERSION}
     hostname: loki.orb.local
@@ -69,7 +76,9 @@ services:
     ports:
       - 3100:3100
     command: -config.file=/etc/loki/config.yaml
+{% endif %}
 
+{% if grafana_include  %}
   grafana:
     image: grafana/grafana-oss:${GRAFANA_VERSION}
     hostname: grafana.orb.local
@@ -83,9 +92,11 @@ services:
       - ./files/var/lib/grafana/dashboards:/var/lib/grafana/dashboards
     ports:
       - 3000:3000
+{% endif %}
 
+{% if kafka_include %}
   kafka:
-    image: bitnami/kafka:2.8.1
+    image: bitnami/kafka:{{ kafka_version }}
     hostname: kafka.orb.local
     container_name: kafkabroker
     ports:
@@ -95,4 +106,5 @@ services:
       - ALLOW_PLAINTEXT_LISTENER=yes
     depends_on:
       - hadoop-master1
+{% endif %}
 

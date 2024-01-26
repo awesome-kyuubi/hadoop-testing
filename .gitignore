@@ -12,3 +12,6 @@ graphviz
 dependency_graph.svg
 *.swp
 build/tmp
+.env
+download.sh
+compose.yaml

@@ -3,6 +3,12 @@
 This serves as a testing sandbox for Hadoop, equipped with fundamental components
 of the Hadoop ecosystem to facilitate the rapid establishment of test environments.
 
+# Prepare
+
+This project uses [ansible](https://www.ansible.com/) to build. Please make sure you have installed it before building.
+
+Considering, ansible strongly depends on the Python environment. To make the Python environment independent and easy to manage, it is recommended to use `pyenv` and `virtualenv` to manage Python environment.
+
 # Components
 
 The supported components are listed below:
@@ -33,12 +39,19 @@ The supported components are listed below:
 
 Download all required artifacts, which will be used for building Docker images.
 
-This scripts will download a large amount of artifacts, depending on your network bandwidth,
+It will download a large amount of artifacts, depending on your network bandwidth,
 it may take a few minutes or even hours to complete. You can also download them manually and
-put them into the `download` directory, the scripts won't download them again if they already
+put them into the `download` directory, it won't download them again if they already
 exist.
+
 ```
-./download.sh
+ansible-playbook -i inventory.ini ansible/playbook.yaml
+```
+
+You can add `-vvv` arg to debug the playbook:
+
+```
+ansible-playbook -i inventory.ini ansible/playbook.yaml -vvv
 ```
 
 Build docker images
