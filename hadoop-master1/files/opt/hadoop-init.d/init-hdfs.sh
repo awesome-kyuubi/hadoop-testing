@@ -80,9 +80,9 @@ su -s /bin/bash hdfs -c '/opt/hadoop/bin/hadoop fs -chmod 1777 /spark-history'
 su -s /bin/bash hdfs -c '/opt/hadoop/bin/hadoop fs -chown spark /spark-history'
 
 # init hive directories
-su -s /bin/bash hdfs -c '/opt/hadoop/bin/hadoop fs -mkdir /user/hive/warehouse'
-su -s /bin/bash hdfs -c '/opt/hadoop/bin/hadoop fs -chmod 1777 /user/hive/warehouse'
-su -s /bin/bash hdfs -c '/opt/hadoop/bin/hadoop fs -chown hive /user/hive/warehouse'
+su -s /bin/bash hdfs -c '/opt/hadoop/bin/hadoop fs -mkdir /warehouse'
+su -s /bin/bash hdfs -c '/opt/hadoop/bin/hadoop fs -chmod 1777 /warehouse'
+su -s /bin/bash hdfs -c '/opt/hadoop/bin/hadoop fs -chown hive /warehouse'
 
 # stop hdfs
 killall java
