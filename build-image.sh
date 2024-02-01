@@ -70,6 +70,7 @@ function build_hadoop_master_image() {
   cp download/hudi-spark${SPARK_BINARY_VERSION}-bundle_${SCALA_BINARY_VERSION}-${HUDI_VERSION}.jar hadoop-master${INDEX}/download/hudi-spark${SPARK_BINARY_VERSION}-bundle_${SCALA_BINARY_VERSION}-${HUDI_VERSION}.jar
   cp download/jcl-over-slf4j-1.7.36.jar hadoop-master${INDEX}/download/jcl-over-slf4j-1.7.36.jar
   cp download/trino-server-${TRINO_VERSION}.tar.gz hadoop-master${INDEX}/download/trino-server-${TRINO_VERSION}.tar.gz
+  cp download/trino-cli-${TRINO_VERSION}-executable.jar hadoop-master${INDEX}/download/trino-cli-${TRINO_VERSION}-executable.jar
   ${BUILD_CMD} \
     --build-arg PROJECT_VERSION=${PROJECT_VERSION} \
     --build-arg ZOOKEEPER_VERSION=${ZOOKEEPER_VERSION} \
