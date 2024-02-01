@@ -72,6 +72,7 @@ ADD download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar ${HIVE_HOME}/lib/
 ADD download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar ${RANGER_HOME}/
 ADD download/hudi-spark${SPARK_BINARY_VERSION}-bundle_${SCALA_BINARY_VERSION}-${HUDI_VERSION}.jar /opt/hudi/
 ADD download/jcl-over-slf4j-1.7.36.jar ${FLINK_HOME}/lib/
+ADD download/trino-cli-${TRINO_VERSION}-executable.jar ${TRINO_HOME}/bin/trino-cli
 
 RUN /opt/hadoop-init.d/init-hdfs.sh
 RUN /opt/trino-init.d/init-workdir.sh
@@ -90,6 +91,8 @@ RUN chown -R zookeeper:hadoop /opt/apache-zookeeper-${ZOOKEEPER_VERSION}-bin && 
     chown -R kyuubi:hadoop /opt/apache-kyuubi-${KYUUBI_VERSION}-bin && \
     chown -R ranger:hadoop /opt/ranger-${RANGER_VERSION}-admin && \
     chown -R trino:hadoop /opt/trino-server-${TRINO_VERSION}
+
+RUN chmod +x ${TRINO_HOME}/bin/trino-cli
 
 # Zookeeper ports
 EXPOSE 2181
