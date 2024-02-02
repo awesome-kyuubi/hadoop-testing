@@ -1,36 +1,30 @@
 ---
 - name: hadoop-testing playbook
 
-  hosts: all
-
-  vars:
-    favcolor: blue
-
-  vars_files:
-    - "{{ playbook_dir }}/config.yaml"
+  hosts: local
 
   pre_tasks:
     - name: orchestrate download file
       ansible.builtin.template:
        src: templates/env.j2
-       dest: "{{ playbook_dir }}/../.env"
+       dest: "{{ playbook_dir }}/.env"
 
     - name: Changing perm of ".env", adding "+x"
-      file: dest="{{ playbook_dir }}/../.env" mode=a+x
+      file: dest="{{ playbook_dir }}/.env" mode=a+x
 
   tasks:
     - name: orchestrate download file
       ansible.builtin.template:
        src: templates/download.j2
-       dest: "{{ playbook_dir }}/../download.sh"
+       dest: "{{ playbook_dir }}/download.sh"
 
     - name: Changing perm of "download.sh", adding "+x"
-      file: dest="{{ playbook_dir }}/../download.sh" mode=a+x
+      file: dest="{{ playbook_dir }}/download.sh" mode=a+x
 
     - name: invoke download script
-      shell: sh {{ playbook_dir }}/../download.sh
+      shell: sh {{ playbook_dir }}/download.sh
 
     - name: orchestrate compose file
       ansible.builtin.template:
          src: templates/compose.j2
-         dest: "{{ playbook_dir }}/../compose.yaml"
+         dest: "{{ playbook_dir }}/compose.yaml"

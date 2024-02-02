@@ -45,13 +45,13 @@ put them into the `download` directory, it won't download them again if they alr
 exist.
 
 ```
-ansible-playbook -i inventory.ini ansible/playbook.yaml
+ansible-playbook playbook.yaml
 ```
 
 You can add `-vvv` arg to debug the playbook:
 
 ```
-ansible-playbook -i inventory.ini ansible/playbook.yaml -vvv
+ansible-playbook playbook.yaml -vvv
 ```
 
 Build docker images
