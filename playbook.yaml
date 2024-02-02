@@ -4,25 +4,22 @@
   hosts: local
 
   pre_tasks:
-    - name: orchestrate download file
+    - name: orchestrate env file
       ansible.builtin.template:
-       src: templates/env.j2
-       dest: "{{ playbook_dir }}/.env"
-
-    - name: Changing perm of ".env", adding "+x"
-      file: dest="{{ playbook_dir }}/.env" mode=a+x
+        src: templates/{{ item.file }}.j2
+        dest: "{{ playbook_dir }}/.{{ item.file }}"
+        mode: "{{ item.mode }}"
+      with_items:
+        - { file: "env", mode: "a+x" }
 
   tasks:
     - name: orchestrate download file
       ansible.builtin.template:
-       src: templates/download.j2
-       dest: "{{ playbook_dir }}/download.sh"
-
-    - name: Changing perm of "download.sh", adding "+x"
-      file: dest="{{ playbook_dir }}/download.sh" mode=a+x
-
-    - name: invoke download script
-      shell: sh {{ playbook_dir }}/download.sh
+        src: templates/{{ item.file }}.j2
+        dest: "{{ playbook_dir }}/{{ item.file }}.sh"
+        mode: "{{ item.mode }}"
+      with_items:
+        - { file: "download", mode: "a+x" }
 
     - name: orchestrate compose file
       ansible.builtin.template:
