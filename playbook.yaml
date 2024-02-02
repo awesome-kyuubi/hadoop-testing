@@ -16,12 +16,12 @@
     - name: orchestrate download file
       ansible.builtin.template:
         src: templates/{{ item.file }}.j2
-        dest: "{{ playbook_dir }}/{{ item.file }}.sh"
+        dest: "{{ playbook_dir }}/{{ item.file }}"
         mode: "{{ item.mode }}"
       with_items:
-        - { file: "download", mode: "a+x" }
+        - { file: "download.sh", mode: "a+x" }
 
     - name: orchestrate compose file
       ansible.builtin.template:
-         src: templates/compose.j2
+         src: templates/compose.yaml.j2
          dest: "{{ playbook_dir }}/compose.yaml"

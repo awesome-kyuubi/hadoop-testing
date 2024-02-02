@@ -37,12 +37,7 @@ The supported components are listed below:
 
 ## How to use
 
-Download all required artifacts, which will be used for building Docker images.
-
-It will download a large amount of artifacts, depending on your network bandwidth,
-it may take a few minutes or even hours to complete. You can also download them manually and
-put them into the `download` directory, it won't download them again if they already
-exist.
+Firstly, use ansible to render some build files(`download.sh`, `.env`, `compose.yaml`...).
 
 ```
 ansible-playbook playbook.yaml
@@ -52,6 +47,17 @@ You can add `-vvv` arg to debug the playbook:
 
 ```
 ansible-playbook playbook.yaml -vvv
+```
+
+Download all required artifacts, which will be used for building Docker images.
+
+This scripts will download a large amount of artifacts, depending on your network bandwidth,
+it may take a few minutes or even hours to complete. You can also download them manually and
+put them into the `download` directory, the scripts won't download them again if they already
+exist.
+
+```
+./download.sh
 ```
 
 Build docker images
