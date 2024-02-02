@@ -17,7 +17,6 @@ services:
     ports:
       - 18070:18070
 
-{% if hadoop_include %}
   hadoop-master1:
     image: hadoop-testing/hadoop-master1:${PROJECT_VERSION}
     hostname: hadoop-master1.orb.local
@@ -53,7 +52,6 @@ services:
     container_name: hadoop-worker3
     depends_on:
       - hadoop-master1
-{% endif %}
 
 {% if prometheus_include %}
   prometheus:
