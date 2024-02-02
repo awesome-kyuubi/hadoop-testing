@@ -1,6 +1,10 @@
 <?xml version="1.0"?>
 <configuration>
   <property>
+    <name>hive.metastore.warehouse.dir</name>
+    <value>hdfs://hadoop-master1.orb.local:8020/warehouse</value>
+  </property>
+  <property>
     <name>hive.metastore.uris</name>
     <value>thrift://hadoop-master1.orb.local:9083</value>
   </property>
