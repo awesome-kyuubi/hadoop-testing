@@ -41,6 +41,8 @@ ${BUILD_CMD} \
   --tag hadoop-testing/base-ubuntu-2204:${PROJECT_VERSION} \
   "${SELF_DIR}/base-ubuntu-2204" $@
 
+rm -rf base-ubuntu-2204/download/*
+
 ${BUILD_CMD} \
   --build-arg PROJECT_VERSION=${PROJECT_VERSION} \
   --file "${SELF_DIR}/kdc/Dockerfile" \
@@ -89,6 +91,8 @@ function build_hadoop_master_image() {
     --file "${SELF_DIR}/hadoop-master${INDEX}/Dockerfile" \
     --tag hadoop-testing/hadoop-master${INDEX}:${PROJECT_VERSION} \
     "${SELF_DIR}/hadoop-master${INDEX}" $2
+
+  rm -rf hadoop-master${INDEX}/download/*
 }
 
 build_hadoop_master_image 1 "$@"
@@ -109,6 +113,8 @@ function build_hadoop_worker_image() {
     --file "${SELF_DIR}/hadoop-worker${INDEX}/Dockerfile" \
     --tag hadoop-testing/hadoop-worker${INDEX}:${PROJECT_VERSION} \
     "${SELF_DIR}/hadoop-worker${INDEX}" $2
+
+  rm -rf hadoop-worker${INDEX}/download/*
 }
 
 build_hadoop_worker_image 1 "$@"
