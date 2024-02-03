@@ -17,25 +17,47 @@ function download_if_not_exists() {
 
 mkdir -p "${SELF_DIR}/download"
 
+{% if jdk8_include %}
 if [ $(uname -m) = "arm64" ] || [ $(uname -m) = "aarch64" ]; then JDK8_TAR_NAME=zulu${ZULU8_VERSION}-ca-jdk${JDK8_VERSION}-linux_aarch64; else JDK8_TAR_NAME=zulu${ZULU8_VERSION}-ca-jdk${JDK8_VERSION}-linux_x64; fi
 download_if_not_exists https://cdn.azul.com/zulu/bin/${JDK8_TAR_NAME}.tar.gz
+{% endif %}
 
+{% if jdk17_include %}
 if [ $(uname -m) = "arm64" ] || [ $(uname -m) = "aarch64" ]; then JDK17_TAR_NAME=zulu${ZULU17_VERSION}-ca-jdk${JDK17_VERSION}-linux_aarch64; else JDK17_TAR_NAME=zulu${ZULU17_VERSION}-ca-jdk${JDK17_VERSION}-linux_x64; fi
 download_if_not_exists https://cdn.azul.com/zulu/bin/${JDK17_TAR_NAME}.tar.gz
+{% endif %}
 
+{% if jdk21_include %}
 if [ $(uname -m) = "arm64" ] || [ $(uname -m) = "aarch64" ]; then JDK21_TAR_NAME=zulu${ZULU21_VERSION}-ca-jdk${JDK21_VERSION}-linux_aarch64; else JDK21_TAR_NAME=zulu${ZULU21_VERSION}-ca-jdk${JDK21_VERSION}-linux_x64; fi
 download_if_not_exists https://cdn.azul.com/zulu/bin/${JDK21_TAR_NAME}.tar.gz
+{% endif %}
 
+{% if zookeeper_include %}
 download_if_not_exists ${APACHE_MIRROR}/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/apache-zookeeper-${ZOOKEEPER_VERSION}-bin.tar.gz
+{% endif %}
+{% if hadoop_include %}
 if [ $(uname -m) = "arm64" ] || [ $(uname -m) = "aarch64" ]; then HADOOP_TAR_NAME=hadoop-${HADOOP_VERSION}-aarch64; else HADOOP_TAR_NAME=hadoop-${HADOOP_VERSION}; fi
 download_if_not_exists ${APACHE_MIRROR}/hadoop/core/hadoop-${HADOOP_VERSION}/${HADOOP_TAR_NAME}.tar.gz
+{% endif %}
+{% if hive_include %}
 download_if_not_exists ${APACHE_MIRROR}/hive/hive-${HIVE_VERSION}/apache-hive-${HIVE_VERSION}-bin.tar.gz
+{% endif %}
+{% if spark_include %}
 download_if_not_exists ${APACHE_MIRROR}/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop3.tgz
+{% endif %}
+{% if flink_include %}
 download_if_not_exists ${APACHE_MIRROR}/flink/flink-${FLINK_VERSION}/flink-${FLINK_VERSION}-bin-scala_${SCALA_BINARY_VERSION}.tgz
+{% endif %}
+{% if kyuubi_include %}
 download_if_not_exists ${APACHE_MIRROR}/kyuubi/kyuubi-${KYUUBI_VERSION}/apache-kyuubi-${KYUUBI_VERSION}-bin.tgz
+{% endif %}
+{% if ranger_include %}
 download_if_not_exists https://github.com/pan3793/ranger/releases/download/release-ranger-${RANGER_VERSION}/ranger-${RANGER_VERSION}-admin.tar.gz
+{% endif %}
+{% if trino_include %}
 download_if_not_exists ${MAVEN_MIRROR}/io/trino/trino-server/${TRINO_VERSION}/trino-server-${TRINO_VERSION}.tar.gz
 download_if_not_exists ${MAVEN_MIRROR}/io/trino/trino-cli/${TRINO_VERSION}/trino-cli-${TRINO_VERSION}-executable.jar
+{% endif %}
 
 MYSQL_JDBC_JAR_NAME=mysql-connector-j
 download_if_not_exists ${MAVEN_MIRROR}/com/mysql/${MYSQL_JDBC_JAR_NAME}/${MYSQL_JDBC_VERSION}/${MYSQL_JDBC_JAR_NAME}-${MYSQL_JDBC_VERSION}.jar
