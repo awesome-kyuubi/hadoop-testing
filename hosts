@@ -1,1 +1,9 @@
 local ansible_connection=local
+
+[hadoop-masters]
+hadoop-master1
+
+[hadoop-workers]
+hadoop-worker1
+hadoop-worker2
+hadoop-worker3

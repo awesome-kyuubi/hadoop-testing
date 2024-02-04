@@ -20,8 +20,9 @@ COPY ./files /
 
 RUN set -xeu && \
     ln -snf /usr/bin/bash /usr/bin/sh && \
-    install_packages busybox python3-pip supervisor xsltproc curl tree python-is-python3 && \
+    install_packages busybox python3-pip supervisor xsltproc curl tree python-is-python3 openssh-client openssh-server && \
     mkdir /opt/busybox && \
+    mkdir -p /run/sshd && \
     busybox --install /opt/busybox
 
 ADD download/${JDK8_TAR_NAME}.tar.gz  /opt

@@ -1,0 +1,12 @@
+---
+- name: test hosted ansible has the controllability of all the hadoop-xxx nodes
+
+  hosts: all
+
+  gather_facts: True
+  tasks:
+    - name: Check Dist Version
+      shell: cat /etc/os-release
+      register: response
+
+    - debug: msg="{{ response.stdout }}"

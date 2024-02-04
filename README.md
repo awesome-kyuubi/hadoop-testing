@@ -76,6 +76,63 @@ eval "$(pyenv virtualenv-init -)"
 
 After all, source `~/.bash_profile` and `~/.bashrc`.
 
+### Install nc
+
+To let ansible control the host itself and all the hadoop related containers, we need to install `nc` command:
+
+```bash
+yum install epel-release && yum install -y nc
+```
+
+Then configure the `~/.ssh/config` file in your host:
+
+```bash
+Host *
+    StrictHostKeyChecking no
+
+Host hadoop-master1
+    Hostname hadoop-master1.orb.local
+    User root
+    Port 22
+    ForwardAgent yes
+    IdentityFile /root/.ssh/id_rsa_hadoop_testing
+    ProxyCommand nc --proxy-type socks5 --proxy 127.0.0.1:18070 %h %p
+
+Host hadoop-worker1
+    Hostname hadoop-worker1.orb.local
+    User root
+    Port 22
+    ForwardAgent yes
+    IdentityFile /root/.ssh/id_rsa_hadoop_testing
+    ProxyCommand nc --proxy-type socks5 --proxy 127.0.0.1:18070 %h %p
+
+Host hadoop-worker2
+    Hostname hadoop-worker2.orb.local
+    User root
+    Port 22
+    ForwardAgent yes
+    IdentityFile /root/.ssh/id_rsa_hadoop_testing
+    ProxyCommand nc --proxy-type socks5 --proxy 127.0.0.1:18070 %h %p
+
+Host hadoop-worker3
+    Hostname hadoop-worker3.orb.local
+    User root
+    Port 22
+    ForwardAgent yes
+    IdentityFile /root/.ssh/id_rsa_hadoop_testing
+    ProxyCommand nc --proxy-type socks5 --proxy 127.0.0.1:18070 %h %p
+```
+
+After all the containers have been launched, test the controllability via this command:
+
+```bash
+ansible-playbook controllability.yaml
+```
+
+It should print all nodes' OS information (include host and hadoop related containers).
+
+If not, use `-vvv` config option to debug it.
+
 ## Use pyenv
 
 Create virtualenv
