@@ -5,7 +5,7 @@ of the Hadoop ecosystem to facilitate the rapid establishment of test environmen
 
 # Prepare
 
-This project uses [ansible](https://www.ansible.com/) to to render the Dockerfile, shell scripts, and configuration files from the templates. Please make sure you have installed it before building.
+This project uses [ansible](https://www.ansible.com/) to render the Dockerfile, shell scripts, and configuration files from the templates. Please make sure you have installed it before building.
 
 Considering, ansible strongly depends on the Python environment. To make the Python environment independent and easy to manage, it is recommended to use `pyenv` and `virtualenv` to manage Python environment on macOS.
 
@@ -15,7 +15,7 @@ Install from Homebrew
 brew install pyenv pyenv-virtualenv
 ```
 
-Append to `~/.zshrc`
+Append to `~/.zshrc`, and perform `source ~/.zshrc` or open a new terminal to take effect.
 
 ```bash
 eval "$(pyenv init -)"
