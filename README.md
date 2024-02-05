@@ -5,9 +5,41 @@ of the Hadoop ecosystem to facilitate the rapid establishment of test environmen
 
 # Prepare
 
-This project uses [ansible](https://www.ansible.com/) to build. Please make sure you have installed it before building.
+This project uses [ansible](https://www.ansible.com/) to render the Dockerfile, shell scripts, and configuration files from the templates. Please make sure you have installed it before building.
 
-Considering, ansible strongly depends on the Python environment. To make the Python environment independent and easy to manage, it is recommended to use `pyenv` and `virtualenv` to manage Python environment.
+Considering, ansible strongly depends on the Python environment. To make the Python environment independent and easy to manage, it is recommended to use `pyenv` and `virtualenv` to manage Python environment on macOS.
+
+Install from Homebrew
+
+```bash
+brew install pyenv pyenv-virtualenv
+```
+
+Append to `~/.zshrc`, and perform `source ~/.zshrc` or open a new terminal to take effect.
+
+```bash
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+```
+
+Create virtualenv
+
+```bash
+pyenv install 3.9
+pyenv virtualenv 3.9 hadoop-testing
+```
+
+Localize virtualenv
+
+```bash
+pyenv local hadoop-testing
+```
+
+Install packages to the isolated virtualenv
+
+```
+pip install -r requirements.txt
+```
 
 # Components
 
