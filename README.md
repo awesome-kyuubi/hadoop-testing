@@ -104,6 +104,6 @@ Once the testing environment is fully operational, the following services will b
 ## Roadmap
 
 1. Add more components, such as LDAP, Kerberos, HBase, etc.
-2. Fully templatized. Leverage Ansible and Jinja2 to templatize the Dockerfiles, shell scripts, and configuration files, so that user can easily customize the testing environment by modifying the configurations, e.g. only enable the a subset of components, change the version of the components.
+2. Fully templatized. Leverage Ansible and Jinja2 to templatize the Dockerfiles, shell scripts, and configuration files, so that users can easily customize the testing environment by modifying the configurations, e.g. only enabling a subset of components, and changing the version of the components.
 3. Provide user-friendly docs, with some basic tutorials and examples, e.g. how to create a customized testing environment, how to run some basic examples, how to add a new component, etc.
 4. Kerberized Hadoop cluster is a common scenario in the production environment, and it's usually a headache to set up a kerberized environment and tackle the Kerberos-related issues. We can provide a kerberized environment for testing and learning.
