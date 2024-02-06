@@ -59,6 +59,10 @@ download_if_not_exists ${MAVEN_MIRROR}/io/trino/trino-server/${TRINO_VERSION}/tr
 download_if_not_exists ${MAVEN_MIRROR}/io/trino/trino-cli/${TRINO_VERSION}/trino-cli-${TRINO_VERSION}-executable.jar
 {% endif %}
 
+{% if hbase_include %}
+download_if_not_exists ${APACHE_MIRROR}/hbase/${HBASE_VERSION}/hbase-${HBASE_VERSION}-bin.tar.gz
+{% endif %}
+
 MYSQL_JDBC_JAR_NAME=mysql-connector-j
 download_if_not_exists ${MAVEN_MIRROR}/com/mysql/${MYSQL_JDBC_JAR_NAME}/${MYSQL_JDBC_VERSION}/${MYSQL_JDBC_JAR_NAME}-${MYSQL_JDBC_VERSION}.jar
 
