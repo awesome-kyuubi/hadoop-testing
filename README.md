@@ -3,15 +3,17 @@
 This serves as a testing sandbox for Hadoop, equipped with fundamental components
 of the Hadoop ecosystem to facilitate the rapid establishment of test environments.
 
+We tried to deploy the Hadoop cluster and its surrounding ecosystem in multiple Docker containers to simulate the production environment. Generally speaking, it is centered on a hadoop cluster (single master, 3 worker nodes), and is supported by RDBMS, Kafka, Grafana, Prometheus and other services. Its deployment architecture is shown below:
+
+![deployment_architecture](./materials/deployment_architecture.png)
+
+> Draw by [excalidraw](https://excalidraw.com/)
+
 # Prepare
 
 This project uses [ansible](https://www.ansible.com/) to render the Dockerfile, shell scripts, and configuration files from the templates. Please make sure you have installed it before building.
 
-Considering, ansible strongly depends on the Python environment. To make the Python environment independent and easy to manage, it is recommended to use `pyenv` and `virtualenv` to manage Python environment. 
-
-Here we provide guides for macOS and centOS users.
-
-## MacOS
+Considering, ansible strongly depends on the Python environment. To make the Python environment independent and easy to manage, it is recommended to use `pyenv` and `virtualenv` to manage Python environment on macOS.
 
 Install from Homebrew
 
@@ -25,42 +27,6 @@ Append to `~/.zshrc`, and perform `source ~/.zshrc` or open a new terminal to ta
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 ```
-
-## CentOS
-
-Before installing, we need to install some required packages.
-
-```bash
-yum install gcc make patch zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel tk-devel libffi-devel xz-devel
-```
-
-Then, install pyenv:
-
-```bash
-curl https://pyenv.run | bash
-
-# or
-
-curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
-```
-
-If you use `bash`, add it into `~/.bash_profile` or `~/.bashrc`:
-
-```bash
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-```
-
-Add it into `~/.bashrc`:
-
-```bash
-eval "$(pyenv virtualenv-init -)"
-```
-
-After all, source `~/.bash_profile` and `~/.bashrc`.
-
-## Use pyenv
 
 Create virtualenv
 
