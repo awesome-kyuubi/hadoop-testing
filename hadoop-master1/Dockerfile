@@ -70,7 +70,7 @@ RUN ln -snf /opt/apache-zookeeper-${ZOOKEEPER_VERSION}-bin ${ZOOKEEPER_HOME} && 
     ln -snf /opt/apache-kyuubi-${KYUUBI_VERSION}-bin ${KYUUBI_HOME} && \
     ln -snf /opt/ranger-${RANGER_VERSION}-admin ${RANGER_HOME} && \
     ln -snf /opt/trino-server-${TRINO_VERSION} ${TRINO_HOME} && \
-    ln -snf /opt/hbase-${HBASE_VERSION ${HBASE_HOME}
+    ln -snf /opt/hbase-${HBASE_VERSION} ${HBASE_HOME}
 
 ADD download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar ${HIVE_HOME}/lib/
 ADD download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar ${RANGER_HOME}/
@@ -94,7 +94,8 @@ RUN chown -R zookeeper:hadoop /opt/apache-zookeeper-${ZOOKEEPER_VERSION}-bin && 
     chown -R flink:hadoop /opt/flink-${FLINK_VERSION} && \
     chown -R kyuubi:hadoop /opt/apache-kyuubi-${KYUUBI_VERSION}-bin && \
     chown -R ranger:hadoop /opt/ranger-${RANGER_VERSION}-admin && \
-    chown -R trino:hadoop /opt/trino-server-${TRINO_VERSION}
+    chown -R trino:hadoop /opt/trino-server-${TRINO_VERSION} && \
+    chown -R hbase:hadoop /opt/hbase-${HBASE_VERSION}
 
 RUN chmod +x ${TRINO_HOME}/bin/trino-cli
 
@@ -121,5 +122,8 @@ EXPOSE 6080
 
 # Trino ports
 EXPOSE 18081
+
+# HBase ports
+EXPOSE 16010
 
 CMD supervisord -c /etc/supervisord.conf
