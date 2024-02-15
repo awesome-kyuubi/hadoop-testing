@@ -3,7 +3,7 @@
 This serves as a testing sandbox for Hadoop, equipped with fundamental components
 of the Hadoop ecosystem to facilitate the rapid establishment of test environments.
 
-We tried to deploy the Hadoop cluster and its surrounding ecosystem in multiple Docker containers to simulate the production environment. Generally speaking, it is centered on a hadoop cluster (single master, 3 worker nodes), and is supported by RDBMS, Kafka, Grafana, Prometheus and other services. Its deployment architecture is shown below:
+We try to deploy a big data ecosystem in multiple Docker containers to simulate the production environment. Generally speaking, it contains two types of deployment modes(standalone and mixed deployed). Standalone mode is just like a SaaS service provided by cloud vendors, while the mixed deployed mode is just like the semi-managed EMR service of cloud vendors. The whole deployment architecture is shown below:
 
 ![deployment_architecture](./materials/deployment_architecture.png)
 
