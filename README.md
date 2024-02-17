@@ -9,6 +9,16 @@ We try to deploy a big data ecosystem in multiple Docker containers to simulate 
 
 > Draw by [excalidraw](https://excalidraw.com/)
 
+# Features
+
+* Realistic simulation of production environment;
+* Lightweight, highly scalable and tailored Hadoop ecosystem;
+* Multi-purpose, multi-scenario, suitable for:
+   - Component developer: unit and integration testing;
+   - DevOps engineer: parameter adjustment verification, compatibility testing of component upgrades;
+   - Solution architect: Sandbox simulation of migration work, work shop demonstration;
+   - Data ETL engineer: a test environment that is easy to build and destroy;
+
 # Prepare
 
 This project uses [ansible](https://www.ansible.com/) to render the Dockerfile, shell scripts, and configuration files from the templates. Please make sure you have installed it before building.
