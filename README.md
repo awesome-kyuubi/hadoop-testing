@@ -105,7 +105,7 @@ The supported components are listed below:
 * Hive (2.3.9)
 * Iceberg (1.4.2)
 * Hudi (0.14.1)
-* Kyuubi (1.8.0)
+* Kyuubi (1.8.1)
 * Spark (3.4.2)
 * Flink (1.18.1)
 * Trino (436)

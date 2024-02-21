@@ -38,7 +38,7 @@ flink_binary_version: 1.18
 flink_version: 1.18.1
 
 kyuubi_include: true
-kyuubi_version: 1.8.0
+kyuubi_version: 1.8.1
 kyuubi_hadoop_version: 3.3.6
 
 ranger_include: true
