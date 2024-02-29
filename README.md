@@ -87,46 +87,26 @@ yum install epel-release && yum install -y nc
 Then configure the `~/.ssh/config` file in your host:
 
 ```bash
-Host *
+Host hadoop-*
+    Hostname %h.orb.local
+    User root
+    Port 22
+    ForwardAgent yes
+    IdentityFile ~/.ssh/id_rsa_hadoop_testing
     StrictHostKeyChecking no
+    ProxyCommand nc -x 127.0.0.1:18070 %h %p
+```
 
-Host hadoop-master1
-    Hostname hadoop-master1.orb.local
-    User root
-    Port 22
-    ForwardAgent yes
-    IdentityFile /root/.ssh/id_rsa_hadoop_testing
-    ProxyCommand nc --proxy-type socks5 --proxy 127.0.0.1:18070 %h %p
+**Note** : DO NOT forget to reduce access permission by invoking this command:
 
-Host hadoop-worker1
-    Hostname hadoop-worker1.orb.local
-    User root
-    Port 22
-    ForwardAgent yes
-    IdentityFile /root/.ssh/id_rsa_hadoop_testing
-    ProxyCommand nc --proxy-type socks5 --proxy 127.0.0.1:18070 %h %p
-
-Host hadoop-worker2
-    Hostname hadoop-worker2.orb.local
-    User root
-    Port 22
-    ForwardAgent yes
-    IdentityFile /root/.ssh/id_rsa_hadoop_testing
-    ProxyCommand nc --proxy-type socks5 --proxy 127.0.0.1:18070 %h %p
-
-Host hadoop-worker3
-    Hostname hadoop-worker3.orb.local
-    User root
-    Port 22
-    ForwardAgent yes
-    IdentityFile /root/.ssh/id_rsa_hadoop_testing
-    ProxyCommand nc --proxy-type socks5 --proxy 127.0.0.1:18070 %h %p
+```bash
+chmod 400 ~/.ssh/id_rsa_hadoop_testing
 ```
 
 After all the containers have been launched, test the controllability via this command:
 
 ```bash
-ansible-playbook controllability.yaml
+ansible-playbook ping.yaml
 ```
 
 It should print all nodes' OS information (include host and hadoop related containers).
