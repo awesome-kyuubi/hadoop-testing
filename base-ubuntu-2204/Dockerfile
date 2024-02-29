@@ -20,9 +20,9 @@ COPY ./files /
 
 RUN set -xeu && \
     ln -snf /usr/bin/bash /usr/bin/sh && \
-    install_packages busybox python3-pip supervisor xsltproc curl tree python-is-python3 && \
-    mkdir /opt/busybox && \
-    busybox --install /opt/busybox
+    install_packages busybox python3-pip supervisor xsltproc curl tree python-is-python3 openssh-client openssh-server && \
+    mkdir /run/sshd && chmod 0755 /run/sshd && \
+    mkdir /opt/busybox && busybox --install /opt/busybox
 
 ADD download/${JDK8_TAR_NAME}.tar.gz  /opt
 ADD download/${JDK17_TAR_NAME}.tar.gz /opt

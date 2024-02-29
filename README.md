@@ -76,6 +76,43 @@ eval "$(pyenv virtualenv-init -)"
 
 After all, source `~/.bash_profile` and `~/.bashrc`.
 
+### Install nc
+
+To let ansible control the host itself and all the hadoop related containers, we need to install `nc` command:
+
+```bash
+yum install epel-release && yum install -y nc
+```
+
+Then configure the `~/.ssh/config` file in your host:
+
+```bash
+Host hadoop-*
+    Hostname %h.orb.local
+    User root
+    Port 22
+    ForwardAgent yes
+    IdentityFile ~/.ssh/id_rsa_hadoop_testing
+    StrictHostKeyChecking no
+    ProxyCommand nc -x 127.0.0.1:18070 %h %p
+```
+
+**Note** : DO NOT forget to reduce access permission by invoking this command:
+
+```bash
+chmod 600 ~/.ssh/id_rsa_hadoop_testing
+```
+
+After all the containers have been launched, test the controllability via this command:
+
+```bash
+ansible-playbook ping.yaml
+```
+
+It should print all nodes' OS information (include host and hadoop related containers).
+
+If not, use `-vvv` config option to debug it.
+
 ## Use pyenv
 
 Create virtualenv
