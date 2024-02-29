@@ -93,7 +93,7 @@ RUN chown -R zookeeper:hadoop /opt/apache-zookeeper-${ZOOKEEPER_VERSION}-bin && 
     chown -R trino:hadoop /opt/trino-server-${TRINO_VERSION}
 
 RUN chmod +x ${TRINO_HOME}/bin/trino-cli
-RUN chmod 400 /root/.ssh/id_rsa_hadoop_testing
+RUN chmod 600 /root/.ssh/id_rsa_hadoop_testing
 
 # Zookeeper ports
 EXPOSE 2181

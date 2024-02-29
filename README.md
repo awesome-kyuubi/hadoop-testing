@@ -100,7 +100,7 @@ Host hadoop-*
 **Note** : DO NOT forget to reduce access permission by invoking this command:
 
 ```bash
-chmod 400 ~/.ssh/id_rsa_hadoop_testing
+chmod 600 ~/.ssh/id_rsa_hadoop_testing
 ```
 
 After all the containers have been launched, test the controllability via this command:
