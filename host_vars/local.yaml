@@ -47,6 +47,9 @@ ranger_version: 2.4.0
 trino_include: true
 trino_version: 436
 
+hbase_include: true
+hbase_version: 2.5.7
+
 iceberg_include: true
 iceberg_version: 1.4.2
 

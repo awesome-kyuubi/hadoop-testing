@@ -73,6 +73,7 @@ function build_hadoop_master_image() {
   cp download/jcl-over-slf4j-1.7.36.jar hadoop-master${INDEX}/download/jcl-over-slf4j-1.7.36.jar
   cp download/trino-server-${TRINO_VERSION}.tar.gz hadoop-master${INDEX}/download/trino-server-${TRINO_VERSION}.tar.gz
   cp download/trino-cli-${TRINO_VERSION}-executable.jar hadoop-master${INDEX}/download/trino-cli-${TRINO_VERSION}-executable.jar
+  cp download/hbase-${HBASE_VERSION}-bin.tar.gz hadoop-master${INDEX}/download/hbase-${HBASE_VERSION}-bin.tar.gz
   ${BUILD_CMD} \
     --build-arg PROJECT_VERSION=${PROJECT_VERSION} \
     --build-arg ZOOKEEPER_VERSION=${ZOOKEEPER_VERSION} \
@@ -88,6 +89,7 @@ function build_hadoop_master_image() {
     --build-arg HUDI_VERSION=${HUDI_VERSION} \
     --build-arg LOKI_APPENDER_VERSION=${LOKI_APPENDER_VERSION} \
     --build-arg TRINO_VERSION=${TRINO_VERSION} \
+    --build-arg HBASE_VERSION=${HBASE_VERSION} \
     --file "${SELF_DIR}/hadoop-master${INDEX}/Dockerfile" \
     --tag hadoop-testing/hadoop-master${INDEX}:${PROJECT_VERSION} \
     "${SELF_DIR}/hadoop-master${INDEX}" $2
@@ -110,6 +112,7 @@ function build_hadoop_worker_image() {
     --build-arg HADOOP_VERSION=${HADOOP_VERSION} \
     --build-arg SPARK_VERSION=${SPARK_VERSION} \
     --build-arg TRINO_VERSION=${TRINO_VERSION} \
+    --build-arg HBASE_VERSION=${HBASE_VERSION} \
     --file "${SELF_DIR}/hadoop-worker${INDEX}/Dockerfile" \
     --tag hadoop-testing/hadoop-worker${INDEX}:${PROJECT_VERSION} \
     "${SELF_DIR}/hadoop-worker${INDEX}" $2

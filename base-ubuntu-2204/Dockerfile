@@ -62,4 +62,6 @@ RUN groupadd hadoop --gid 6000 && \
     groupadd flink --gid 6012 && \
     useradd  flink --gid 6012 --uid 6012 -m && \
     groupadd trino --gid 6013 && \
-    useradd trino --gid 6013 --uid 6013 -m
+    useradd trino --gid 6013 --uid 6013 -m && \
+    groupadd hbase --gid 6014 && \
+    useradd hbase --gid 6014 --uid 6014 -m

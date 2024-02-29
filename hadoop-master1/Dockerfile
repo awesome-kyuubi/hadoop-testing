@@ -26,6 +26,7 @@ ARG LOKI_APPENDER_VERSION
 ARG RANGER_VERSION
 ARG HUDI_VERSION
 ARG TRINO_VERSION
+ARG HBASE_VERSION
 
 ENV ZOOKEEPER_HOME=/opt/zookeeper
 ENV ZOOCFGDIR=/etc/zookeeper/conf
@@ -45,6 +46,7 @@ ENV TRINO_HOME=/opt/trino
 ENV RANGER_VERSION=${RANGER_VERSION}
 ENV HUDI_VERSION=${HUDI_VERSION}
 ENV MYSQL_JDBC_VERSION=${MYSQL_JDBC_VERSION}
+ENV HBASE_HOME=/opt/hbase
 ENV PATH=${KYUUBI_HOME}/bin:${SPARK_HOME}/bin:${HIVE_HOME}/bin:${HADOOP_HOME}/bin:${ZOOKEEPER_HOME}/bin:${PATH}
 
 ADD download/apache-zookeeper-${ZOOKEEPER_VERSION}-bin.tar.gz /opt
@@ -55,6 +57,7 @@ ADD download/flink-${FLINK_VERSION}-bin-scala_${SCALA_BINARY_VERSION}.tgz /opt
 ADD download/apache-kyuubi-${KYUUBI_VERSION}-bin.tgz /opt
 ADD download/ranger-${RANGER_VERSION}-admin.tar.gz /opt
 ADD download/trino-server-${TRINO_VERSION}.tar.gz /opt
+ADD download/hbase-${HBASE_VERSION}-bin.tar.gz /opt
 
 # Copy configuration files
 COPY ./files /
@@ -66,7 +69,8 @@ RUN ln -snf /opt/apache-zookeeper-${ZOOKEEPER_VERSION}-bin ${ZOOKEEPER_HOME} && 
     ln -snf /opt/flink-${FLINK_VERSION} ${FLINK_HOME} && \
     ln -snf /opt/apache-kyuubi-${KYUUBI_VERSION}-bin ${KYUUBI_HOME} && \
     ln -snf /opt/ranger-${RANGER_VERSION}-admin ${RANGER_HOME} && \
-    ln -snf /opt/trino-server-${TRINO_VERSION} ${TRINO_HOME}
+    ln -snf /opt/trino-server-${TRINO_VERSION} ${TRINO_HOME} && \
+    ln -snf /opt/hbase-${HBASE_VERSION} ${HBASE_HOME}
 
 ADD download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar ${HIVE_HOME}/lib/
 ADD download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar ${RANGER_HOME}/
@@ -90,7 +94,8 @@ RUN chown -R zookeeper:hadoop /opt/apache-zookeeper-${ZOOKEEPER_VERSION}-bin && 
     chown -R flink:hadoop /opt/flink-${FLINK_VERSION} && \
     chown -R kyuubi:hadoop /opt/apache-kyuubi-${KYUUBI_VERSION}-bin && \
     chown -R ranger:hadoop /opt/ranger-${RANGER_VERSION}-admin && \
-    chown -R trino:hadoop /opt/trino-server-${TRINO_VERSION}
+    chown -R trino:hadoop /opt/trino-server-${TRINO_VERSION} && \
+    chown -R hbase:hadoop /opt/hbase-${HBASE_VERSION}
 
 RUN chmod +x ${TRINO_HOME}/bin/trino-cli
 RUN chmod 600 /root/.ssh/id_rsa_hadoop_testing
@@ -118,5 +123,8 @@ EXPOSE 6080
 
 # Trino ports
 EXPOSE 18081
+
+# HBase ports
+EXPOSE 16010
 
 CMD supervisord -c /etc/supervisord.conf
