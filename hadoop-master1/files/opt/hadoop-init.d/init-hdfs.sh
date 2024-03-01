@@ -3,6 +3,12 @@
 mkdir /var/lib/zookeeper
 chown -R zookeeper:zookeeper /var/lib/zookeeper
 
+mkdir /var/lib/kyuubi
+chown -R kyuubi:root /var/lib/kyuubi
+
+mkdir /var/lib/kyuubi/work
+chmod -R 777 /var/lib/kyuubi/work
+
 mkdir /var/lib/hadoop-hdfs
 chown -R hdfs:hdfs /var/lib/hadoop-hdfs
 

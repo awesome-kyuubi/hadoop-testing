@@ -59,6 +59,8 @@ ADD download/trino-server-${TRINO_VERSION}.tar.gz /opt
 # Copy configuration files
 COPY ./files /
 
+RUN chmod 600 /root/.ssh/id_rsa_hadoop_testing
+
 RUN ln -snf ${HIVE_CONF_DIR}/hive-site.xml ${SPARK_CONF_DIR}/hive-site.xml && \
     ln -snf ${HIVE_CONF_DIR}/hive-site.xml ${KYUUBI_CONF_DIR}/hive-site.xml
 
@@ -75,10 +77,7 @@ ADD download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar ${HIVE_HOME}/lib/
 ADD download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar ${RANGER_HOME}/
 ADD download/hudi-spark${SPARK_BINARY_VERSION}-bundle_${SCALA_BINARY_VERSION}-${HUDI_VERSION}.jar /opt/hudi/
 ADD download/jcl-over-slf4j-1.7.36.jar ${FLINK_HOME}/lib/
-ADD download/trino-cli-${TRINO_VERSION}-executable.jar ${TRINO_HOME}/bin/trino-cli
-
-RUN /opt/hadoop-init.d/init-hdfs.sh
-RUN /opt/trino-init.d/init-workdir.sh
+ADD --chmod=755 download/trino-cli-${TRINO_VERSION}-executable.jar ${TRINO_HOME}/bin/trino-cli
 
 ADD download/log4j2-appender-nodep-${LOKI_APPENDER_VERSION}.jar ${HIVE_HOME}/lib/
 ADD download/log4j2-appender-nodep-${LOKI_APPENDER_VERSION}.jar ${SPARK_HOME}/jars/
@@ -86,17 +85,11 @@ ADD download/log4j2-appender-nodep-${LOKI_APPENDER_VERSION}.jar ${KYUUBI_HOME}/j
 ADD download/kyuubi-spark-connector-tpch_${SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar ${SPARK_HOME}/jars/
 ADD download/kyuubi-spark-connector-tpcds_${SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar ${SPARK_HOME}/jars/
 
-RUN chown -R zookeeper:hadoop /opt/apache-zookeeper-${ZOOKEEPER_VERSION}-bin && \
-    chown -R hadoop:hadoop /opt/hadoop-${HADOOP_VERSION} && \
-    chown -R hive:hadoop /opt/apache-hive-${HIVE_VERSION}-bin && \
-    chown -R spark:hadoop /opt/spark-${SPARK_VERSION}-bin-hadoop3 && \
-    chown -R flink:hadoop /opt/flink-${FLINK_VERSION} && \
-    chown -R kyuubi:hadoop /opt/apache-kyuubi-${KYUUBI_VERSION}-bin && \
-    chown -R ranger:hadoop /opt/ranger-${RANGER_VERSION}-admin && \
-    chown -R trino:hadoop /opt/trino-server-${TRINO_VERSION}
+# chown would doulbe the size of the image by introduce a new layer, but ranger seems does not work without chmod
+RUN chown -R ranger:hadoop /opt/ranger-${RANGER_VERSION}-admin
 
-RUN chmod +x ${TRINO_HOME}/bin/trino-cli
-RUN chmod 600 /root/.ssh/id_rsa_hadoop_testing
+RUN /opt/hadoop-init.d/init-hdfs.sh
+RUN /opt/trino-init.d/init-workdir.sh
 
 # Zookeeper ports
 EXPOSE 2181
