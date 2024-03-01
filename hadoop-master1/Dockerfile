@@ -59,6 +59,9 @@ ADD download/trino-server-${TRINO_VERSION}.tar.gz /opt
 # Copy configuration files
 COPY ./files /
 
+RUN ln -snf ${HIVE_CONF_DIR}/hive-site.xml ${SPARK_CONF_DIR}/hive-site.xml && \
+    ln -snf ${HIVE_CONF_DIR}/hive-site.xml ${KYUUBI_CONF_DIR}/hive-site.xml
+
 RUN ln -snf /opt/apache-zookeeper-${ZOOKEEPER_VERSION}-bin ${ZOOKEEPER_HOME} && \
     ln -snf /opt/hadoop-${HADOOP_VERSION} ${HADOOP_HOME} && \
     ln -snf /opt/apache-hive-${HIVE_VERSION}-bin ${HIVE_HOME} && \
