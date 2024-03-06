@@ -53,6 +53,16 @@ services:
     depends_on:
       - hadoop-master1
 
+{% if kerberos_enabled %}
+  kdc:
+    image: hadoop-testing/kdc:${PROJECT_VERSION}
+    hostname: kdc.orb.local
+    container_name: kdc
+    ports:
+      - 88:88
+      - 89:89
+{% endif %}
+
 {% if prometheus_include %}
   prometheus:
     image: prom/prometheus
