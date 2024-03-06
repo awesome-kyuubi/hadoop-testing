@@ -17,7 +17,7 @@ aws_java_sdk_include: true
 aws_java_sdk_version: 1.12.620
 
 # components
-kdc_include: false
+kerberos_enabled: false
 
 hadoop_include: true
 hadoop_version: 3.3.6

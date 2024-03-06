@@ -53,7 +53,7 @@ services:
     depends_on:
       - hadoop-master1
 
-{% if kdc_include %}
+{% if kerberos_enabled %}
   kdc:
     image: hadoop-testing/kdc:${PROJECT_VERSION}
     hostname: kdc.orb.local
