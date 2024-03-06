@@ -58,8 +58,6 @@ services:
     image: hadoop-testing/kdc:${PROJECT_VERSION}
     hostname: kdc.orb.local
     container_name: kdc
-    volumes:
-      - ./files/etc/prometheus:/etc/prometheus
     ports:
       - 88:88
       - 89:89
