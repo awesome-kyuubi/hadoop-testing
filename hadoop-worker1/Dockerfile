@@ -37,10 +37,6 @@ RUN ln -snf /opt/hadoop-${HADOOP_VERSION} ${HADOOP_HOME} && \
 RUN /opt/hadoop-init.d/init-hdfs.sh
 RUN /opt/trino-init.d/init-workdir.sh
 
-RUN chown -R hadoop:hadoop /opt/hadoop-${HADOOP_VERSION} && \
-    chown -R spark:hadoop /opt/spark-${SPARK_VERSION}-bin-hadoop3 && \
-    chown -R trino:hadoop /opt/trino-server-${TRINO_VERSION}
-
 # HDFS ports
 EXPOSE 1004 1006 8020 9866 9867 9870 9864 50470
 
