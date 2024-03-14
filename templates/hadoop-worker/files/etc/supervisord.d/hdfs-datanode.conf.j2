@@ -6,7 +6,7 @@ stopwaitsecs=10
 {% if kerberos_enabled %}
 user=root
 {% else %}
-hdfs=hdfs
+user=hdfs
 {% endif %}
 redirect_stderr=true
 stdout_logfile=/var/log/hdfs-datanode.log
