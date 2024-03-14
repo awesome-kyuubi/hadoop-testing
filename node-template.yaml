@@ -1,0 +1,36 @@
+# Required Parameter: node
+
+- name: orchestrate {{ node.name }} - clean
+  ansible.builtin.file:
+    path: "{{ node.name }}"
+    state: absent
+
+- name: orchestrate {{ node.name }} - hadoop-common - mkdir
+  ansible.builtin.file:
+    path: "{{ node.name }}/{{ item.path }}"
+    state: directory
+  with_community.general.filetree: "templates/hadoop-common"
+  when: item.state == "directory"
+
+- name: orchestrate {{ node.name }} - hadoop-common - template
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ node.name }}/{{ item.path | regex_replace('\\.j2$', '') }}"
+    mode: "a+x"
+  with_community.general.filetree: "templates/hadoop-common"
+  when: item.state == "file"
+
+- name: orchestrate {{ node.name }} - {{ node.group }} - mkdir
+  ansible.builtin.file:
+    path: "{{ node.name }}/{{ item.path }}"
+    state: directory
+  with_community.general.filetree: "templates/{{ node.group }}"
+  when: item.state == "directory"
+
+- name: orchestrate {{ node.name }} - {{ node.group }} - template
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ node.name }}/{{ item.path | regex_replace('\\.j2$', '') }}"
+    mode: "a+x"
+  with_community.general.filetree: "templates/{{ node.group }}"
+  when: item.state == "file"
