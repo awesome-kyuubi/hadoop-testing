@@ -14,6 +14,9 @@ create_principal -p HTTP/hadoop-master1.orb.local -k /share/keytabs/hadoop-maste
 create_principal -p rm/hadoop-master1.orb.local -k /share/keytabs/hadoop-master1/rm.service.keytab
 create_principal -p host/hadoop-master1.orb.local -k /share/keytabs/hadoop-master1/rm.service.keytab
 
+# MapReduce JobHistory Server
+create_principal -p jhs/hadoop-master1.orb.local -k /share/keytabs/hadoop-master1/jhs.service.keytab
+
 # Hive MetaStore & Hive Server2
 create_principal -p hive/hadoop-master1.orb.local -k /share/keytabs/hadoop-master1/hive.service.keytab
 
