@@ -10,7 +10,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM ubuntu:22.04
+FROM ubuntu:20.04
 
 ARG JDK8_TAR_NAME
 ARG JDK17_TAR_NAME
@@ -20,7 +20,8 @@ COPY ./files /
 
 RUN set -xeu && \
     ln -snf /usr/bin/bash /usr/bin/sh && \
-    install_packages busybox python3-pip supervisor xsltproc curl tree python-is-python3 openssh-client openssh-server krb5-user jsvc && \
+    install_packages busybox python3-pip supervisor xsltproc curl tree python-is-python3 openssh-client openssh-server \
+    krb5-user jsvc libssl1.1 && \
     mkdir /run/sshd && chmod 0755 /run/sshd && \
     mkdir /opt/busybox && busybox --install /opt/busybox
 
