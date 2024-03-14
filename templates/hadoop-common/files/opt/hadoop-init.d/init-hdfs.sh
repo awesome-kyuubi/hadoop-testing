@@ -4,7 +4,7 @@ mkdir /var/lib/hadoop-hdfs
 chown -R hdfs:hdfs /var/lib/hadoop-hdfs
 
 mkdir /var/lib/hadoop-mapreduce
-chown -R mapread:mapread /var/lib/hadoop-mapreduce
+chown -R mapred:mapred /var/lib/hadoop-mapreduce
 
 mkdir /var/lib/hadoop-yarn
 chown -R yarn:yarn /var/lib/hadoop-yarn

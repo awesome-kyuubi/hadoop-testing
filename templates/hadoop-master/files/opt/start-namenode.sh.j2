@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -exuo pipefail
+
+{% if kerberos_enabled %}
+wait-service-ready-mark -s kdc
+{% endif %}
+
+if [ ! -d /var/lib/hadoop-hdfs/cache ]; then
+  echo 'Y' | /opt/hadoop/bin/hdfs namenode -format
+fi
+
+exec hdfs namenode

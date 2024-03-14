@@ -13,3 +13,8 @@ export YARN_OPTS="$YARN_OPTS -Xmx256m"
 
 # Necessary to prevent map reduce jobs triggered by hive queries from dying with OOM error
 export HADOOP_CLIENT_OPTS="$HADOOP_CLIENT_OPTS -Xmx512m"
+
+{% if kerberos_enabled %}
+export HDFS_DATANODE_SECURE_USER=hdfs
+export JSVC_HOME=/usr/bin
+{% endif %}

@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+
+set -exuo pipefail
+
+{% if kerberos_enabled %}
+kinit -kt /share/keytabs/hadoop-master1/nn.service.keytab nn/hadoop-master1.orb.local@TEST.ORG
+{% else %}
+export HADOOP_USER_NAME=hdfs
+{% endif %}
+
+# init basic hdfs directories
+/opt/hadoop/bin/hadoop fs -mkdir -p /tmp
+/opt/hadoop/bin/hadoop fs -chmod -R 1777 /tmp
+/opt/hadoop/bin/hadoop fs -mkdir -p /var
+/opt/hadoop/bin/hadoop fs -mkdir -p /var/log
+/opt/hadoop/bin/hadoop fs -chmod -R 1775 /var/log
+/opt/hadoop/bin/hadoop fs -chown yarn:mapred /var/log
+/opt/hadoop/bin/hadoop fs -mkdir -p /tmp/hadoop-yarn
+/opt/hadoop/bin/hadoop fs -chown -R mapred:mapred /tmp/hadoop-yarn
+/opt/hadoop/bin/hadoop fs -mkdir -p /tmp/hadoop-yarn/staging/history/done_intermediate
+/opt/hadoop/bin/hadoop fs -chown -R mapred:mapred /tmp/hadoop-yarn/staging
+/opt/hadoop/bin/hadoop fs -chmod -R 1777 /tmp/hadoop-yarn
+/opt/hadoop/bin/hadoop fs -mkdir -p /tmp/hadoop-yarn/staging
+/opt/hadoop/bin/hadoop fs -chown mapred:mapred /tmp/hadoop-yarn/staging
+/opt/hadoop/bin/hadoop fs -chmod -R 1777 /tmp/hadoop-yarn/staging
+/opt/hadoop/bin/hadoop fs -mkdir -p /tmp/hadoop-yarn/staging/history
+/opt/hadoop/bin/hadoop fs -chown mapred:mapred /tmp/hadoop-yarn/staging/history
+/opt/hadoop/bin/hadoop fs -chmod -R 1777 /tmp/hadoop-yarn/staging/history
+/opt/hadoop/bin/hadoop fs -chmod -R 1777 /tmp
+/opt/hadoop/bin/hadoop fs -mkdir -p /var/log/hadoop-yarn/apps
+/opt/hadoop/bin/hadoop fs -chmod -R 1777 /var/log/hadoop-yarn/apps
+/opt/hadoop/bin/hadoop fs -chown yarn:mapred /var/log/hadoop-yarn/apps
+
+/opt/hadoop/bin/hadoop fs -mkdir -p /hbase
+/opt/hadoop/bin/hadoop fs -chown hbase /hbase
+/opt/hadoop/bin/hadoop fs -mkdir -p /user
+/opt/hadoop/bin/hadoop fs -mkdir -p /user/history
+/opt/hadoop/bin/hadoop fs -chown mapred /user/history
+/opt/hadoop/bin/hadoop fs -mkdir -p /user/yarn
+/opt/hadoop/bin/hadoop fs -chown yarn:yarn /user/yarn
+/opt/hadoop/bin/hadoop fs -mkdir -p /user/hive
+/opt/hadoop/bin/hadoop fs -chmod -R 777 /user/hive
+/opt/hadoop/bin/hadoop fs -chown hive /user/hive
+/opt/hadoop/bin/hadoop fs -mkdir -p /user/root
+/opt/hadoop/bin/hadoop fs -chmod -R 777 /user/root
+/opt/hadoop/bin/hadoop fs -chown root /user/root
+/opt/hadoop/bin/hadoop fs -mkdir -p /user/hue
+/opt/hadoop/bin/hadoop fs -chmod -R 777 /user/hue
+/opt/hadoop/bin/hadoop fs -chown hue /user/hue
+
+# MR1 JobTracker
+/opt/hadoop/bin/hadoop fs -mkdir -p /var/lib/hadoop-hdfs/cache/mapred/mapred/staging
+/opt/hadoop/bin/hadoop fs -chmod 1777 /var/lib/hadoop-hdfs/cache/mapred/mapred/staging
+/opt/hadoop/bin/hadoop fs -chown -R mapred /var/lib/hadoop-hdfs/cache/mapred
+
+# Spark History Server
+/opt/hadoop/bin/hadoop fs -mkdir -p /spark-history
+/opt/hadoop/bin/hadoop fs -chmod 1777 /spark-history
+/opt/hadoop/bin/hadoop fs -chown spark /spark-history
+
+# init hive directories
+/opt/hadoop/bin/hadoop fs -mkdir /warehouse
+/opt/hadoop/bin/hadoop fs -chmod 1777 /warehouse
+/opt/hadoop/bin/hadoop fs -chown hive /warehouse

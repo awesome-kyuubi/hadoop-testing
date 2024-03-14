@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  {% if kerberos_enabled %}
+  <!-- NameNode -->
+  <property>
+    <name>dfs.block.access.token.enable</name>
+    <value>true</value>
+  </property>
+  <property>
+    <name>dfs.namenode.kerberos.principal</name>
+    <value>nn/_HOST@TEST.ORG</value>
+  </property>
+  <property>
+    <name>dfs.namenode.keytab.file</name>
+    <value>/share/keytabs/hadoop-master1/nn.service.keytab</value>
+  </property>
+  <property>
+    <name>dfs.namenode.kerberos.internal.spnego.principal</name>
+    <value>HTTP/_HOST@TEST.ORG</value>
+  </property>
+  <property>
+    <name>dfs.web.authentication.kerberos.keytab</name>
+    <value>/share/keytabs/hadoop-master1/nn.service.keytab</value>
+  </property>
+
+  <!-- DataNode -->
+  <property>
+    <name>dfs.datanode.data.dir.perm</name>
+    <value>700</value>
+  </property>
+  <property>
+    <name>dfs.datanode.address</name>
+    <value>0.0.0.0:1004</value>
+  </property>
+  <property>
+    <name>dfs.datanode.http.address</name>
+    <value>0.0.0.0:1006</value>
+  </property>
+  <property>
+    <name>dfs.datanode.kerberos.principal</name>
+    <value>dn/worker@TEST.ORG</value>
+  </property>
+  <property>
+    <name>dfs.datanode.keytab.file</name>
+    <value>/share/keytabs/{{ node.name }}/dn.service.keytab</value>
+  </property>
+  <property>
+    <name>dfs.encrypt.data.transfer</name>
+    <value>false</value>
+  </property>
+  {% endif %}
+
+  <property>
+    <name>dfs.namenode.http-address</name>
+    <value>0.0.0.0:9870</value>
+  </property>
+  <property>
+    <name>dfs.namenode.rpc-address</name>
+    <value>hadoop-master1.orb.local:8020</value>
+  </property>
+  <property>
+    <name>dfs.permissions.enabled</name>
+    <value>false</value>
+  </property>
+  <!-- This property explicitly forbids datanode to enter safe mode which results in 30 s penalty on environment startup -->
+  <property>
+    <name>dfs.safemode.threshold.pct</name>
+    <value>0</value>
+  </property>
+  <property>
+    <name>dfs.namenode.name.dir</name>
+    <value>/var/lib/hadoop-hdfs/cache/name/</value>
+  </property>
+  <property>
+    <name>dfs.datanode.data.dir</name>
+    <value>/var/lib/hadoop-hdfs/cache/data/</value>
+  </property>
+</configuration>

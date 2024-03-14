@@ -1,6 +1,6 @@
 [program:hdfs-namenode]
-directory=/opt/hadoop
-command=hdfs namenode
+directory=/opt
+command=bash /opt/start-namenode.sh
 startsecs=30
 stopwaitsecs=10
 user=hdfs

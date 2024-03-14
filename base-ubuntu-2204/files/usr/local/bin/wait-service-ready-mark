@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+timeout=60
+interval=1
+dir=/share/marks/ready.d/
+
+set -euo pipefail
+
+function usage() {
+    echo "Usage: $0 [-t <timeout>] [-i <interval>] [-d <dir>] -s <service> " >&2
+    exit 1
+}
+
+while getopts "t:i:d:s:" o; do
+    case "${o}" in
+        t)
+            timeout="$OPTARG"
+            ;;
+        i)
+            interval="$OPTARG"
+            ;;
+        d)
+            dir="$OPTARG"
+            ;;
+        s)
+            service="$OPTARG"
+            ;;
+        *)
+    esac
+done
+
+if [[ ! -v service ]]; then
+    usage
+fi
+
+end_time=$((SECONDS + timeout))
+
+while [ $SECONDS -lt $end_time ]; do
+    if [[ -f $dir/$service ]]; then
+        echo "Service $service is now ready"
+        break
+    else
+        echo "Service $service is not ready, retrying in $interval seconds..."
+        sleep $interval
+    fi
+done
+
+if [ $SECONDS -ge $end_time ]; then
+    echo "Timeout reached. Service $service is still not ready."
+    exit 1
+fi
