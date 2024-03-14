@@ -138,21 +138,25 @@ pip install -r requirements.txt
 
 The supported components are listed below:
 
-* Hadoop (3.3.6)
-* Hive (2.3.9)
-* Iceberg (1.4.2)
-* Hudi (0.14.1)
-* Kyuubi (1.8.1)
-* Spark (3.4.2)
-* Flink (1.18.1)
-* Trino (436)
-* ZooKeeper (3.8.3)
-* Ranger (2.4.0)
-* Grafana (9.5.2)
-* Prometheus (latest)
-* Loki (2.8.0)
-* Kafka (2.8.1)
-* MySQL (8.0)
+| Name           | Version | Kerberos Ready | Note |
+| -------------- | ------- | -------------- | ---- |
+| Hadoop HDFS    | 3.3.6   | Yes            |      | 
+| Hadoop YARN    | 3.3.6   | Yes            |      |
+| Hive Metastore | 2.3.9   | Yes            |      |
+| HiveServer2    | 2.3.9   | Yes            |      |
+| Kyuubi         | 1.8.1   | Yes            |      |
+| Spark          | 3.4.2   | Yes            |      |
+| Flink          | 1.18.1  | Not Yet        |      |
+| Trino          | 436     | Not Yet        |      |
+| Ranger         | 2.4.0   | Not Yet        |      |
+| ZooKeeper      | 3.8.3   | Not Yet        |      |
+| Kafka          | 2.8.1   | Not Yet        |      |
+| MySQL          | 8.0     | No             |      |
+| Grafana        | 9.5.2   | No             |      |
+| Prometheus     | latest  | No             |      |
+| Loki           | 2.8.0   | No             |      |
+| Iceberg        | 1.4.2   | No             |      |
+| Hudi           | 0.14.1  | No             |      |
 
 ## JDK
 
@@ -166,6 +170,11 @@ Firstly, use ansible to render some build files(`download.sh`, `.env`, `compose.
 
 ```
 ansible-playbook playbook.yaml
+```
+
+By default, all services disable authN, you can enable Kerberos by passing the `kerberos_enabled` variable:
+```
+ansible-playbook playbook.yaml -e "{kerberos_enabled: true}"
 ```
 
 You can add `-vvv` arg to debug the playbook:
