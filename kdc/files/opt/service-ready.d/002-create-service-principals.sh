@@ -23,11 +23,11 @@ create_principal -p spark/hadoop-master1.orb.local -k /share/keytabs/hadoop-mast
 for i in {1..3}; do
   mkdir -p /share/keytabs/hadoop-worker$i
   # HDFS DataNode
-  create_principal -p dn/worker -k /share/keytabs/hadoop-worker$i/dn.service.keytab
-  create_principal -p host/worker -k /share/keytabs/hadoop-worker$i/dn.service.keytab
+  create_principal -p dn/hadoop-worker$i.orb.local -k /share/keytabs/hadoop-worker$i/dn.service.keytab
+  create_principal -p host/hadoop-worker$i.orb.local -k /share/keytabs/hadoop-worker$i/dn.service.keytab
   # YARN NodeManger
-  create_principal -p nm/worker -k /share/keytabs/hadoop-worker$i/nm.service.keytab
-  create_principal -p host/worker -k /share/keytabs/hadoop-worker$i/nm.service.keytab
+  create_principal -p nm/hadoop-worker$i.orb.local -k /share/keytabs/hadoop-worker$i/nm.service.keytab
+  create_principal -p host/hadoop-worker$i.orb.local -k /share/keytabs/hadoop-worker$i/nm.service.keytab
 done
 
 chmod -R a+r /share/keytabs

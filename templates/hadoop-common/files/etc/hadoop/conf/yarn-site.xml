@@ -1,5 +1,26 @@
 <?xml version="1.0"?>
 <configuration>
+  {% if kerberos_enabled %}
+  <!-- ResourceManager -->
+  <property>
+    <name>yarn.resourcemanager.principal</name>
+    <value>rm/_HOST@TEST.ORG</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.keytab</name>
+    <value>/share/keytabs/{{ node.name }}/rm.service.keytab</value>
+  </property>
+
+  <!-- NodeManager -->
+  <property>
+    <name>yarn.nodemanager.principal</name>
+    <value>nm/_HOST@TEST.ORG</value>
+  </property>
+  <property>
+    <name>yarn.nodemanager.keytab</name>
+    <value>/share/keytabs/{{ node.name }}/nm.service.keytab</value>
+  </property>
+  {% endif %}
   <property>
     <name>yarn.resourcemanager.address</name>
     <value>hadoop-master1.orb.local:8032</value>
