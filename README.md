@@ -22,13 +22,15 @@ We try to deploy a big data ecosystem in multiple Docker containers to simulate 
 
 # Prepare
 
-This project uses [ansible](https://www.ansible.com/) to render the Dockerfile, shell scripts, and configuration files from the templates. Please make sure you have installed it before building.
+This project uses [Ansible](https://www.ansible.com/) to render the Dockerfile, shell scripts, and configuration files from the templates. Please make sure you have installed it before building.
 
-Considering, ansible strongly depends on the Python environment. To make the Python environment independent and easy to manage, it is recommended to use `pyenv` and `virtualenv` to manage Python environment. 
+## (Optional, Recommended) Install pyenv
 
-Here we provide guides for macOS and centOS users.
+Considering, ansible strongly depends on the Python environment. To make the Python environment independent and easy to manage, it is recommended to use [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv) to manage Python environment. 
 
-## MacOS
+Here we provide guides for macOS and CentOS users.
+
+### macOS
 
 Install from Homebrew
 
@@ -43,7 +45,7 @@ eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 ```
 
-## CentOS
+### CentOS
 
 Before installing, we need to install some required packages.
 
@@ -77,9 +79,11 @@ eval "$(pyenv virtualenv-init -)"
 
 After all, source `~/.bash_profile` and `~/.bashrc`.
 
-### Install nc
+## (Optional) Configure SSH
 
-To let ansible control the host itself and all the hadoop related containers, we need to install `nc` command:
+This step allows you to ssh all the `hadoop-*` containers from your host, then can use ansible to control all the `hadoop-*` containers.
+
+The macOS should have pre-installed `nc`, and you can manually install `nc` on CentOS using the following command:
 
 ```bash
 yum install epel-release && yum install -y nc
