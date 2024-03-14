@@ -2,6 +2,8 @@
 
 set -exuo pipefail
 
+remove-service-ready-mark -s hdfs
+
 "$@" &
 
 if [[ -v POST_BOOTSTRAP_COMMAND ]]; then
