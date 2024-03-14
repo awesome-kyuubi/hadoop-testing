@@ -21,8 +21,6 @@
 kyuubi.authentication                    KERBEROS
 kyuubi.kinit.principal                   kyuubi/_HOST@TEST.ORG
 kyuubi.kinit.keytab                      /share/keytabs/hadoop-master1/kyuubi.service.keytab
-{% else %}
-kyuubi.authentication                    NONE
 {% endif %}
 
 kyuubi.frontend.bind.host                hadoop-master1.orb.local
