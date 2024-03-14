@@ -1,5 +1,34 @@
 <?xml version="1.0"?>
 <configuration>
+  {% if kerberos_enabled %}
+  <!-- Hive Server2 -->
+  <property>
+    <name>hive.server2.authentication</name>
+    <value>kerberos</value>
+  </property>
+  <property>
+    <name>hive.server2.authentication.kerberos.principal</name>
+    <value>hive/_HOST@TEST.ORG</value>
+  </property>
+  <property>
+    <name>hive.server2.authentication.kerberos.keytab</name>
+    <value>/share/keytabs/hadoop-master1/hive.service.keytab</value>
+  </property>
+
+  <!-- Hive MetaStore -->
+  <property>
+    <name>hive.metastore.sasl.enabled</name>
+    <value>true</value>
+  </property>
+  <property>
+    <name>hive.metastore.kerberos.principal</name>
+    <value>hive/_HOST@TEST.ORG</value>
+  </property>
+  <property>
+    <name>hive.metastore.kerberos.keytab.file</name>
+    <value>/share/keytabs/hadoop-master1/hive.service.keytab</value>
+  </property>
+  {% endif %}
   <property>
     <name>hive.metastore.warehouse.dir</name>
     <value>hdfs://hadoop-master1.orb.local:8020/warehouse</value>
