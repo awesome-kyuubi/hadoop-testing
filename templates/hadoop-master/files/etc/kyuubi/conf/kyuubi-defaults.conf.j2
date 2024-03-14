@@ -17,9 +17,12 @@
 
 ## Kyuubi Configurations
 
-#
-# kyuubi.authentication                    NONE
-#
+{% if kerberos_enabled %}
+kyuubi.authentication                    KERBEROS
+kyuubi.kinit.principal                   kyuubi/_HOST@TEST.ORG
+kyuubi.kinit.keytab                      /share/keytabs/hadoop-master1/kyuubi.service.keytab
+{% endif %}
+
 kyuubi.frontend.bind.host                hadoop-master1.orb.local
 kyuubi.frontend.protocols                THRIFT_BINARY,REST
 kyuubi.frontend.thrift.binary.bind.port  10009
@@ -36,5 +39,7 @@ kyuubi.ha.namespace                      kyuubi
 kyuubi.engine.session.initialize.sql \
       show databases in tpcds; \
       show databases in tpch
+
+spark.yarn.maxAppAttempts                1
 
 # Details in https://kyuubi.readthedocs.io/en/master/configuration/settings.html
