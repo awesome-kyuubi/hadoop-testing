@@ -21,7 +21,20 @@
       with_items:
         - { file: "download.sh", mode: "a+x" }
 
+    - include_tasks: node-template.yaml
+      loop:
+        - name: "hadoop-master1"
+          group: "hadoop-master"
+        - name: "hadoop-worker1"
+          group: "hadoop-worker"
+        - name: "hadoop-worker2"
+          group: "hadoop-worker"
+        - name: "hadoop-worker3"
+          group: "hadoop-worker"
+      loop_control:
+        loop_var: node
+
     - name: orchestrate compose file
       ansible.builtin.template:
-         src: templates/compose.yaml.j2
-         dest: "{{ playbook_dir }}/compose.yaml"
+        src: templates/compose.yaml.j2
+        dest: "{{ playbook_dir }}/compose.yaml"
