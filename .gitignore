@@ -15,5 +15,5 @@ build/tmp
 .env
 download.sh
 compose.yaml
-./hadoop-master*/
-./hadoop-worker*/
+hadoop-master*/
+hadoop-worker*/
