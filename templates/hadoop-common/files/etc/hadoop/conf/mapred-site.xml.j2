@@ -1,5 +1,15 @@
 <?xml version="1.0"?>
 <configuration>
+  {% if kerberos_enabled %}
+  <property>
+    <name>mapreduce.jobhistory.keytab</name>
+    <value>/share/keytabs/hadoop-master1/jhs.service.keytab</value>
+  </property>
+  <property>
+    <name>mapreduce.jobhistory.principal</name>
+    <value>jhs/_HOST@TEST.ORG</value>
+  </property>
+  {% endif %}
   <property>
     <name>mapreduce.jobtracker.address</name>
     <value>hadoop-master1.orb.local:8021</value>
