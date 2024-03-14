@@ -20,6 +20,36 @@ We try to deploy a big data ecosystem in multiple Docker containers to simulate 
    - Solution architect: Sandbox simulation of migration work, work shop demonstration;
    - Data ETL engineer: a test environment that is easy to build and destroy;
 
+# Components
+
+The supported components are listed below:
+
+| Name           | Version | Kerberos Ready | Note |
+| -------------- | ------- | -------------- | ---- |
+| Hadoop HDFS    | 3.3.6   | Yes            |      | 
+| Hadoop YARN    | 3.3.6   | Yes            |      |
+| Hive Metastore | 2.3.9   | Yes            |      |
+| HiveServer2    | 2.3.9   | Yes            |      |
+| Kyuubi         | 1.8.1   | Yes            |      |
+| Spark          | 3.4.2   | Yes            |      |
+| Flink          | 1.18.1  | Not Yet        |      |
+| Trino          | 436     | Not Yet        |      |
+| Ranger         | 2.4.0   | Not Yet        |      |
+| ZooKeeper      | 3.8.3   | Not Yet        |      |
+| Kafka          | 2.8.1   | Not Yet        |      |
+| MySQL          | 8.0     | No             |      |
+| Grafana        | 9.5.2   | No             |      |
+| Prometheus     | latest  | No             |      |
+| Loki           | 2.8.0   | No             |      |
+| Iceberg        | 1.4.2   | No             |      |
+| Hudi           | 0.14.1  | No             |      |
+
+## JDK
+
+* JDK 8 (1.8.0.392, default)
+* JDK 17 (17.0.9)
+* JDK 21 (21.0.1)
+
 # Prepare
 
 This project uses [Ansible](https://www.ansible.com/) to render the Dockerfile, shell scripts, and configuration files from the templates. Please make sure you have installed it before building.
@@ -138,36 +168,6 @@ Install packages to the isolated virtualenv
 ```
 pip install -r requirements.txt
 ```
-
-# Components
-
-The supported components are listed below:
-
-| Name           | Version | Kerberos Ready | Note |
-| -------------- | ------- | -------------- | ---- |
-| Hadoop HDFS    | 3.3.6   | Yes            |      | 
-| Hadoop YARN    | 3.3.6   | Yes            |      |
-| Hive Metastore | 2.3.9   | Yes            |      |
-| HiveServer2    | 2.3.9   | Yes            |      |
-| Kyuubi         | 1.8.1   | Yes            |      |
-| Spark          | 3.4.2   | Yes            |      |
-| Flink          | 1.18.1  | Not Yet        |      |
-| Trino          | 436     | Not Yet        |      |
-| Ranger         | 2.4.0   | Not Yet        |      |
-| ZooKeeper      | 3.8.3   | Not Yet        |      |
-| Kafka          | 2.8.1   | Not Yet        |      |
-| MySQL          | 8.0     | No             |      |
-| Grafana        | 9.5.2   | No             |      |
-| Prometheus     | latest  | No             |      |
-| Loki           | 2.8.0   | No             |      |
-| Iceberg        | 1.4.2   | No             |      |
-| Hudi           | 0.14.1  | No             |      |
-
-## JDK
-
-* JDK 8 (1.8.0.392, default)
-* JDK 17 (17.0.9)
-* JDK 21 (21.0.1)
 
 ## How to use
 
