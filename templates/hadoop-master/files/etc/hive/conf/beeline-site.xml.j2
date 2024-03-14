@@ -1,9 +1,16 @@
 <?xml version="1.0"?>
 <configuration>
+  {% if kerberos_enabled %}
+  <property>
+    <name>beeline.hs2.jdbc.url.tcpUrl</name>
+    <value>jdbc:hive2://hadoop-master1.orb.local:10000/default;principal=hive/_HOST@TEST.ORG</value>
+  </property>
+  {% else %}
   <property>
     <name>beeline.hs2.jdbc.url.tcpUrl</name>
     <value>jdbc:hive2://hadoop-master1.orb.local:10000/default;user=hive;password=hive</value>
   </property>
+  {% endif %}
   <property>
     <name>beeline.hs2.jdbc.url.default</name>
     <value>tcpUrl</value>
