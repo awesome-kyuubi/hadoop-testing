@@ -1,5 +1,5 @@
-# hadoop-testing
-
+Hadoop Testing
+==============
 This serves as a testing sandbox for Hadoop, equipped with fundamental components
 of the Hadoop ecosystem to facilitate the rapid establishment of test environments.
 
@@ -9,7 +9,7 @@ We try to deploy a big data ecosystem in multiple Docker containers to simulate 
 
 > Draw by [excalidraw](https://excalidraw.com/)
 
-# Features
+## Features
 
 * Realistic simulation of production environment;
 * Kerberos ready, and optional;
@@ -20,7 +20,7 @@ We try to deploy a big data ecosystem in multiple Docker containers to simulate 
    - Solution architect: Sandbox simulation of migration work, work shop demonstration;
    - Data ETL engineer: a test environment that is easy to build and destroy;
 
-# Components
+## Components
 
 The supported components are listed below:
 
@@ -44,23 +44,23 @@ The supported components are listed below:
 | Iceberg        | 1.4.2   | No             |      |
 | Hudi           | 0.14.1  | No             |      |
 
-## JDK
+### JDK
 
 * JDK 8 (1.8.0.392, default)
 * JDK 17 (17.0.9)
 * JDK 21 (21.0.1)
 
-# Prepare
+## Prepare
 
 This project uses [Ansible](https://www.ansible.com/) to render the Dockerfile, shell scripts, and configuration files from the templates. Please make sure you have installed it before building.
 
-## (Optional, Recommended) Install pyenv
+### (Optional, Recommended) Install pyenv
 
 Considering, ansible strongly depends on the Python environment. To make the Python environment independent and easy to manage, it is recommended to use [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv) to manage Python environment. 
 
 Here we provide guides for macOS and CentOS users.
 
-### macOS
+#### macOS
 
 Install from Homebrew
 
@@ -75,7 +75,7 @@ eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 ```
 
-### CentOS
+#### CentOS
 
 Before installing, we need to install some required packages.
 
@@ -109,7 +109,7 @@ eval "$(pyenv virtualenv-init -)"
 
 After all, source `~/.bash_profile` and `~/.bashrc`.
 
-## (Optional) Configure SSH
+### (Optional) Configure SSH
 
 This step allows you to ssh all the `hadoop-*` containers from your host, then can use ansible to control all the `hadoop-*` containers.
 
@@ -148,7 +148,7 @@ It should print all nodes' OS information (include host and hadoop related conta
 
 If not, use `-vvv` config option to debug it.
 
-## Use pyenv
+### Use pyenv
 
 Create virtualenv
 
