@@ -20,7 +20,7 @@ COPY ./files /
 
 RUN set -xeu && \
     ln -snf /usr/bin/bash /usr/bin/sh && \
-    install_packages busybox python3-pip supervisor xsltproc curl tree python-is-python3 openssh-client openssh-server && \
+    install_packages busybox python3-pip supervisor xsltproc curl tree python-is-python3 openssh-client openssh-server krb5-user jsvc && \
     mkdir /run/sshd && chmod 0755 /run/sshd && \
     mkdir /opt/busybox && busybox --install /opt/busybox
 

@@ -8,9 +8,9 @@ if [[ -v POST_BOOTSTRAP_COMMAND ]]; then
     $POST_BOOTSTRAP_COMMAND
 fi
 
-if [[ -d /docker/kerberos-init.d ]]; then
-    for init_script in /docker/kerberos-init.d/*; do
-        "${init_script}"
+if [[ -d /opt/service-ready.d ]]; then
+    for init_script in /opt/service-ready.d/*; do
+        bash "${init_script}"
     done
 fi
 

@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+  {% if kerberos_enabled %}
+  <property>
+    <name>hadoop.security.authentication</name>
+    <value>kerberos</value>
+  </property>
+  <property>
+    <name>hadoop.security.authorization</name>
+    <value>true</value>
+  </property>
+  <property>
+    <name>hadoop.rpc.protection</name>
+    <value>authentication</value>
+  </property>
+  <property>
+    <name>hadoop.security.auth_to_local</name>
+    <value>DEFAULT RULE:[1:$1] RULE:[2:$1]</value>
+  </property>
+  {% endif %}
   <property>
     <name>fs.defaultFS</name>
     <value>hdfs://hadoop-master1.orb.local:8020</value>

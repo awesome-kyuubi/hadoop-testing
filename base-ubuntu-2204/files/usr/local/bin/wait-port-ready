@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+timeout=60
+interval=1
+
+set -euo pipefail
+
+function usage() {
+    echo "Usage: $0 [-t <timeout>] [-i <interval>] -p <port> " >&2
+    exit 1
+}
+
+while getopts "t:i:p:" o; do
+    case "${o}" in
+        t)
+            timeout="$OPTARG"
+            ;;
+        i)
+            interval="$OPTARG"
+            ;;
+        p)
+            port="$OPTARG"
+            ;;
+        *)
+    esac
+done
+
+if [[ ! -v port ]]; then
+    usage
+fi
+
+end_time=$((SECONDS + timeout))
+
+while [ $SECONDS -lt $end_time ]; do
+    if /opt/busybox/nc $(hostname) $port -e true; then
+        echo "Port $port is now available"
+        break
+    else
+        echo "Port $port is not available, retrying in $interval seconds..."
+        sleep $interval
+    fi
+done
+
+if [ $SECONDS -ge $end_time ]; then
+    echo "Timeout reached. Port $port is still not available."
+    exit 1
+fi

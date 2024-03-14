@@ -10,7 +10,7 @@ fi
 
 if [[ -d /opt/service-ready.d ]]; then
     for init_script in /opt/service-ready.d/*; do
-        "${init_script}"
+        bash "${init_script}"
     done
 fi
 

@@ -115,4 +115,5 @@ EXPOSE 6080
 # Trino ports
 EXPOSE 18081
 
-CMD supervisord -c /etc/supervisord.conf
+CMD ["supervisord", "-c", "/etc/supervisord.conf"]
+ENTRYPOINT ["/opt/entrypoint.sh"]
