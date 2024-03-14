@@ -20,6 +20,14 @@
     <name>yarn.nodemanager.keytab</name>
     <value>/share/keytabs/{{ node.name }}/nm.service.keytab</value>
   </property>
+  <property>
+    <name>yarn.nodemanager.container-executor.class</name>
+    <value>org.apache.hadoop.yarn.server.nodemanager.LinuxContainerExecutor</value>
+  </property>
+  <property>
+    <name>yarn.nodemanager.linux-container-executor.group</name>
+    <value>hadoop</value>
+  </property>
   {% endif %}
   <property>
     <name>yarn.resourcemanager.address</name>

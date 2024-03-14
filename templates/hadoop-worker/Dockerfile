@@ -11,7 +11,7 @@
 # limitations under the License.
 
 ARG PROJECT_VERSION
-FROM hadoop-testing/base-ubuntu-2204:$PROJECT_VERSION
+FROM hadoop-testing/base-ubuntu-2004:$PROJECT_VERSION
 
 ARG HADOOP_VERSION
 ARG SPARK_VERSION
@@ -33,6 +33,12 @@ COPY ./files /
 RUN ln -snf /opt/hadoop-${HADOOP_VERSION} ${HADOOP_HOME} && \
     ln -snf spark-${SPARK_VERSION}-bin-hadoop3 /opt/spark && \
     ln -snf /opt/trino-server-${TRINO_VERSION} ${TRINO_HOME}
+
+RUN chown -R root:hadoop /opt/hadoop-${HADOOP_VERSION} && \
+    chmod 6050 /opt/hadoop-${HADOOP_VERSION}/bin/container-executor && \
+    chown root:hadoop /etc/hadoop/conf/container-executor.cfg && \
+    chmod 0400 /etc/hadoop/conf/container-executor.cfg && \
+    mv -f /etc/hadoop/conf/container-executor.cfg /opt/hadoop-${HADOOP_VERSION}/etc/hadoop
 
 RUN /opt/hadoop-init.d/init-hdfs.sh
 RUN /opt/trino-init.d/init-workdir.sh

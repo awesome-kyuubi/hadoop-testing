@@ -38,7 +38,7 @@ ${BUILD_CMD} \
   --build-arg JDK8_TAR_NAME=${JDK8_TAR_NAME} \
   --build-arg JDK17_TAR_NAME=${JDK17_TAR_NAME} \
   --build-arg JDK21_TAR_NAME=${JDK21_TAR_NAME} \
-  --tag hadoop-testing/base-ubuntu-2204:${PROJECT_VERSION} \
+  --tag hadoop-testing/base-ubuntu-2004:${PROJECT_VERSION} \
   "${SELF_DIR}/base-ubuntu-2204" $@
 
 rm -rf base-ubuntu-2204/download/*
