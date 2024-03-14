@@ -4,6 +4,8 @@ services:
     image: hadoop-testing/mysql:${PROJECT_VERSION}
     hostname: mysql.orb.local
     container_name: mysql
+    networks:
+      - hadoop_net
     ports:
       - 3306:3306
 {% endif %}
@@ -12,6 +14,8 @@ services:
     image: serjs/go-socks5-proxy
     hostname: socks5.orb.local
     container_name: socks5
+    networks:
+      - hadoop_net
     environment:
       - PROXY_PORT=18070
     ports:
@@ -21,6 +25,8 @@ services:
     image: hadoop-testing/hadoop-master1:${PROJECT_VERSION}
     hostname: hadoop-master1.orb.local
     container_name: hadoop-master1
+    networks:
+      - hadoop_net
     volumes:
       - share:/share
     ports:
@@ -38,6 +44,8 @@ services:
     image: hadoop-testing/hadoop-worker1:${PROJECT_VERSION}
     hostname: hadoop-worker1.orb.local
     container_name: hadoop-worker1
+    networks:
+      - hadoop_net
     privileged: true
     volumes:
       - share:/share
@@ -48,6 +56,8 @@ services:
     image: hadoop-testing/hadoop-worker2:${PROJECT_VERSION}
     hostname: hadoop-worker2.orb.local
     container_name: hadoop-worker2
+    networks:
+      - hadoop_net
     privileged: true
     volumes:
       - share:/share
@@ -58,6 +68,8 @@ services:
     image: hadoop-testing/hadoop-worker3:${PROJECT_VERSION}
     hostname: hadoop-worker3.orb.local
     container_name: hadoop-worker3
+    networks:
+      - hadoop_net
     privileged: true
     volumes:
       - share:/share
@@ -69,6 +81,8 @@ services:
     image: hadoop-testing/kdc:${PROJECT_VERSION}
     hostname: kdc.orb.local
     container_name: kdc
+    networks:
+      - hadoop_net
     volumes:
       - share:/share
     ports:
@@ -81,6 +95,8 @@ services:
     image: prom/prometheus
     hostname: prometheus.orb.local
     container_name: prometheus
+    networks:
+      - hadoop_net
     volumes:
       - ./files/etc/prometheus:/etc/prometheus
     ports:
@@ -92,6 +108,8 @@ services:
     image: grafana/loki:${LOKI_VERSION}
     hostname: loki.orb.local
     container_name: loki
+    networks:
+      - hadoop_net
     volumes:
       - ./files/etc/loki:/etc/loki
     ports:
@@ -104,6 +122,8 @@ services:
     image: grafana/grafana-oss:${GRAFANA_VERSION}
     hostname: grafana.orb.local
     container_name: grafana
+    networks:
+      - hadoop_net
     environment:
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
       - GF_AUTH_ANONYMOUS_ENABLED=true
@@ -120,6 +140,8 @@ services:
     image: bitnami/kafka:{{ kafka_version }}
     hostname: kafka.orb.local
     container_name: kafkabroker
+    networks:
+      - hadoop_net
     ports:
       - 9092:9092
     environment:
@@ -131,3 +153,8 @@ services:
 
 volumes:
   share:
+
+networks:
+  hadoop_net:
+    name: orb.local
+    driver: bridge
