@@ -47,7 +47,6 @@ ENV RANGER_HOME=/opt/ranger
 {% if trino_enabled %}
 ENV TRINO_HOME=/opt/trino
 {% endif %}
-ENV HUDI_VERSION=${HUDI_VERSION}
 ENV MYSQL_JDBC_VERSION=${MYSQL_JDBC_VERSION}
 ENV PATH=${KYUUBI_HOME}/bin:${SPARK_HOME}/bin:${HIVE_HOME}/bin:${HADOOP_HOME}/bin:${ZOOKEEPER_HOME}/bin:${PATH}
 
@@ -90,7 +89,9 @@ ADD download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar ${HIVE_HOME}/lib/
 {% if ranger_enabled %}
 ADD download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar ${RANGER_HOME}/
 {% endif %}
+{% if hudi_enabled %}
 ADD download/hudi-spark${SPARK_BINARY_VERSION}-bundle_${SCALA_BINARY_VERSION}-${HUDI_VERSION}.jar /opt/hudi/
+{% endif %}
 ADD download/jcl-over-slf4j-1.7.36.jar ${FLINK_HOME}/lib/
 {% if trino_enabled %}
 ADD --chmod=755 download/trino-cli-${TRINO_VERSION}-executable.jar ${TRINO_HOME}/bin/trino-cli

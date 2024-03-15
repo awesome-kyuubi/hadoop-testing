@@ -13,7 +13,7 @@ jdk21_enabled: false
 zulu21_version: 21.30.15
 jdk21_version: 21.0.1
 
-aws_java_sdk_enabled: true
+s3_enabled: false
 aws_java_sdk_version: 1.12.620
 
 # components
@@ -52,7 +52,7 @@ trino_version: 436
 iceberg_enabled: true
 iceberg_version: 1.4.2
 
-hudi_enabled: true
+hudi_enabled: false
 hudi_version: 0.14.1
 
 kafka_enabled: false

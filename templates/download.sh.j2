@@ -63,6 +63,7 @@ download_if_not_exists ${MAVEN_MIRROR}/io/trino/trino-cli/${TRINO_VERSION}/trino
 MYSQL_JDBC_JAR_NAME=mysql-connector-j
 download_if_not_exists ${MAVEN_MIRROR}/com/mysql/${MYSQL_JDBC_JAR_NAME}/${MYSQL_JDBC_VERSION}/${MYSQL_JDBC_JAR_NAME}-${MYSQL_JDBC_VERSION}.jar
 
+{% if s3_enabled %}
 HADOOP_AWS_JAR_NAME=hadoop-aws
 download_if_not_exists ${MAVEN_MIRROR}/org/apache/hadoop/${HADOOP_AWS_JAR_NAME}/${SPARK_HADOOP_VERSION}/${HADOOP_AWS_JAR_NAME}-${SPARK_HADOOP_VERSION}.jar
 AWS_JAVA_SDK_BUNDLE_JAR_NAME=aws-java-sdk-bundle
@@ -71,6 +72,7 @@ SPARK_HADOOP_CLOUD_JAR_NAME=spark-hadoop-cloud_${SCALA_BINARY_VERSION}
 download_if_not_exists ${MAVEN_MIRROR}/org/apache/spark/${SPARK_HADOOP_CLOUD_JAR_NAME}/${SPARK_VERSION}/${SPARK_HADOOP_CLOUD_JAR_NAME}-${SPARK_VERSION}.jar
 HADOOP_CLOUD_STORAGE_JAR_NAME=hadoop-cloud-storage
 download_if_not_exists ${MAVEN_MIRROR}/org/apache/hadoop/${HADOOP_CLOUD_STORAGE_JAR_NAME}/${SPARK_HADOOP_VERSION}/${HADOOP_CLOUD_STORAGE_JAR_NAME}-${SPARK_HADOOP_VERSION}.jar
+{% endif %}
 
 TPCDS_CONNECTOR_JAR_NAME=kyuubi-spark-connector-tpcds_${SCALA_BINARY_VERSION}
 download_if_not_exists ${MAVEN_MIRROR}/org/apache/kyuubi/${TPCDS_CONNECTOR_JAR_NAME}/${KYUUBI_VERSION}/${TPCDS_CONNECTOR_JAR_NAME}-${KYUUBI_VERSION}.jar
@@ -80,8 +82,10 @@ download_if_not_exists ${MAVEN_MIRROR}/org/apache/kyuubi/${TPCH_CONNECTOR_JAR_NA
 ICEBERG_SPARK_JAR_NAME=iceberg-spark-runtime-${SPARK_BINARY_VERSION}_${SCALA_BINARY_VERSION}
 download_if_not_exists ${MAVEN_MIRROR}/org/apache/iceberg/${ICEBERG_SPARK_JAR_NAME}/${ICEBERG_VERSION}/${ICEBERG_SPARK_JAR_NAME}-${ICEBERG_VERSION}.jar
 
+{% if hudi_enabled %}
 HUDI_SPARK_BUNDLE_JAR_NAME=hudi-spark${SPARK_BINARY_VERSION}-bundle_${SCALA_BINARY_VERSION}
 download_if_not_exists https://github.com/yanghua/incubator-hudi/releases/download/release-${HUDI_VERSION}/${HUDI_SPARK_BUNDLE_JAR_NAME}-${HUDI_VERSION}.jar
+{% endif %}
 
 LOKI_APPENDER_JAR_NAME=log4j2-appender-nodep
 download_if_not_exists ${MAVEN_MIRROR}/pl/tkowalcz/tjahzi/${LOKI_APPENDER_JAR_NAME}/${LOKI_APPENDER_VERSION}/${LOKI_APPENDER_JAR_NAME}-${LOKI_APPENDER_VERSION}.jar
