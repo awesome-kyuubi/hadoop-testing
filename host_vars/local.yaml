@@ -73,3 +73,4 @@ mysql_enabled: true
 repository_apache: https://mirrors.cloud.tencent.com/apache
 repository_maven: https://mirrors.cloud.tencent.com/maven
 
+apt_mirror_enabled: true

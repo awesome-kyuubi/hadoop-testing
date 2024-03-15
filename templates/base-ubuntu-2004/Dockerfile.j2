@@ -18,6 +18,10 @@ ARG JDK21_TAR_NAME
 
 COPY ./files /
 
+{% if apt_mirror_enabled %}
+RUN cat /etc/apt/sources.list.mirror-$(uname -m) > /etc/apt/sources.list
+{% endif %}
+
 RUN set -xeu && \
     ln -snf /usr/bin/bash /usr/bin/sh && \
     install_packages busybox python3-pip supervisor xsltproc curl tree python-is-python3 openssh-client openssh-server \
