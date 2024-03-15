@@ -24,25 +24,26 @@ We try to deploy a big data ecosystem in multiple Docker containers to simulate 
 
 The supported components are listed below:
 
-| Name           | Version | Kerberos Ready | Note |
-| -------------- | ------- | -------------- | ---- |
-| Hadoop HDFS    | 3.3.6   | Yes            |      | 
-| Hadoop YARN    | 3.3.6   | Yes            |      |
-| Hive Metastore | 2.3.9   | Yes            |      |
-| HiveServer2    | 2.3.9   | Yes            |      |
-| Kyuubi         | 1.8.1   | Yes            |      |
-| Spark          | 3.4.2   | Yes            |      |
-| Flink          | 1.18.1  | Not Yet        |      |
-| Trino          | 436     | Not Yet        |      |
-| Ranger         | 2.4.0   | Not Yet        |      |
-| ZooKeeper      | 3.8.3   | Not Yet        |      |
-| Kafka          | 2.8.1   | Not Yet        |      |
-| MySQL          | 8.0     | No             |      |
-| Grafana        | 9.5.2   | No             |      |
-| Prometheus     | latest  | No             |      |
-| Loki           | 2.8.0   | No             |      |
-| Iceberg        | 1.4.2   | No             |      |
-| Hudi           | 0.14.1  | No             |      |
+| Name           | Version | Kerberos Ready | Note          |
+| -------------- | ------- | -------------- | ------------- |
+| Hadoop HDFS    | 3.3.6   | Yes            |               | 
+| Hadoop YARN    | 3.3.6   | Yes            |               |
+| Hive Metastore | 2.3.9   | Yes            |               |
+| HiveServer2    | 2.3.9   | Yes            |               |
+| Kyuubi         | 1.8.1   | Yes            |               |
+| Spark          | 3.4.2   | Yes            |               |
+| Flink          | 1.18.1  | Not Yet        |               |
+| Trino          | 436     | Not Yet        |               |
+| Ranger         | 2.4.0   | Not Yet        |               |
+| ZooKeeper      | 3.8.3   | Not Yet        |               |
+| Kafka          | 2.8.1   | Not Yet        |               |
+| MySQL          | 8.0     | No             |               |
+| KDC            | latest  | Yes            | APT-installed |
+| Grafana        | 9.5.2   | No             |               |
+| Prometheus     | latest  | No             |               |
+| Loki           | 2.8.0   | No             |               |
+| Iceberg        | 1.4.2   | No             |               |
+| Hudi           | 0.14.1  | No             |               |
 
 ### JDK
 
