@@ -33,6 +33,9 @@ if [ $(uname -m) = "arm64" ] || [ $(uname -m) = "aarch64" ]; then JDK21_TAR_NAME
 download_if_not_exists https://cdn.azul.com/zulu/bin/${JDK21_TAR_NAME}.tar.gz
 {% endif %}
 
+{% if zeppelin_enabled %}
+download_if_not_exists ${APACHE_MIRROR}/zeppelin/zeppelin-${ZEPPELIN_VERSION}/zeppelin-${ZEPPELIN_VERSION}-bin-netinst.tgz
+{% endif %}
 {% if zookeeper_enabled %}
 download_if_not_exists ${APACHE_MIRROR}/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/apache-zookeeper-${ZOOKEEPER_VERSION}-bin.tar.gz
 {% endif %}
