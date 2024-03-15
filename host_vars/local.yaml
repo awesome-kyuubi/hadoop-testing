@@ -5,11 +5,11 @@ jdk8_enabled: true
 zulu8_version: 8.74.0.17
 jdk8_version: 8.0.392
 
-jdk17_enabled: true
+jdk17_enabled: false
 zulu17_version: 17.46.19
 jdk17_version: 17.0.9
 
-jdk21_enabled: true
+jdk21_enabled: false
 zulu21_version: 21.30.15
 jdk21_version: 21.0.1
 
@@ -46,7 +46,7 @@ kyuubi_hadoop_version: 3.3.6
 ranger_enabled: true
 ranger_version: 2.4.0
 
-trino_enabled: true
+trino_enabled: false
 trino_version: 436
 
 iceberg_enabled: true

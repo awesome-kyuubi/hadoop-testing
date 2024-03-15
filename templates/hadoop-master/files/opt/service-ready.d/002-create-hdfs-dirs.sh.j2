@@ -59,6 +59,6 @@ export HADOOP_USER_NAME=hdfs
 /opt/hadoop/bin/hadoop fs -chown spark /spark-history
 
 # init hive directories
-/opt/hadoop/bin/hadoop fs -mkdir /warehouse
+/opt/hadoop/bin/hadoop fs -mkdir -p /warehouse
 /opt/hadoop/bin/hadoop fs -chmod 1777 /warehouse
 /opt/hadoop/bin/hadoop fs -chown hive /warehouse

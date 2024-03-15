@@ -3,23 +3,17 @@
 
   hosts: local
 
-  pre_tasks:
-    - name: orchestrate env file
-      ansible.builtin.template:
-        src: templates/{{ item.file }}.j2
-        dest: "{{ playbook_dir }}/.{{ item.file }}"
-        mode: "{{ item.mode }}"
-      with_items:
-        - { file: "env", mode: "a+x" }
-
   tasks:
-    - name: orchestrate download file
+    - name: orchestrate basic files
       ansible.builtin.template:
         src: templates/{{ item.file }}.j2
         dest: "{{ playbook_dir }}/{{ item.file }}"
         mode: "{{ item.mode }}"
       with_items:
+        - { file: ".env", mode: "a+x" }
+        - { file: "build-image.sh", mode: "a+x" }
         - { file: "download.sh", mode: "a+x" }
+        - { file: "base-ubuntu-2004/Dockerfile", mode: ~ }
 
     - include_tasks: node-template.yaml
       loop:
