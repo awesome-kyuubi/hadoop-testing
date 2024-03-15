@@ -43,7 +43,7 @@ kyuubi_enabled: true
 kyuubi_version: 1.8.1
 kyuubi_hadoop_version: 3.3.6
 
-ranger_enabled: true
+ranger_enabled: false
 ranger_version: 2.4.0
 
 trino_enabled: false

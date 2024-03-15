@@ -65,7 +65,9 @@ function build_hadoop_master_image() {
   cp download/spark-${SPARK_VERSION}-bin-hadoop3.tgz hadoop-master${INDEX}/download/spark-${SPARK_VERSION}-bin-hadoop3.tgz
   cp download/flink-${FLINK_VERSION}-bin-scala_${SCALA_BINARY_VERSION}.tgz hadoop-master${INDEX}/download/flink-${FLINK_VERSION}-bin-scala_${SCALA_BINARY_VERSION}.tgz
   cp download/apache-kyuubi-${KYUUBI_VERSION}-bin.tgz hadoop-master${INDEX}/download/apache-kyuubi-${KYUUBI_VERSION}-bin.tgz
+  {% if ranger_enabled %}
   cp download/ranger-${RANGER_VERSION}-admin.tar.gz hadoop-master${INDEX}/download/ranger-${RANGER_VERSION}-admin.tar.gz
+  {% endif %}
   cp download/kyuubi-spark-connector-tpch_${SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar hadoop-master${INDEX}/download/kyuubi-spark-connector-tpch_${SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar
   cp download/kyuubi-spark-connector-tpcds_${SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar hadoop-master${INDEX}/download/kyuubi-spark-connector-tpcds_${SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar
   cp download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar hadoop-master${INDEX}/download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar
