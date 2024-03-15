@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+dir=/share/marks/ready.d/
+
+set -euo pipefail
+
+function usage() {
+    echo "Usage: $0 [-d <dir>] -s <service> " >&2
+    exit 1
+}
+
+while getopts "d:s:" o; do
+    case "${o}" in
+        d)
+            dir="$OPTARG"
+            ;;
+        s)
+            service="$OPTARG"
+            ;;
+        *)
+    esac
+done
+
+if [[ ! -v service ]]; then
+    usage
+fi
+
+rm -f $dir/$service
+
