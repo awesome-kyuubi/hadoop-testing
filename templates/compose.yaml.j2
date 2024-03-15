@@ -1,5 +1,5 @@
 services:
-{% if mysql_include %}
+{% if mysql_enabled %}
   mysql:
     image: hadoop-testing/mysql:${PROJECT_VERSION}
     hostname: mysql.orb.local
@@ -90,7 +90,7 @@ services:
       - 89:89
 {% endif %}
 
-{% if prometheus_include %}
+{% if prometheus_enabled %}
   prometheus:
     image: prom/prometheus
     hostname: prometheus.orb.local
@@ -103,7 +103,7 @@ services:
       - 9090:9090
 {% endif %}
 
-{% if loki_include %}
+{% if loki_enabled %}
   loki:
     image: grafana/loki:${LOKI_VERSION}
     hostname: loki.orb.local
@@ -117,7 +117,7 @@ services:
     command: -config.file=/etc/loki/config.yaml
 {% endif %}
 
-{% if grafana_include  %}
+{% if grafana_enabled  %}
   grafana:
     image: grafana/grafana-oss:${GRAFANA_VERSION}
     hostname: grafana.orb.local
@@ -135,7 +135,7 @@ services:
       - 3000:3000
 {% endif %}
 
-{% if kafka_include %}
+{% if kafka_enabled %}
   kafka:
     image: bitnami/kafka:{{ kafka_version }}
     hostname: kafka.orb.local

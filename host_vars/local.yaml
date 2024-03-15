@@ -1,73 +1,73 @@
 project_version: 1-SNAPSHOT
 
 # base
-jdk8_include: true
+jdk8_enabled: true
 zulu8_version: 8.74.0.17
 jdk8_version: 8.0.392
 
-jdk17_include: true
+jdk17_enabled: true
 zulu17_version: 17.46.19
 jdk17_version: 17.0.9
 
-jdk21_include: true
+jdk21_enabled: true
 zulu21_version: 21.30.15
 jdk21_version: 21.0.1
 
-aws_java_sdk_include: true
+aws_java_sdk_enabled: true
 aws_java_sdk_version: 1.12.620
 
 # components
 kerberos_enabled: false
 
-hadoop_include: true
+hadoop_enabled: true
 hadoop_version: 3.3.6
 
-hive_include: true
+hive_enabled: true
 hive_version: 2.3.9
 
-zookeeper_include: true
+zookeeper_enabled: true
 zookeeper_version: 3.8.3
 
 scala_binary_version: 2.12
 
-spark_include: true
+spark_enabled: true
 spark_binary_version: 3.4
 spark_hadoop_version: 3.3.4
 spark_version: 3.4.2
 
-flink_include: true
+flink_enabled: true
 flink_binary_version: 1.18
 flink_version: 1.18.1
 
-kyuubi_include: true
+kyuubi_enabled: true
 kyuubi_version: 1.8.1
 kyuubi_hadoop_version: 3.3.6
 
-ranger_include: true
+ranger_enabled: true
 ranger_version: 2.4.0
 
-trino_include: true
+trino_enabled: true
 trino_version: 436
 
-iceberg_include: true
+iceberg_enabled: true
 iceberg_version: 1.4.2
 
-hudi_include: true
+hudi_enabled: true
 hudi_version: 0.14.1
 
-kafka_include: false
+kafka_enabled: false
 kafka_version: 2.8.1
 
-grafana_include: false
+grafana_enabled: false
 grafana_version: 9.5.2
 
-prometheus_include: false
+prometheus_enabled: false
 
-loki_include: false
+loki_enabled: false
 loki_version: 2.8.0
 loki_log4j2_appender_version: 0.9.17
 
-mysql_include: true
+mysql_enabled: true
 
 # repository
 repository_apache: https://mirrors.cloud.tencent.com/apache
