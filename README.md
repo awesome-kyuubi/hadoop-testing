@@ -35,7 +35,7 @@ The supported components are listed below:
 | Flink          | 1.18.1  | Not Yet        |               |
 | Trino          | 436     | Not Yet        |               |
 | Ranger         | 2.4.0   | Not Yet        |               |
-| ZooKeeper      | 3.8.3   | Not Yet        |               |
+| ZooKeeper      | 3.8.4   | Not Yet        |               |
 | Kafka          | 2.8.1   | Not Yet        |               |
 | MySQL          | 8.0     | No             |               |
 | KDC            | latest  | Yes            | APT-installed |

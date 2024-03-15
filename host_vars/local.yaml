@@ -26,7 +26,7 @@ hive_enabled: true
 hive_version: 2.3.9
 
 zookeeper_enabled: true
-zookeeper_version: 3.8.3
+zookeeper_version: 3.8.4
 
 scala_binary_version: 2.12
 
