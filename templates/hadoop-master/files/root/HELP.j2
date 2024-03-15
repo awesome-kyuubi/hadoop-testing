@@ -1,0 +1,28 @@
+#jinja2: trim_blocks: True, lstrip_blocks: True
+
+{% if kerberos_enabled %}
+# Kerberos login as 'spark'
+kinit -kt /share/keytabs/hadoop-master1/spark.service.keytab spark/hadoop-master1.orb.local@TEST.ORG
+{% endif %}
+
+# Connect to HiveServer2 directly
+{% if kerberos_enabled %}
+beeline -u 'jdbc:hive2://hadoop-master1.orb.local:10000/default;principal=hive/_HOST@TEST.ORG'
+{% else %}
+beeline -u 'jdbc:hive2://hadoop-master1.orb.local:10000/default;user=hive'
+{% endif %}
+
+# Connect to Kyuubi directly
+{% if kerberos_enabled %}
+beeline -u 'jdbc:kyuubi://hadoop-master1.orb.local:10009/default;kyuubiClientPrincipal=spark/_HOST@TEST.ORG;kyuubiClientKeytab=/share/keytabs/hadoop-master1/spark.service.keytab;kyuubiServerPrincipal=kyuubi/_HOST@TEST.ORG'
+beeline -u 'jdbc:kyuubi://hadoop-master1.orb.local:10009/default;principal=kyuubi/_HOST@TEST.ORG'
+{% else %}
+beeline -u 'jdbc:kyuubi://hadoop-master1.orb.local:10009/default;user=kyuubi'
+{% endif %}
+
+# Connect to Kyuubi HA
+{% if kerberos_enabled %}
+beeline -u 'jdbc:kyuubi://hadoop-master1.orb.local:2181/default;principal=kyuubi/_HOST@TEST.ORG;serviceDiscoveryMode=zookeeper;zooKeeperNamespace=kyuubi'
+{% else %}
+beeline -u 'jdbc:kyuubi://hadoop-master1.orb.local:2181/default;serviceDiscoveryMode=zookeeper;zooKeeperNamespace=kyuubi'
+{% endif %}
