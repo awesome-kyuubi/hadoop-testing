@@ -183,6 +183,12 @@ By default, all services disable authN, you can enable Kerberos by passing the `
 ansible-playbook playbook.yaml -e "{kerberos_enabled: true}"
 ```
 
+And some components are disabled by default, you can enable them by passing the `<component>_enabled` variable:
+```
+ansible-playbook playbook.yaml -e "{jdk21_enabled: true, trino_enabled: true}"
+```
+Note: the whole variable list are defined in `host_vars/local.yaml`.
+
 You can add `-vvv` arg to debug the playbook:
 
 ```
@@ -214,15 +220,19 @@ docker compose up
 
 ### Networks
 
+#### Option 1: OrbStack (macOS only)
+
 For macOS users, it's recommended to use [OrbStack](https://docs.orbstack.dev/) as the container runtime. OrbStack provides an out-of-box [container domain name resolving feature](https://docs.orbstack.dev/docker/domains) to allow accessing each container via `<container-name>.orb.local`.
 
-For other platforms, we provide a socks5 server in a container named `socks5`, which listens 18070 port and is exposed to the dockerd host by default, you can forward traffic to this socks server to access services run in other containers.
+#### Option 2: Socks5 Proxy
+
+For other platforms, or you start the containers on a remote server, we provide a socks5 proxy server in a container named `socks5`, which listens 18070 port and is exposed to the dockerd host by default, you can forward traffic to this socks server to access services run in other containers.
 
 For example, to access service in Browser, use [SwitchyOmega](https://github.com/FelisCatus/SwitchyOmega) to forward traffic of `*.orb.local` to `<dockerd-hostname>:18070`.
 
-![img](docs/imgs/switchy-omega-1.png)
-![img](docs/imgs/switchy-omega-2.png)
-![img](docs/imgs/switchy-omega-3.png)
+![img](docs/imgs/switchy-omega-1.png "step 1")
+![img](docs/imgs/switchy-omega-2.png "step 2")
+![img](docs/imgs/switchy-omega-3.png "step 3")
 
 ### Service endponits
 

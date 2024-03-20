@@ -4,6 +4,7 @@
     <Console name="stdout" target="SYSTEM_OUT">
       <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %p %c{1}: %m%n"/>
     </Console>
+    {% if loki_enabled %}
     <Loki name="loki">
       <host>loki</host>
       <port>3100</port>
@@ -11,16 +12,22 @@
         <Pattern>%X{tid} [%t] %d{yyyy-MM-dd HH:mm:ss.SSS} %5p %c{1} - %m%n%exception{full}</Pattern>
       </PatternLayout>
       <Label name="host" value="${sys:hostname}"/>
+      <useDaemonThreads>true</useDaemonThreads>
     </Loki>
+    {% endif %}
   </Appenders>
   <Loggers>
     <Root level="INFO">
       <AppenderRef ref="stdout"/>
+      {% if loki_enabled %}
       <AppenderRef ref="loki"/>
+      {% endif %}
     </Root>
     <Logger name="org.apache.hadoop.util.Shell" level="ERROR" additivity="false">
       <AppenderRef ref="stdout"/>
+      {% if loki_enabled %}
       <AppenderRef ref="loki"/>
+      {% endif %}
     </Logger>
   </Loggers>
 </Configuration>
