@@ -183,6 +183,12 @@ By default, all services disable authN, you can enable Kerberos by passing the `
 ansible-playbook playbook.yaml -e "{kerberos_enabled: true}"
 ```
 
+And some components are disabled by default, you can enable them by passing the `<component>_enabled` variable:
+```
+ansible-playbook playbook.yaml -e "{jdk21_enabled: true, trino_enabled: true}"
+```
+Note: the whole variable list are defined in `host_vars/local.yaml`.
+
 You can add `-vvv` arg to debug the playbook:
 
 ```
