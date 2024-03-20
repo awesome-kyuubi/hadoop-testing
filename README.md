@@ -220,7 +220,11 @@ docker compose up
 
 ### Networks
 
+#### Option 1: OrbStack (macOS only)
+
 For macOS users, it's recommended to use [OrbStack](https://docs.orbstack.dev/) as the container runtime. OrbStack provides an out-of-box [container domain name resolving feature](https://docs.orbstack.dev/docker/domains) to allow accessing each container via `<container-name>.orb.local`.
+
+#### Option 2: Socks5 Proxy
 
 For other platforms, we provide a socks5 server in a container named `socks5`, which listens 18070 port and is exposed to the dockerd host by default, you can forward traffic to this socks server to access services run in other containers.
 
