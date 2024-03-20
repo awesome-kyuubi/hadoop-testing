@@ -230,9 +230,9 @@ For other platforms, we provide a socks5 server in a container named `socks5`, w
 
 For example, to access service in Browser, use [SwitchyOmega](https://github.com/FelisCatus/SwitchyOmega) to forward traffic of `*.orb.local` to `<dockerd-hostname>:18070`.
 
-![img](docs/imgs/switchy-omega-1.png)
-![img](docs/imgs/switchy-omega-2.png)
-![img](docs/imgs/switchy-omega-3.png)
+![img](docs/imgs/switchy-omega-1.png "step 1")
+![img](docs/imgs/switchy-omega-2.png "step 2")
+![img](docs/imgs/switchy-omega-3.png "step 3")
 
 ### Service endponits
 
