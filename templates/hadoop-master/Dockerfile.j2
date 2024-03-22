@@ -14,6 +14,7 @@
 ARG PROJECT_VERSION
 FROM hadoop-testing/base-ubuntu-2004:$PROJECT_VERSION
 
+ARG ZEPPELIN_VERSION
 ARG ZOOKEEPER_VERSION
 ARG HADOOP_VERSION
 ARG HIVE_VERSION
@@ -28,6 +29,8 @@ ARG RANGER_VERSION
 ARG HUDI_VERSION
 ARG TRINO_VERSION
 
+ENV ZEPPELIN_HOME=/opt/zeppelin
+ENV ZEPPELIN_CONF_DIR=/etc/zeppelin/conf
 ENV ZOOKEEPER_HOME=/opt/zookeeper
 ENV ZOOCFGDIR=/etc/zookeeper/conf
 ENV HADOOP_HOME=/opt/hadoop
@@ -48,8 +51,11 @@ ENV RANGER_HOME=/opt/ranger
 ENV TRINO_HOME=/opt/trino
 {% endif %}
 ENV MYSQL_JDBC_VERSION=${MYSQL_JDBC_VERSION}
-ENV PATH=${KYUUBI_HOME}/bin:${SPARK_HOME}/bin:${HIVE_HOME}/bin:${HADOOP_HOME}/bin:${ZOOKEEPER_HOME}/bin:${PATH}
+ENV PATH=${KYUUBI_HOME}/bin:${SPARK_HOME}/bin:${HIVE_HOME}/bin:${HADOOP_HOME}/bin:${ZEPPELIN_HOME}/bin:${ZOOKEEPER_HOME}/bin:${PATH}
 
+{% if zeppelin_enabled %}
+ADD download/zeppelin-${ZEPPELIN_VERSION}-bin-netinst.tgz /opt
+{% endif %}
 ADD download/apache-zookeeper-${ZOOKEEPER_VERSION}-bin.tar.gz /opt
 ADD download/hadoop-${HADOOP_VERSION}.tar.gz /opt
 ADD download/apache-hive-${HIVE_VERSION}-bin.tar.gz /opt
@@ -78,6 +84,20 @@ RUN ln -snf /opt/apache-zookeeper-${ZOOKEEPER_VERSION}-bin ${ZOOKEEPER_HOME} && 
     ln -snf /opt/flink-${FLINK_VERSION} ${FLINK_HOME} && \
     ln -snf /opt/apache-kyuubi-${KYUUBI_VERSION}-bin ${KYUUBI_HOME}
 
+{% if zeppelin_enabled %}
+RUN ln -snf /opt/zeppelin-${ZEPPELIN_VERSION}-bin-netinst ${ZEPPELIN_HOME} && \
+    mkdir -p /var/log/zeppelin && \
+    mkdir -p /var/run/zeppelin && \
+    mkdir -p /var/run/zeppelin/webapps && \
+    mkdir -p /var/run/zeppelin/pid && \
+    mkdir -p /var/lib/zeppelin && \
+    mkdir -p /var/lib/zeppelin/notebook && \
+    cp -R ${ZEPPELIN_HOME}/notebook/* /var/lib/zeppelin/notebook && \
+    chown -R 6014:6014 /etc/zeppelin && \
+    chown -R 6014:6014 /var/run/zeppelin && \
+    chown -R 6014:6014 /var/lib/zeppelin && \
+    chown -R 6014:6014 /var/log/zeppelin
+{% endif %}
 {% if ranger_enabled %}
 RUN ln -snf /opt/ranger-${RANGER_VERSION}-admin ${RANGER_HOME}
 {% endif %}

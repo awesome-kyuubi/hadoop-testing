@@ -35,6 +35,7 @@ The supported components are listed below:
 | Flink          | 1.18.1  | Not Yet        |               |
 | Trino          | 436     | Not Yet        |               |
 | Ranger         | 2.4.0   | Not Yet        |               |
+| Zeppelin       | 0.11.0  | Not Yet        |               |
 | ZooKeeper      | 3.8.4   | Not Yet        |               |
 | Kafka          | 2.8.1   | Not Yet        |               |
 | MySQL          | 8.0     | No             |               |
@@ -248,6 +249,7 @@ Once the testing environment is fully operational, the following services will b
 - Hadoop MapReduce JobHistory: http://hadoop-master1.orb.local:19888
 - Ranger Admin: http://hadoop-master1.orb.local:6080 (admin/Ranger@admin123)
 - Trino Web UI: http://hadoop-master1.orb.local:18081 (admin/)
+- Zeppelin: http://hadoop-master1.orb.local:8081
 
 ![img](docs/imgs/namenode-ui.png)
 

@@ -1,0 +1,1121 @@
+{
+    "interpreterSettings": {
+      "flink": {
+        "id": "flink",
+        "name": "flink",
+        "group": "flink",
+        "properties": {
+          "FLINK_HOME": {
+            "name": "FLINK_HOME",
+            "value": "/opt/flink",
+            "type": "string",
+            "description": "Location of flink distribution"
+          },
+          "HADOOP_CONF_DIR": {
+            "name": "HADOOP_CONF_DIR",
+            "value": "/etc/hadoop/conf",
+            "type": "string",
+            "description": "Location of hadoop conf (core-site.xml, hdfs-site.xml and etc.)"
+          },
+          "HIVE_CONF_DIR": {
+            "name": "HIVE_CONF_DIR",
+            "value": "/etc/hive/conf",
+            "type": "string",
+            "description": "Location of hive conf (hive-site.xml)"
+          },
+          "flink.execution.mode": {
+            "name": "flink.execution.mode",
+            "value": "local",
+            "type": "string",
+            "description": "Execution mode, it could be local|remote|yarn"
+          },
+          "flink.execution.remote.host": {
+            "name": "flink.execution.remote.host",
+            "value": "",
+            "type": "string",
+            "description": "Host name of running JobManager. Only used for remote mode"
+          },
+          "flink.execution.remote.port": {
+            "name": "flink.execution.remote.port",
+            "value": "",
+            "type": "number",
+            "description": "Port of running JobManager. Only used for remote mode"
+          },
+          "jobmanager.memory.process.size": {
+            "name": "jobmanager.memory.process.size",
+            "value": "1024m",
+            "type": "text",
+            "description": "Memory for JobManager, e.g. 1024m"
+          },
+          "taskmanager.memory.process.size": {
+            "name": "taskmanager.memory.process.size",
+            "value": "1024m",
+            "type": "text",
+            "description": "Memory for TaskManager, e.g. 1024m"
+          },
+          "taskmanager.numberOfTaskSlots": {
+            "name": "taskmanager.numberOfTaskSlots",
+            "value": "1",
+            "type": "number",
+            "description": "Number of slot per TaskManager"
+          },
+          "local.number-taskmanager": {
+            "name": "local.number-taskmanager",
+            "value": "4",
+            "type": "number",
+            "description": "Number of TaskManager in local mode"
+          },
+          "yarn.application.name": {
+            "name": "yarn.application.name",
+            "value": "Zeppelin Flink Session",
+            "type": "string",
+            "description": "Yarn app name"
+          },
+          "yarn.application.queue": {
+            "name": "yarn.application.queue",
+            "value": "default",
+            "type": "string",
+            "description": "Yarn queue name"
+          },
+          "zeppelin.flink.uiWebUrl": {
+            "name": "zeppelin.flink.uiWebUrl",
+            "value": "",
+            "type": "string",
+            {% raw %}
+            "description": "User specified Flink JobManager url, it could be used in remote mode where Flink cluster is already started, or could be used as url template, e.g. https://knox-server:8443/gateway/cluster-topo/yarn/proxy/`{{applicationId}}`/ where `{{applicationId}}` would be replaced with yarn app id"
+            {% endraw %}
+          },
+          "zeppelin.flink.run.asLoginUser": {
+            "name": "zeppelin.flink.run.asLoginUser",
+            "value": true,
+            "type": "checkbox",
+            "description": "Whether run flink job as the zeppelin login user, it is only applied when running flink job in hadoop yarn cluster and shiro is enabled"
+          },
+          "flink.udf.jars": {
+            "name": "flink.udf.jars",
+            "value": "",
+            "type": "string",
+            "description": "Flink udf jars (comma separated), Zeppelin will register udfs in this jar for user automatically, these udf jars could be either local files or hdfs files if you have hadoop installed, the udf name is the class name"
+          },
+          "flink.udf.jars.packages": {
+            "name": "flink.udf.jars.packages",
+            "value": "",
+            "type": "string",
+            "description": "Packages (comma separated) that would be searched for the udf defined in `flink.udf.jars`"
+          },
+          "flink.execution.jars": {
+            "name": "flink.execution.jars",
+            "value": "",
+            "type": "string",
+            "description": "Additional user jars (comma separated), these jars could be either local files or hdfs files if you have hadoop installed"
+          },
+          "flink.execution.packages": {
+            "name": "flink.execution.packages",
+            "value": "",
+            "type": "string",
+            "description": "Additional user packages (comma separated), e.g. flink connector packages"
+          },
+          "zeppelin.flink.scala.color": {
+            "name": "zeppelin.flink.scala.color",
+            "value": true,
+            "type": "checkbox",
+            "description": "Whether display scala shell output in colorful format"
+          },
+          "zeppelin.flink.scala.shell.tmp_dir": {
+            "name": "zeppelin.flink.scala.shell.tmp_dir",
+            "value": "",
+            "type": "string",
+            "description": "Temp folder for storing scala shell compiled jar"
+          },
+          "zeppelin.flink.enableHive": {
+            "name": "zeppelin.flink.enableHive",
+            "value": false,
+            "type": "checkbox",
+            "description": "Whether enable hive"
+          },
+          "zeppelin.flink.hive.version": {
+            "name": "zeppelin.flink.hive.version",
+            "value": "2.3.4",
+            "type": "string",
+            "description": "Hive version that you would like to connect"
+          },
+          "zeppelin.flink.module.enableHive": {
+            "name": "zeppelin.flink.module.enableHive",
+            "value": false,
+            "type": "checkbox",
+            "description": "Whether enable hive module, hive udf take precedence over flink udf if hive module is enabled."
+          },
+          "zeppelin.flink.printREPLOutput": {
+            "name": "zeppelin.flink.printREPLOutput",
+            "value": true,
+            "type": "checkbox",
+            "description": "Print REPL output"
+          },
+          "zeppelin.flink.maxResult": {
+            "name": "zeppelin.flink.maxResult",
+            "value": "1000",
+            "type": "number",
+            "description": "Max number of rows returned by sql interpreter."
+          },
+          "zeppelin.pyflink.python": {
+            "name": "zeppelin.pyflink.python",
+            "value": "python",
+            "type": "string",
+            "description": "Python executable for pyflink"
+          },
+          "flink.interpreter.close.shutdown_cluster": {
+            "name": "flink.interpreter.close.shutdown_cluster",
+            "value": true,
+            "type": "checkbox",
+            "description": "Whether shutdown flink cluster when close interpreter"
+          },
+          "zeppelin.interpreter.close.cancel_job": {
+            "name": "zeppelin.interpreter.close.cancel_job",
+            "value": true,
+            "type": "checkbox",
+            "description": "Whether cancel flink job when closing interpreter"
+          },
+          "zeppelin.flink.job.check_interval": {
+            "name": "zeppelin.flink.job.check_interval",
+            "value": "1000",
+            "type": "number",
+            "description": "Check interval (in milliseconds) to check flink job progress"
+          },
+          "zeppelin.flink.concurrentBatchSql.max": {
+            "name": "zeppelin.flink.concurrentBatchSql.max",
+            "value": "10",
+            "type": "number",
+            "description": "Max concurrent sql of Batch Sql"
+          },
+          "zeppelin.flink.concurrentStreamSql.max": {
+            "name": "zeppelin.flink.concurrentStreamSql.max",
+            "value": "10",
+            "type": "number",
+            "description": "Max concurrent sql of Stream Sql"
+          }
+        },
+        "status": "READY",
+        "interpreterGroup": [
+          {
+            "name": "flink",
+            "class": "org.apache.zeppelin.flink.FlinkInterpreter",
+            "defaultInterpreter": true,
+            "editor": {
+              "language": "scala",
+              "editOnDblClick": false,
+              "completionKey": "TAB",
+              "completionSupport": true
+            }
+          },
+          {
+            "name": "bsql",
+            "class": "org.apache.zeppelin.flink.FlinkBatchSqlInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "sql",
+              "editOnDblClick": false
+            }
+          },
+          {
+            "name": "ssql",
+            "class": "org.apache.zeppelin.flink.FlinkStreamSqlInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "sql",
+              "editOnDblClick": false
+            }
+          },
+          {
+            "name": "pyflink",
+            "class": "org.apache.zeppelin.flink.PyFlinkInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "python",
+              "editOnDblClick": false,
+              "completionKey": "TAB",
+              "completionSupport": true
+            }
+          },
+          {
+            "name": "ipyflink",
+            "class": "org.apache.zeppelin.flink.IPyFlinkInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "python",
+              "editOnDblClick": false,
+              "completionKey": "TAB",
+              "completionSupport": true
+            }
+          }
+        ],
+        "dependencies": [],
+        "option": {
+          "remote": true,
+          "port": -1,
+          "isExistingProcess": false,
+          "setPermission": false,
+          "owners": [],
+          "isUserImpersonate": false
+        }
+      },
+      "angular": {
+        "id": "angular",
+        "name": "angular",
+        "group": "angular",
+        "properties": {},
+        "status": "READY",
+        "interpreterGroup": [
+          {
+            "name": "angular",
+            "class": "org.apache.zeppelin.angular.AngularInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "editOnDblClick": true,
+              "completionSupport": false
+            }
+          },
+          {
+            "name": "ng",
+            "class": "org.apache.zeppelin.angular.AngularInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "editOnDblClick": true,
+              "completionSupport": false
+            }
+          }
+        ],
+        "dependencies": [],
+        "option": {
+          "remote": true,
+          "port": -1,
+          "isExistingProcess": false,
+          "setPermission": false,
+          "owners": [],
+          "isUserImpersonate": false
+        }
+      },
+      "python": {
+        "id": "python",
+        "name": "python",
+        "group": "python",
+        "properties": {
+          "zeppelin.python": {
+            "name": "zeppelin.python",
+            "value": "python",
+            "type": "string",
+            "description": "Python binary executable path. It is set to python by default.(assume python is in your $PATH)"
+          },
+          "zeppelin.python.maxResult": {
+            "name": "zeppelin.python.maxResult",
+            "value": "1000",
+            "type": "number",
+            "description": "Max number of dataframe rows to display."
+          },
+          "zeppelin.python.useIPython": {
+            "name": "zeppelin.python.useIPython",
+            "value": true,
+            "type": "checkbox",
+            "description": "Whether use IPython when it is available in `%python`"
+          },
+          "zeppelin.ipython.launch.timeout": {
+            "name": "zeppelin.ipython.launch.timeout",
+            "value": "30000",
+            "type": "number",
+            "description": "Time out for ipython launch"
+          },
+          "zeppelin.ipython.grpc.message_size": {
+            "name": "zeppelin.ipython.grpc.message_size",
+            "value": "33554432",
+            "type": "number",
+            "description": "grpc message size, default is 32M"
+          }
+        },
+        "status": "READY",
+        "interpreterGroup": [
+          {
+            "name": "python",
+            "class": "org.apache.zeppelin.python.PythonInterpreter",
+            "defaultInterpreter": true,
+            "editor": {
+              "language": "python",
+              "editOnDblClick": false,
+              "completionSupport": true
+            }
+          },
+          {
+            "name": "ipython",
+            "class": "org.apache.zeppelin.python.IPythonInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "python",
+              "editOnDblClick": false,
+              "completionKey": "TAB",
+              "completionSupport": true
+            }
+          },
+          {
+            "name": "sql",
+            "class": "org.apache.zeppelin.python.PythonInterpreterPandasSql",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "sql",
+              "editOnDblClick": false,
+              "completionKey": "TAB",
+              "completionSupport": false
+            }
+          },
+          {
+            "name": "conda",
+            "class": "org.apache.zeppelin.python.PythonCondaInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "sh",
+              "editOnDblClick": false,
+              "completionSupport": false
+            }
+          },
+          {
+            "name": "docker",
+            "class": "org.apache.zeppelin.python.PythonDockerInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "sh",
+              "editOnDblClick": false,
+              "completionSupport": false
+            }
+          }
+        ],
+        "dependencies": [],
+        "option": {
+          "remote": true,
+          "port": -1,
+          "isExistingProcess": false,
+          "setPermission": false,
+          "owners": [],
+          "isUserImpersonate": false
+        }
+      },
+      "r": {
+        "id": "r",
+        "name": "r",
+        "group": "r",
+        "properties": {
+          "zeppelin.R.knitr": {
+            "name": "zeppelin.R.knitr",
+            "value": true,
+            "type": "checkbox",
+            "description": "Whether use knitr or not"
+          },
+          "zeppelin.R.cmd": {
+            "name": "zeppelin.R.cmd",
+            "value": "R",
+            "type": "string",
+            "description": "R binary executable path"
+          },
+          "zeppelin.R.maxResult": {
+            "name": "zeppelin.R.maxResult",
+            "value": "1000",
+            "type": "number",
+            "description": "Max number of dataframe rows to display."
+          },
+          "zeppelin.R.image.width": {
+            "name": "zeppelin.R.image.width",
+            "value": "100%",
+            "type": "number",
+            "description": "Image width of R plotting"
+          },
+          "zeppelin.R.render.options": {
+            "name": "zeppelin.R.render.options",
+            "value": "out.format \u003d \u0027html\u0027, comment \u003d NA, echo \u003d FALSE, results \u003d \u0027asis\u0027, message \u003d F, warning \u003d F, fig.retina \u003d 2",
+            "type": "textarea",
+            "description": ""
+          },
+          "zeppelin.R.shiny.portRange": {
+            "name": "zeppelin.R.shiny.portRange",
+            "value": ":",
+            "type": "string",
+            "description": "Shiny app would launch a web app at some port, this property is to specify the portRange via format \u0027\u003cstart\u003e:\u003cend\u003e\u0027, e.g. \u00275000:5001\u0027. By default it is \u0027:\u0027 which means any port"
+          },
+          "zeppelin.R.shiny.iframe_width": {
+            "name": "zeppelin.R.shiny.iframe_width",
+            "value": "100%",
+            "type": "text",
+            "description": "Width of iframe of R shiny app"
+          },
+          "zeppelin.R.shiny.iframe_height": {
+            "name": "zeppelin.R.shiny.iframe_height",
+            "value": "500px",
+            "type": "text",
+            "description": "Height of iframe of R shiny app"
+          }
+        },
+        "status": "READY",
+        "interpreterGroup": [
+          {
+            "name": "r",
+            "class": "org.apache.zeppelin.r.RInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "r",
+              "editOnDblClick": false,
+              "completionSupport": true
+            }
+          },
+          {
+            "name": "ir",
+            "class": "org.apache.zeppelin.r.IRInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "r",
+              "editOnDblClick": false,
+              "completionSupport": true
+            }
+          },
+          {
+            "name": "shiny",
+            "class": "org.apache.zeppelin.r.ShinyInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "r",
+              "editOnDblClick": false,
+              "completionSupport": true
+            }
+          }
+        ],
+        "dependencies": [],
+        "option": {
+          "remote": true,
+          "port": -1,
+          "isExistingProcess": false,
+          "setPermission": false,
+          "owners": [],
+          "isUserImpersonate": false
+        }
+      },
+      "spark-submit": {
+        "id": "spark-submit",
+        "name": "spark-submit",
+        "group": "spark-submit",
+        "properties": {
+          "SPARK_HOME": {
+            "name": "SPARK_HOME",
+            "value": "/opt/spark",
+            "type": "string",
+            "description": "Location of spark distribution"
+          }
+        },
+        "status": "READY",
+        "interpreterGroup": [
+          {
+            "name": "submit",
+            "class": "org.apache.zeppelin.spark.submit.SparkSubmitInterpreter",
+            "defaultInterpreter": true,
+            "editor": {
+              "language": "sh",
+              "editOnDblClick": false,
+              "completionSupport": false
+            }
+          }
+        ],
+        "dependencies": [],
+        "option": {
+          "remote": true,
+          "port": -1,
+          "isExistingProcess": false,
+          "setPermission": false,
+          "owners": [],
+          "isUserImpersonate": false
+        }
+      },
+      "jupyter": {
+        "id": "jupyter",
+        "name": "jupyter",
+        "group": "jupyter",
+        "properties": {},
+        "status": "READY",
+        "interpreterGroup": [
+          {
+            "name": "jupyter",
+            "class": "org.apache.zeppelin.jupyter.JupyterInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "text",
+              "editOnDblClick": false,
+              "completionKey": "TAB",
+              "completionSupport": true
+            }
+          }
+        ],
+        "dependencies": [],
+        "option": {
+          "remote": true,
+          "port": -1,
+          "isExistingProcess": false,
+          "setPermission": false,
+          "owners": [],
+          "isUserImpersonate": false
+        }
+      },
+      "sh": {
+        "id": "sh",
+        "name": "sh",
+        "group": "sh",
+        "properties": {
+          "shell.command.timeout.millisecs": {
+            "name": "shell.command.timeout.millisecs",
+            "value": "60000",
+            "type": "number",
+            "description": "Shell command time out in millisecs. Default \u003d 60000"
+          },
+          "shell.command.timeout.check.interval": {
+            "name": "shell.command.timeout.check.interval",
+            "value": "60000",
+            "type": "number",
+            "description": "Shell command output check interval in millisecs. Default \u003d 10000"
+          },
+          "shell.working.directory.user.home": {
+            "name": "shell.working.directory.user.home",
+            "value": false,
+            "type": "checkbox",
+            "description": "If this set to true, the shell\u0027s working directory will be set to user home"
+          },
+          "zeppelin.shell.auth.type": {
+            "name": "zeppelin.shell.auth.type",
+            "value": "",
+            "type": "string",
+            "description": "If auth type is needed, Example: KERBEROS"
+          },
+          "zeppelin.shell.keytab.location": {
+            "name": "zeppelin.shell.keytab.location",
+            "value": "",
+            "type": "string",
+            "description": "Kerberos keytab location"
+          },
+          "zeppelin.shell.principal": {
+            "name": "zeppelin.shell.principal",
+            "value": "",
+            "type": "string",
+            "description": "Kerberos principal"
+          },
+          "zeppelin.shell.interpolation": {
+            "name": "zeppelin.shell.interpolation",
+            "value": false,
+            "type": "checkbox",
+            "description": "Enable ZeppelinContext variable interpolation into paragraph text"
+          },
+          "zeppelin.concurrency.max": {
+            "name": "zeppelin.concurrency.max",
+            "value": "10",
+            "type": "number",
+            "description": "Max concurrency of shell interpreter"
+          },
+          "zeppelin.terminal.ip.mapping": {
+            "name": "zeppelin.terminal.ip.mapping",
+            "value": "",
+            "type": "string",
+            "description": "Internal and external IP mapping of zeppelin server"
+          }
+        },
+        "status": "READY",
+        "interpreterGroup": [
+          {
+            "name": "sh",
+            "class": "org.apache.zeppelin.shell.ShellInterpreter",
+            "defaultInterpreter": true,
+            "editor": {
+              "language": "sh",
+              "editOnDblClick": false,
+              "completionSupport": false
+            }
+          },
+          {
+            "name": "terminal",
+            "class": "org.apache.zeppelin.shell.TerminalInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "sh",
+              "editOnDblClick": false,
+              "completionSupport": false
+            },
+            "config": {
+              "checkEmpty": false
+            }
+          }
+        ],
+        "dependencies": [],
+        "option": {
+          "remote": true,
+          "port": -1,
+          "isExistingProcess": false,
+          "setPermission": false,
+          "owners": [],
+          "isUserImpersonate": false
+        }
+      },
+      "spark": {
+        "id": "spark",
+        "name": "spark",
+        "group": "spark",
+        "properties": {
+          "SPARK_HOME": {
+            "name": "SPARK_HOME",
+            "value": "/opt/spark",
+            "type": "string",
+            "description": "Location of spark distribution"
+          },
+          "spark.master": {
+            "name": "spark.master",
+            "value": "yarn",
+            "type": "string",
+            "description": "Spark master uri. local | yarn-client | yarn-cluster | spark master address of standalone mode, ex) spark://master_host:7077"
+          },
+          "spark.submit.deployMode": {
+            "name": "spark.submit.deployMode",
+            "value": "cluster",
+            "type": "string",
+            "description": "The deploy mode of Spark driver program, either \"client\" or \"cluster\", Which means to launch driver program locally (\"client\") or remotely (\"cluster\") on one of the nodes inside the cluster."
+          },
+          "spark.app.name": {
+            "name": "spark.app.name",
+            "value": "",
+            "type": "string",
+            "description": "The name of spark application."
+          },
+          "spark.driver.cores": {
+            "name": "spark.driver.cores",
+            "value": "1",
+            "type": "number",
+            "description": "Number of cores to use for the driver process, only in cluster mode."
+          },
+          "spark.driver.memory": {
+            "name": "spark.driver.memory",
+            "value": "512m",
+            "type": "string",
+            "description": "Amount of memory to use for the driver process, i.e. where SparkContext is initialized, in the same format as JVM memory strings with a size unit suffix (\"k\", \"m\", \"g\" or \"t\") (e.g. 512m, 2g)."
+          },
+          "spark.executor.cores": {
+            "name": "spark.executor.cores",
+            "value": "1",
+            "type": "number",
+            "description": "The number of cores to use on each executor"
+          },
+          "spark.executor.memory": {
+            "name": "spark.executor.memory",
+            "value": "512m",
+            "type": "string",
+            "description": "Executor memory per worker instance. ex) 512m, 32g"
+          },
+          "spark.executor.instances": {
+            "name": "spark.executor.instances",
+            "value": "2",
+            "type": "number",
+            "description": "The number of executors for static allocation."
+          },
+          "spark.files": {
+            "name": "spark.files",
+            "value": "",
+            "type": "string",
+            "description": "Comma-separated list of files to be placed in the working directory of each executor. Globs are allowed."
+          },
+          "spark.jars": {
+            "name": "spark.jars",
+            "value": "",
+            "type": "string",
+            "description": "Comma-separated list of jars to include on the driver and executor classpaths. Globs are allowed."
+          },
+          "spark.jars.packages": {
+            "name": "spark.jars.packages",
+            "value": "",
+            "type": "string",
+            "description": "Comma-separated list of Maven coordinates of jars to include on the driver and executor classpaths. The coordinates should be groupId:artifactId:version. If spark.jars.ivySettings is given artifacts will be resolved according to the configuration in the file, otherwise artifacts will be searched for in the local maven repo, then maven central and finally any additional remote repositories given by the command-line option --repositories."
+          },
+          "zeppelin.spark.useHiveContext": {
+            "name": "zeppelin.spark.useHiveContext",
+            "value": true,
+            "type": "checkbox",
+            "description": "Use HiveContext instead of SQLContext if it is true. Enable hive for SparkSession."
+          },
+          "zeppelin.spark.run.asLoginUser": {
+            "name": "zeppelin.spark.run.asLoginUser",
+            "value": true,
+            "type": "checkbox",
+            "description": "Whether run spark job as the zeppelin login user, it is only applied when running spark job in hadoop yarn cluster and shiro is enabled"
+          },
+          "zeppelin.spark.printREPLOutput": {
+            "name": "zeppelin.spark.printREPLOutput",
+            "value": true,
+            "type": "checkbox",
+            "description": "Print scala REPL output"
+          },
+          "zeppelin.spark.maxResult": {
+            "name": "zeppelin.spark.maxResult",
+            "value": "1000",
+            "type": "number",
+            "description": "Max number of Spark SQL result to display."
+          },
+          "zeppelin.spark.enableSupportedVersionCheck": {
+            "name": "zeppelin.spark.enableSupportedVersionCheck",
+            "value": true,
+            "type": "checkbox",
+            "description": "Whether checking supported spark version. Developer only setting, not for production use"
+          },
+          "zeppelin.spark.uiWebUrl": {
+            "name": "zeppelin.spark.uiWebUrl",
+            "value": "",
+            "type": "string",
+            {% raw %}
+            "description": "Override Spark UI default URL. In Kubernetes mode, value can be Jinja template string with 3 template variables \u0027PORT\u0027, \u0027SERVICE_NAME\u0027 and \u0027SERVICE_DOMAIN\u0027. (ex: http://{{PORT}}-{{SERVICE_NAME}}.{{SERVICE_DOMAIN}})"
+            {% endraw %}
+          },
+          "zeppelin.spark.ui.hidden": {
+            "name": "zeppelin.spark.ui.hidden",
+            "value": false,
+            "type": "checkbox",
+            "description": "Whether hide spark ui in zeppelin ui"
+          },
+          "spark.webui.yarn.useProxy": {
+            "name": "spark.webui.yarn.useProxy",
+            "value": false,
+            "type": "checkbox",
+            "description": "whether use yarn proxy url as spark weburl, e.g. http://localhost:8088/proxy/application_1583396598068_0004"
+          },
+          "zeppelin.spark.scala.color": {
+            "name": "zeppelin.spark.scala.color",
+            "value": true,
+            "type": "checkbox",
+            "description": "Whether enable color output of spark scala interpreter"
+          },
+          "zeppelin.spark.deprecatedMsg.show": {
+            "name": "zeppelin.spark.deprecatedMsg.show",
+            "value": true,
+            "type": "checkbox",
+            "description": "Whether show the spark deprecated message, spark 2.2 and before are deprecated. Zeppelin will display warning message by default"
+          },
+          "zeppelin.spark.concurrentSQL": {
+            "name": "zeppelin.spark.concurrentSQL",
+            "value": true,
+            "type": "checkbox",
+            "description": "Execute multiple SQL concurrently if set true."
+          },
+          "zeppelin.spark.concurrentSQL.max": {
+            "name": "zeppelin.spark.concurrentSQL.max",
+            "value": "10",
+            "type": "number",
+            "description": "Max number of SQL concurrently executed"
+          },
+          "zeppelin.spark.sql.stacktrace": {
+            "name": "zeppelin.spark.sql.stacktrace",
+            "value": true,
+            "type": "checkbox",
+            "description": "Show full exception stacktrace for SQL queries if set to true."
+          },
+          "zeppelin.spark.sql.interpolation": {
+            "name": "zeppelin.spark.sql.interpolation",
+            "value": false,
+            "type": "checkbox",
+            "description": "Enable ZeppelinContext variable interpolation into spark sql"
+          },
+          "PYSPARK_PYTHON": {
+            "name": "PYSPARK_PYTHON",
+            "value": "python",
+            "type": "string",
+            "description": "Python binary executable to use for PySpark in both driver and workers (default is python2.7 if available, otherwise python). Property `spark.pyspark.python` take precedence if it is set"
+          },
+          "PYSPARK_DRIVER_PYTHON": {
+            "name": "PYSPARK_DRIVER_PYTHON",
+            "value": "python",
+            "type": "string",
+            "description": "Python binary executable to use for PySpark in driver only (default is `PYSPARK_PYTHON`). Property `spark.pyspark.driver.python` take precedence if it is set"
+          },
+          "zeppelin.pyspark.useIPython": {
+            "name": "zeppelin.pyspark.useIPython",
+            "value": true,
+            "type": "checkbox",
+            "description": "Whether use IPython when it is available"
+          },
+          "zeppelin.R.knitr": {
+            "name": "zeppelin.R.knitr",
+            "value": true,
+            "type": "checkbox",
+            "description": "Whether use knitr or not"
+          },
+          "zeppelin.R.cmd": {
+            "name": "zeppelin.R.cmd",
+            "value": "R",
+            "type": "string",
+            "description": "R binary executable path"
+          },
+          "zeppelin.R.image.width": {
+            "name": "zeppelin.R.image.width",
+            "value": "100%",
+            "type": "number",
+            "description": "Image width of R plotting"
+          },
+          "zeppelin.R.render.options": {
+            "name": "zeppelin.R.render.options",
+            "value": "out.format \u003d \u0027html\u0027, comment \u003d NA, echo \u003d FALSE, results \u003d \u0027asis\u0027, message \u003d F, warning \u003d F, fig.retina \u003d 2",
+            "type": "textarea",
+            "description": ""
+          },
+          "zeppelin.R.shiny.portRange": {
+            "name": "zeppelin.R.shiny.portRange",
+            "value": ":",
+            "type": "string",
+            "description": "Shiny app would launch a web app at some port, this property is to specify the portRange via format \u0027\u003cstart\u003e:\u003cend\u003e\u0027, e.g. \u00275000:5001\u0027. By default it is \u0027:\u0027 which means any port"
+          }
+        },
+        "status": "READY",
+        "interpreterGroup": [
+          {
+            "name": "spark",
+            "class": "org.apache.zeppelin.spark.SparkInterpreter",
+            "defaultInterpreter": true,
+            "editor": {
+              "language": "scala",
+              "editOnDblClick": false,
+              "completionKey": "TAB",
+              "completionSupport": true
+            }
+          },
+          {
+            "name": "sql",
+            "class": "org.apache.zeppelin.spark.SparkSqlInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "sql",
+              "editOnDblClick": false,
+              "completionKey": "TAB",
+              "completionSupport": true
+            }
+          },
+          {
+            "name": "pyspark",
+            "class": "org.apache.zeppelin.spark.PySparkInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "python",
+              "editOnDblClick": false,
+              "completionKey": "TAB",
+              "completionSupport": true
+            }
+          },
+          {
+            "name": "ipyspark",
+            "class": "org.apache.zeppelin.spark.IPySparkInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "python",
+              "editOnDblClick": false,
+              "completionSupport": true,
+              "completionKey": "TAB"
+            }
+          },
+          {
+            "name": "r",
+            "class": "org.apache.zeppelin.spark.SparkRInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "r",
+              "editOnDblClick": false,
+              "completionSupport": false,
+              "completionKey": "TAB"
+            }
+          },
+          {
+            "name": "ir",
+            "class": "org.apache.zeppelin.spark.SparkIRInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "r",
+              "editOnDblClick": false,
+              "completionSupport": true,
+              "completionKey": "TAB"
+            }
+          },
+          {
+            "name": "shiny",
+            "class": "org.apache.zeppelin.spark.SparkShinyInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "r",
+              "editOnDblClick": false,
+              "completionSupport": true,
+              "completionKey": "TAB"
+            }
+          }
+        ],
+        "dependencies": [],
+        "option": {
+          "remote": true,
+          "port": -1,
+          "isExistingProcess": false,
+          "setPermission": false,
+          "owners": [],
+          "isUserImpersonate": false
+        }
+      },
+      "md": {
+        "id": "md",
+        "name": "md",
+        "group": "md",
+        "properties": {
+          "markdown.parser.type": {
+            "name": "markdown.parser.type",
+            "value": "flexmark",
+            "type": "string",
+            "description": "Markdown Parser Type. Available values: markdown4j, flexmark. Default \u003d flexmark"
+          }
+        },
+        "status": "READY",
+        "interpreterGroup": [
+          {
+            "name": "md",
+            "class": "org.apache.zeppelin.markdown.Markdown",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "markdown",
+              "editOnDblClick": true,
+              "completionSupport": false
+            }
+          }
+        ],
+        "dependencies": [],
+        "option": {
+          "remote": true,
+          "port": -1,
+          "isExistingProcess": false,
+          "setPermission": false,
+          "owners": [],
+          "isUserImpersonate": false
+        }
+      },
+      "influxdb": {
+        "id": "influxdb",
+        "name": "influxdb",
+        "group": "influxdb",
+        "properties": {
+          "influxdb.url": {
+            "name": "influxdb.url",
+            "value": "http://localhost:9999",
+            "type": "string",
+            "description": "The URL for InfluxDB 2.X API"
+          },
+          "influxdb.token": {
+            "name": "influxdb.token",
+            "value": "my-token",
+            "type": "password",
+            "description": "InfluxDB auth token"
+          },
+          "influxdb.org": {
+            "name": "influxdb.org",
+            "value": "my-org",
+            "type": "string",
+            "description": "InfluxDB org name"
+          },
+          "influxdb.logLevel": {
+            "name": "influxdb.logLevel",
+            "value": "NONE",
+            "type": "string",
+            "description": "InfluxDB http client library verbosity level (NONE, BASIC, HEADERS, BODY)"
+          }
+        },
+        "status": "READY",
+        "interpreterGroup": [
+          {
+            "name": "influxdb",
+            "class": "org.apache.zeppelin.influxdb.InfluxDBInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "sql",
+              "editOnDblClick": false,
+              "completionSupport": false
+            }
+          }
+        ],
+        "dependencies": [],
+        "option": {
+          "remote": true,
+          "port": -1,
+          "isExistingProcess": false,
+          "setPermission": false,
+          "owners": [],
+          "isUserImpersonate": false
+        }
+      },
+      "flink-cmd": {
+        "id": "flink-cmd",
+        "name": "flink-cmd",
+        "group": "flink-cmd",
+        "properties": {
+          "FLINK_HOME": {
+            "name": "FLINK_HOME",
+            "value": "",
+            "type": "string",
+            "description": "Location of flink distribution"
+          }
+        },
+        "status": "READY",
+        "interpreterGroup": [
+          {
+            "name": "cmd",
+            "class": "org.apache.zeppelin.flink.cmd.FlinkCmdInterpreter",
+            "defaultInterpreter": false,
+            "editor": {
+              "language": "sh",
+              "editOnDblClick": false,
+              "completionSupport": false
+            }
+          }
+        ],
+        "dependencies": [],
+        "option": {
+          "remote": true,
+          "port": -1,
+          "isExistingProcess": false,
+          "setPermission": false,
+          "owners": [],
+          "isUserImpersonate": false
+        }
+      }
+    },
+    "interpreterRepositories": [
+      {
+        "id": "central",
+        "type": "default",
+        "url": "https://mirrors.cloud.tencent.com/maven/",
+        "host": "mirrors.cloud.tencent.com",
+        "protocol": "https",
+        "releasePolicy": {
+          "enabled": true,
+          "updatePolicy": "daily",
+          "checksumPolicy": "warn"
+        },
+        "snapshotPolicy": {
+          "enabled": true,
+          "updatePolicy": "daily",
+          "checksumPolicy": "warn"
+        },
+        "mirroredRepositories": [],
+        "repositoryManager": false
+      },
+      {
+        "id": "local",
+        "type": "default",
+        "url": "file:///home/zeppelin/.m2/repository",
+        "host": "",
+        "protocol": "file",
+        "releasePolicy": {
+          "enabled": true,
+          "updatePolicy": "daily",
+          "checksumPolicy": "warn"
+        },
+        "snapshotPolicy": {
+          "enabled": true,
+          "updatePolicy": "daily",
+          "checksumPolicy": "warn"
+        },
+        "mirroredRepositories": [],
+        "repositoryManager": false
+      }
+    ]
+  }
