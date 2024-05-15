@@ -31,7 +31,7 @@ The supported components are listed below:
 | Hive Metastore | 2.3.9   | Yes            |               |
 | HiveServer2    | 2.3.9   | Yes            |               |
 | Kyuubi         | 1.9.0   | Yes            |               |
-| Spark          | 3.4.2   | Yes            |               |
+| Spark          | 3.5.1  | Yes            |               |
 | Flink          | 1.18.1  | Not Yet        |               |
 | Trino          | 436     | Not Yet        |               |
 | Ranger         | 2.4.0   | Not Yet        |               |
