@@ -34,9 +34,9 @@ zookeeper_version: 3.8.4
 scala_binary_version: 2.12
 
 spark_enabled: true
-spark_binary_version: 3.4
+spark_binary_version: 3.5
 spark_hadoop_version: 3.3.4
-spark_version: 3.4.2
+spark_version: 3.5.1
 
 flink_enabled: true
 flink_binary_version: 1.18
