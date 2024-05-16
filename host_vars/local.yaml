@@ -5,7 +5,7 @@ jdk8_enabled: true
 zulu8_version: 8.74.0.17
 jdk8_version: 8.0.392
 
-jdk17_enabled: false
+jdk17_enabled: true
 zulu17_version: 17.46.19
 jdk17_version: 17.0.9
 
