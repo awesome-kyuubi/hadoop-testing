@@ -90,7 +90,8 @@ RUN ln -snf /opt/apache-zookeeper-${ZOOKEEPER_VERSION}-bin ${ZOOKEEPER_HOME} && 
     ln -snf /opt/apache-kyuubi-${KYUUBI_VERSION}-bin ${KYUUBI_HOME}
 
 {% if flink_enabled %}
-RUN ln -snf /opt/flink-${FLINK_VERSION} ${FLINK_HOME}
+RUN ln -snf /opt/flink-${FLINK_VERSION} ${FLINK_HOME} && \
+    ln -snf ${HIVE_CONF_DIR}/hive-site.xml ${FLINK_CONF_DIR}/hive-site.xml
 {% endif %}
 
 {% if zeppelin_enabled %}
