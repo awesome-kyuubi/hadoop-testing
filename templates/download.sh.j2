@@ -82,8 +82,10 @@ download_if_not_exists ${MAVEN_MIRROR}/org/apache/kyuubi/${TPCDS_CONNECTOR_JAR_N
 TPCH_CONNECTOR_JAR_NAME=kyuubi-spark-connector-tpch_${SCALA_BINARY_VERSION}
 download_if_not_exists ${MAVEN_MIRROR}/org/apache/kyuubi/${TPCH_CONNECTOR_JAR_NAME}/${KYUUBI_VERSION}/${TPCH_CONNECTOR_JAR_NAME}-${KYUUBI_VERSION}.jar
 
+{% if iceberg_enabled %}
 ICEBERG_SPARK_JAR_NAME=iceberg-spark-runtime-${SPARK_BINARY_VERSION}_${SCALA_BINARY_VERSION}
 download_if_not_exists ${MAVEN_MIRROR}/org/apache/iceberg/${ICEBERG_SPARK_JAR_NAME}/${ICEBERG_VERSION}/${ICEBERG_SPARK_JAR_NAME}-${ICEBERG_VERSION}.jar
+{% endif %}
 
 {% if hudi_enabled %}
 HUDI_SPARK_BUNDLE_JAR_NAME=hudi-spark${SPARK_BINARY_VERSION}-bundle_${SCALA_BINARY_VERSION}
