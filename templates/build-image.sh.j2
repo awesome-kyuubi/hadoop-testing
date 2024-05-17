@@ -77,6 +77,7 @@ function build_hadoop_master_image() {
   cp download/spark-${SPARK_VERSION}-bin-hadoop3.tgz hadoop-master${INDEX}/download/spark-${SPARK_VERSION}-bin-hadoop3.tgz
   {% if flink_enabled %}
   cp download/flink-${FLINK_VERSION}-bin-scala_${SCALA_BINARY_VERSION}.tgz hadoop-master${INDEX}/download/flink-${FLINK_VERSION}-bin-scala_${SCALA_BINARY_VERSION}.tgz
+  cp download/flink-sql-connector-hive-${FLINK_HIVE_VERSION}_${SCALA_BINARY_VERSION}-${FLINK_VERSION}.jar hadoop-master${INDEX}/download/flink-sql-connector-hive-${FLINK_HIVE_VERSION}_${SCALA_BINARY_VERSION}-${FLINK_VERSION}.jar
   {% endif %}
   cp download/apache-kyuubi-${KYUUBI_VERSION}-bin.tgz hadoop-master${INDEX}/download/apache-kyuubi-${KYUUBI_VERSION}-bin.tgz
   {% if ranger_enabled %}
@@ -106,6 +107,7 @@ function build_hadoop_master_image() {
     --build-arg SPARK_VERSION=${SPARK_VERSION} \
     --build-arg SPARK_BINARY_VERSION=${SPARK_BINARY_VERSION} \
     --build-arg FLINK_VERSION=${FLINK_VERSION} \
+    --build-arg FLINK_HIVE_VERSION=${FLINK_HIVE_VERSION} \
     --build-arg SCALA_BINARY_VERSION=${SCALA_BINARY_VERSION} \
     --build-arg KYUUBI_VERSION=${KYUUBI_VERSION} \
     --build-arg RANGER_VERSION=${RANGER_VERSION} \
