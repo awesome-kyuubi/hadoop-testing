@@ -21,6 +21,7 @@ ARG HIVE_VERSION
 ARG SPARK_VERSION
 ARG SPARK_BINARY_VERSION
 ARG FLINK_VERSION
+ARG FLINK_HIVE_VERSION
 ARG SCALA_BINARY_VERSION
 ARG KYUUBI_VERSION
 ARG MYSQL_JDBC_VERSION
@@ -125,7 +126,7 @@ ADD download/hudi-spark${SPARK_BINARY_VERSION}-bundle_${SCALA_BINARY_VERSION}-${
 {% endif %}
 {% if flink_enabled %}
 ADD download/jcl-over-slf4j-1.7.36.jar ${FLINK_HOME}/lib/
-ADD download/flink-sql-connector-hive-${HIVE_VERSION}_${SCALA_BINARY_VERSION}-${FLINK_VERSION}.jar ${FLINK_HOME}/lib/
+ADD download/flink-sql-connector-hive-${FLINK_HIVE_VERSION}_${SCALA_BINARY_VERSION}-${FLINK_VERSION}.jar ${FLINK_HOME}/lib/
 {% endif %}
 {% if trino_enabled %}
 ADD --chmod=755 download/trino-cli-${TRINO_VERSION}-executable.jar ${TRINO_HOME}/bin/trino-cli
