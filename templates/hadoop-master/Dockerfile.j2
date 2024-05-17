@@ -26,6 +26,7 @@ ARG KYUUBI_VERSION
 ARG MYSQL_JDBC_VERSION
 ARG LOKI_APPENDER_VERSION
 ARG RANGER_VERSION
+ARG ICEBERG_VERSION
 ARG HUDI_VERSION
 ARG TRINO_VERSION
 
@@ -116,8 +117,11 @@ ADD download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar ${HIVE_HOME}/lib/
 {% if ranger_enabled %}
 ADD download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar ${RANGER_HOME}/
 {% endif %}
+{% if iceberg_enabled %}
+ADD download/iceberg-spark-runtime-${SPARK_BINARY_VERSION}_${SCALA_BINARY_VERSION}-${ICEBERG_VERSION}.jar ${SPARK_HOME}/jars/
+{% endif %}
 {% if hudi_enabled %}
-ADD download/hudi-spark${SPARK_BINARY_VERSION}-bundle_${SCALA_BINARY_VERSION}-${HUDI_VERSION}.jar /opt/hudi/
+ADD download/hudi-spark${SPARK_BINARY_VERSION}-bundle_${SCALA_BINARY_VERSION}-${HUDI_VERSION}.jar ${SPARK_HOME}/jars/
 {% endif %}
 ADD download/jcl-over-slf4j-1.7.36.jar ${FLINK_HOME}/lib/
 {% if trino_enabled %}
