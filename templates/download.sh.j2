@@ -51,6 +51,7 @@ download_if_not_exists ${APACHE_MIRROR}/spark/spark-${SPARK_VERSION}/spark-${SPA
 {% endif %}
 {% if flink_enabled %}
 download_if_not_exists ${APACHE_MIRROR}/flink/flink-${FLINK_VERSION}/flink-${FLINK_VERSION}-bin-scala_${SCALA_BINARY_VERSION}.tgz
+download_if_not_exists ${MAVEN_MIRROR}/org/apache/flink/flink-sql-connector-hive-${HIVE_VERSION}_${SCALA_BINARY_VERSION}/${FLINK_VERSION}/flink-sql-connector-hive-${HIVE_VERSION}_${SCALA_BINARY_VERSION}-${FLINK_VERSION}.jar
 {% endif %}
 {% if kyuubi_enabled %}
 download_if_not_exists ${APACHE_MIRROR}/kyuubi/kyuubi-${KYUUBI_VERSION}/apache-kyuubi-${KYUUBI_VERSION}-bin.tgz

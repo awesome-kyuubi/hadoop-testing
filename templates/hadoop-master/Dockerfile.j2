@@ -123,7 +123,10 @@ ADD download/iceberg-spark-runtime-${SPARK_BINARY_VERSION}_${SCALA_BINARY_VERSIO
 {% if hudi_enabled %}
 ADD download/hudi-spark${SPARK_BINARY_VERSION}-bundle_${SCALA_BINARY_VERSION}-${HUDI_VERSION}.jar ${SPARK_HOME}/jars/
 {% endif %}
+{% if flink_enabled %}
 ADD download/jcl-over-slf4j-1.7.36.jar ${FLINK_HOME}/lib/
+ADD download/flink-sql-connector-hive-${HIVE_VERSION}_${SCALA_BINARY_VERSION}-${FLINK_VERSION}.jar ${FLINK_HOME}/lib/
+{% endif %}
 {% if trino_enabled %}
 ADD --chmod=755 download/trino-cli-${TRINO_VERSION}-executable.jar ${TRINO_HOME}/bin/trino-cli
 {% endif %}
