@@ -36,7 +36,7 @@ kyuubi.metadata.store.jdbc.url           jdbc:sqlite:file:/var/lib/kyuubi/kyuubi
 kyuubi.ha.addresses                      hadoop-master1.orb.local:2181
 kyuubi.ha.namespace                      kyuubi
 
-kyuubi.engine.session.initialize.sql \
+kyuubi.session.engine.spark.initialize.sql \
       show databases in tpcds; \
       show databases in tpch
 
