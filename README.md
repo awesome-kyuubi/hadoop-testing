@@ -43,7 +43,7 @@ The supported components are listed below:
 | Grafana        | 9.5.2   | No             |               |
 | Prometheus     | latest  | No             |               |
 | Loki           | 2.8.0   | No             |               |
-| Iceberg        | 1.4.2   | No             |               |
+| Iceberg        | 1.5.2   | No             |               |
 | Hudi           | 0.14.1  | No             |               |
 
 ### JDK

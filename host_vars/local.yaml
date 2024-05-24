@@ -54,7 +54,7 @@ trino_enabled: false
 trino_version: 436
 
 iceberg_enabled: true
-iceberg_version: 1.4.2
+iceberg_version: 1.5.2
 
 hudi_enabled: false
 hudi_version: 0.14.1
