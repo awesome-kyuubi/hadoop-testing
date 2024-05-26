@@ -52,6 +52,7 @@ RUN ln -snf /opt/${JDK21_TAR_NAME} /opt/openjdk-21
 
 ENV JAVA_HOME=/opt/openjdk-8
 ENV PATH="$JAVA_HOME/bin:$PATH:/opt/busybox"
+ENV LC_ALL=C.UTF-8
 
 RUN groupadd hadoop --gid 6000 && \
     useradd  hadoop --gid 6000 --uid 6000 -m && \
