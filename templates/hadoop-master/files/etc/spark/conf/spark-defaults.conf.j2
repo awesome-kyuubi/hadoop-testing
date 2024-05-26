@@ -24,6 +24,9 @@ spark.driver.memory=512m
 spark.executor.cores=1
 spark.executor.memory=512m
 
+spark.yarn.appMasterEnv.JAVA_HOME=/opt/openjdk-17
+spark.executorEnv.JAVA_HOME=/opt/openjdk-17
+
 spark.eventLog.enabled=true
 spark.eventLog.dir=hdfs://hadoop-master1.orb.local:8020/spark-history
 
