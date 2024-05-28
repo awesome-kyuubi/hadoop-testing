@@ -58,6 +58,13 @@ export HADOOP_USER_NAME=hdfs
 /opt/hadoop/bin/hadoop fs -chmod 1777 /spark-history
 /opt/hadoop/bin/hadoop fs -chown spark /spark-history
 
+{% if flink_enabled %}
+# Flink History Server
+/opt/hadoop/bin/hadoop fs -mkdir -p /flink-history
+/opt/hadoop/bin/hadoop fs -chmod 1777 /flink-history
+/opt/hadoop/bin/hadoop fs -chown flink /flink-history
+{% endif %}
+
 # init hive directories
 /opt/hadoop/bin/hadoop fs -mkdir -p /warehouse
 /opt/hadoop/bin/hadoop fs -chmod 1777 /warehouse
