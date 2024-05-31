@@ -46,6 +46,7 @@ ENV SPARK_CONF_DIR=/etc/spark/conf
 {% if flink_enabled %}
 ENV FLINK_HOME=/opt/flink
 ENV FLINK_CONF_DIR=/etc/flink/conf
+ENV FLINK_LOG_DIR=/var/log/flink
 {% endif %}
 ENV KYUUBI_HOME=/opt/kyuubi
 ENV KYUUBI_CONF_DIR=/etc/kyuubi/conf
@@ -92,7 +93,9 @@ RUN ln -snf /opt/apache-zookeeper-${ZOOKEEPER_VERSION}-bin ${ZOOKEEPER_HOME} && 
 
 {% if flink_enabled %}
 RUN ln -snf /opt/flink-${FLINK_VERSION} ${FLINK_HOME} && \
-    ln -snf ${HIVE_CONF_DIR}/hive-site.xml ${FLINK_CONF_DIR}/hive-site.xml
+    ln -snf ${HIVE_CONF_DIR}/hive-site.xml ${FLINK_CONF_DIR}/hive-site.xml && \
+    mkdir -p /var/log/flink && \
+    chmod -R 1777 /var/log/flink
 {% endif %}
 
 {% if zeppelin_enabled %}
