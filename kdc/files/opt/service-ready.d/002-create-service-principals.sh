@@ -23,6 +23,9 @@ create_principal -p hive/hadoop-master1.orb.local -k /share/keytabs/hadoop-maste
 # Spark History Server
 create_principal -p spark/hadoop-master1.orb.local -k /share/keytabs/hadoop-master1/spark.service.keytab
 
+# Flink History Server
+create_principal -p flink/hadoop-master1.orb.local -k /share/keytabs/hadoop-master1/flink.service.keytab
+
 # Kyuubi Server
 create_principal -p kyuubi/hadoop-master1.orb.local -k /share/keytabs/hadoop-master1/kyuubi.service.keytab
 
