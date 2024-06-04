@@ -68,7 +68,7 @@ grafana_version: 9.5.2
 prometheus_enabled: false
 
 loki_enabled: false
-loki_version: 2.8.0
+loki_version: 3.0.0
 loki_log4j2_appender_version: 0.9.32
 
 mysql_enabled: true

@@ -2,14 +2,17 @@ auth_enabled: false
 
 server:
   http_listen_port: 3100
+  grpc_listen_port: 9096
+  grpc_server_max_recv_msg_size: 67108864
+  grpc_server_max_send_msg_size: 67108864
 
 common:
-  instance_addr: 127.0.0.1
-  path_prefix: /tmp/loki
+  instance_addr: 0.0.0.0
+  path_prefix: /loki
   storage:
     filesystem:
-      chunks_directory: /tmp/loki/chunks
-      rules_directory: /tmp/loki/rules
+      chunks_directory: /loki/chunks
+      rules_directory: /loki/rules
   replication_factor: 1
   ring:
     kvstore:
@@ -22,15 +25,26 @@ query_range:
         enabled: true
         max_size_mb: 100
 
+limits_config:
+  retention_period: 7d
+  max_entries_limit_per_query: 100000
+
+compactor:
+  working_directory: /loki/compactor
+  delete_request_store: filesystem
+  # shared_store: filesystem
+  # deletion_mode: filter-and-delete
+  compaction_interval: 10m
+  retention_enabled: true
+  retention_delete_delay: 1h
+  retention_delete_worker_count: 150
+
 schema_config:
   configs:
-    - from: 2020-10-24
-      store: boltdb-shipper
+    - from: 2024-01-01
+      store: tsdb
       object_store: filesystem
-      schema: v11
+      schema: v13
       index:
         prefix: index_
         period: 24h
-
-ruler:
-  alertmanager_url: http://localhost:9093
