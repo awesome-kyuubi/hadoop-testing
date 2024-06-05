@@ -25,7 +25,7 @@ kyuubi.kinit.keytab                      /share/keytabs/hadoop-master1/kyuubi.se
 
 kyuubi.frontend.bind.host                hadoop-master1.orb.local
 kyuubi.frontend.protocols                THRIFT_BINARY,REST
-kyuubi.frontend.thrift.binary.bind.port  10009
+# kyuubi.frontend.thrift.binary.bind.port  10009
 kyuubi.frontend.rest.bind.port           10099
 kyuubi.metadata.store.jdbc.url           jdbc:sqlite:file:/var/lib/kyuubi/kyuubi_state_store.db
 #
@@ -36,6 +36,7 @@ kyuubi.metadata.store.jdbc.url           jdbc:sqlite:file:/var/lib/kyuubi/kyuubi
 kyuubi.ha.addresses                      hadoop-master1.orb.local:2181
 kyuubi.ha.namespace                      kyuubi
 
+# spark engine
 kyuubi.session.engine.spark.initialize.sql \
       show databases in tpcds; \
       show databases in tpch
@@ -44,6 +45,11 @@ spark.yarn.maxAppAttempts                    1
 spark.submit.deployMode                      cluster
 kyuubi.session.engine.startup.waitCompletion false
 
+# hive engine
 kyuubi.engine.hive.extra.classpath      /opt/hadoop/share/hadoop/client/*:/opt/hadoop/share/hadoop/mapreduce/*
+
+# flink engine
+flink.execution.target                  yarn-application
+kyuubi.engine.flink.extra.classpath     /opt/hadoop/share/hadoop/client/*:/opt/hadoop/share/hadoop/mapreduce/*
 
 # Details in https://kyuubi.readthedocs.io/en/master/configuration/settings.html
