@@ -88,6 +88,11 @@ ICEBERG_SPARK_JAR_NAME=iceberg-spark-runtime-${SPARK_BINARY_VERSION}_${SCALA_BIN
 download_if_not_exists ${MAVEN_MIRROR}/org/apache/iceberg/${ICEBERG_SPARK_JAR_NAME}/${ICEBERG_VERSION}/${ICEBERG_SPARK_JAR_NAME}-${ICEBERG_VERSION}.jar
 {% endif %}
 
+{% if flink_enabled and iceberg_enabled %}
+ICEBERG_FLINK_JAR_NAME=iceberg-flink-runtime-${FLINK_BINARY_VERSION}
+download_if_not_exists ${MAVEN_MIRROR}/org/apache/iceberg/${ICEBERG_FLINK_JAR_NAME}/${ICEBERG_VERSION}/${ICEBERG_FLINK_JAR_NAME}-${ICEBERG_VERSION}.jar
+{% endif %}
+
 {% if hudi_enabled %}
 HUDI_SPARK_BUNDLE_JAR_NAME=hudi-spark${SPARK_BINARY_VERSION}-bundle_${SCALA_BINARY_VERSION}
 download_if_not_exists https://github.com/yanghua/incubator-hudi/releases/download/release-${HUDI_VERSION}/${HUDI_SPARK_BUNDLE_JAR_NAME}-${HUDI_VERSION}.jar

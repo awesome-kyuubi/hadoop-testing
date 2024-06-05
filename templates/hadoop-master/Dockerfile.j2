@@ -21,6 +21,7 @@ ARG HIVE_VERSION
 ARG SPARK_VERSION
 ARG SPARK_BINARY_VERSION
 ARG FLINK_VERSION
+ARG FLINK_BINARY_VERSION
 ARG FLINK_HIVE_VERSION
 ARG SCALA_BINARY_VERSION
 ARG KYUUBI_VERSION
@@ -122,6 +123,9 @@ ADD download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar ${RANGER_HOME}/
 {% endif %}
 {% if iceberg_enabled %}
 ADD download/iceberg-spark-runtime-${SPARK_BINARY_VERSION}_${SCALA_BINARY_VERSION}-${ICEBERG_VERSION}.jar ${SPARK_HOME}/jars/
+{% endif %}
+{% if flink_enabled and iceberg_enabled %}
+ADD download/iceberg-flink-runtime-${FLINK_BINARY_VERSION}-${ICEBERG_VERSION}.jar ${FLINK_HOME}/lib/
 {% endif %}
 {% if hudi_enabled %}
 ADD download/hudi-spark${SPARK_BINARY_VERSION}-bundle_${SCALA_BINARY_VERSION}-${HUDI_VERSION}.jar ${SPARK_HOME}/jars/

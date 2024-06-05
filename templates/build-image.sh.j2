@@ -90,6 +90,9 @@ function build_hadoop_master_image() {
   {% if iceberg_enabled %}
   cp download/iceberg-spark-runtime-${SPARK_BINARY_VERSION}_${SCALA_BINARY_VERSION}-${ICEBERG_VERSION}.jar hadoop-master${INDEX}/download/iceberg-spark-runtime-${SPARK_BINARY_VERSION}_${SCALA_BINARY_VERSION}-${ICEBERG_VERSION}.jar
   {% endif %}
+  {% if flink_enabled and iceberg_enabled %}
+  cp download/iceberg-flink-runtime-${FLINK_BINARY_VERSION}-${ICEBERG_VERSION}.jar hadoop-master${INDEX}/download/iceberg-flink-runtime-${FLINK_BINARY_VERSION}-${ICEBERG_VERSION}.jar
+  {% endif %}
   {% if hudi_enabled %}
   cp download/hudi-spark${SPARK_BINARY_VERSION}-bundle_${SCALA_BINARY_VERSION}-${HUDI_VERSION}.jar hadoop-master${INDEX}/download/hudi-spark${SPARK_BINARY_VERSION}-bundle_${SCALA_BINARY_VERSION}-${HUDI_VERSION}.jar
   {% endif %}
@@ -107,6 +110,7 @@ function build_hadoop_master_image() {
     --build-arg SPARK_VERSION=${SPARK_VERSION} \
     --build-arg SPARK_BINARY_VERSION=${SPARK_BINARY_VERSION} \
     --build-arg FLINK_VERSION=${FLINK_VERSION} \
+    --build-arg FLINK_BINARY_VERSION=${FLINK_BINARY_VERSION} \
     --build-arg FLINK_HIVE_VERSION=${FLINK_HIVE_VERSION} \
     --build-arg SCALA_BINARY_VERSION=${SCALA_BINARY_VERSION} \
     --build-arg KYUUBI_VERSION=${KYUUBI_VERSION} \
