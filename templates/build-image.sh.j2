@@ -59,11 +59,6 @@ ${BUILD_CMD} \
   "${SELF_DIR}/kdc" $@
 {% endif %}
 
-${BUILD_CMD} \
-  --file "${SELF_DIR}/mysql/Dockerfile" \
-  --tag hadoop-testing/mysql:${PROJECT_VERSION} \
-  "${SELF_DIR}/mysql" $@
-
 function build_hadoop_master_image() {
   local INDEX=$1
   mkdir -p hadoop-master${INDEX}/download

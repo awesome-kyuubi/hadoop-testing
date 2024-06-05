@@ -1,15 +1,19 @@
 #jinja2: trim_blocks: True, lstrip_blocks: True
 services:
-{% if mysql_enabled %}
   mysql:
-    image: hadoop-testing/mysql:${PROJECT_VERSION}
+    image: bitnami/mysql:8.0
     hostname: mysql.orb.local
     container_name: mysql
     networks:
       - hadoop_net
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_AUTHENTICATION_PLUGIN=mysql_native_password
+      - MYSQL_DATABASE=metastore
+    volumes:
+    - ./mysql/files/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     ports:
       - 3306:3306
-{% endif %}
 
   socks5:
     image: serjs/go-socks5-proxy
