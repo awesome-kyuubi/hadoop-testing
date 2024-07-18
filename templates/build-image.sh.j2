@@ -59,7 +59,7 @@ function build_hadoop_master_image() {
   local INDEX=$1
   mkdir -p hadoop-master${INDEX}/download
   {% if zeppelin_enabled %}
-  cp download/zeppelin-${ZEPPELIN_VERSION}-bin-netinst.tgz hadoop-master${INDEX}/download/zeppelin-${ZEPPELIN_VERSION}-bin-netinst.tgz
+  cp download/zeppelin-${ZEPPELIN_VERSION}-bin{{ '-%s' % zeppelin_custom_name if zeppelin_custom_name }}.tgz hadoop-master${INDEX}/download/zeppelin-${ZEPPELIN_VERSION}-bin{{ '-%s' % zeppelin_custom_name if zeppelin_custom_name }}.tgz
   {% endif %}
   cp download/apache-zookeeper-${ZOOKEEPER_VERSION}-bin.tar.gz hadoop-master${INDEX}/download/apache-zookeeper-${ZOOKEEPER_VERSION}-bin.tar.gz
   if [ $(uname -m) = "arm64" ] || [ $(uname -m) = "aarch64" ]; then HADOOP_TAR_NAME=hadoop-${HADOOP_VERSION}-aarch64; else HADOOP_TAR_NAME=hadoop-${HADOOP_VERSION}; fi
