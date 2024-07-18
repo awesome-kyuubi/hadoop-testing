@@ -22,7 +22,7 @@ source "${SELF_DIR}/.env"
 
 # use fast copy (CoW)
 # https://github.com/pkolaczk/fclones/issues/219
-CP="cp --reflink"
+CP="cp --reflink=auto"
 if [ "$(uname)" == "Darwin"]; then
   CP="cp -c"
 fi
