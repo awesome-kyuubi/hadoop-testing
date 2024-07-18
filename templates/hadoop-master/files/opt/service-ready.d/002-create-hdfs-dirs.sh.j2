@@ -31,8 +31,6 @@ export HADOOP_USER_NAME=hdfs
 /opt/hadoop/bin/hadoop fs -chmod -R 1777 /var/log/hadoop-yarn/apps
 /opt/hadoop/bin/hadoop fs -chown yarn:mapred /var/log/hadoop-yarn/apps
 
-/opt/hadoop/bin/hadoop fs -mkdir -p /hbase
-/opt/hadoop/bin/hadoop fs -chown hbase /hbase
 /opt/hadoop/bin/hadoop fs -mkdir -p /user
 /opt/hadoop/bin/hadoop fs -mkdir -p /user/history
 /opt/hadoop/bin/hadoop fs -chown mapred /user/history
@@ -44,19 +42,18 @@ export HADOOP_USER_NAME=hdfs
 /opt/hadoop/bin/hadoop fs -mkdir -p /user/root
 /opt/hadoop/bin/hadoop fs -chmod -R 777 /user/root
 /opt/hadoop/bin/hadoop fs -chown root /user/root
-/opt/hadoop/bin/hadoop fs -mkdir -p /user/hue
-/opt/hadoop/bin/hadoop fs -chmod -R 777 /user/hue
-/opt/hadoop/bin/hadoop fs -chown hue /user/hue
 
 # MR1 JobTracker
 /opt/hadoop/bin/hadoop fs -mkdir -p /var/lib/hadoop-hdfs/cache/mapred/mapred/staging
 /opt/hadoop/bin/hadoop fs -chmod 1777 /var/lib/hadoop-hdfs/cache/mapred/mapred/staging
 /opt/hadoop/bin/hadoop fs -chown -R mapred /var/lib/hadoop-hdfs/cache/mapred
 
+{% if spark_enabled %}
 # Spark History Server
 /opt/hadoop/bin/hadoop fs -mkdir -p /spark-history
 /opt/hadoop/bin/hadoop fs -chmod 1777 /spark-history
 /opt/hadoop/bin/hadoop fs -chown spark /spark-history
+{% endif %}
 
 {% if flink_enabled %}
 # Flink History Server

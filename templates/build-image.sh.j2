@@ -28,14 +28,10 @@ if [ $BUILDX ]; then
 fi
 
 mkdir -p base-ubuntu-2004/download
-{% if jdk8_enabled %}
 if [ $(uname -m) = "arm64" ] || [ $(uname -m) = "aarch64" ]; then JDK8_TAR_NAME=zulu${ZULU8_VERSION}-ca-jdk${JDK8_VERSION}-linux_aarch64; else JDK8_TAR_NAME=zulu${ZULU8_VERSION}-ca-jdk${JDK8_VERSION}-linux_x64; fi
 cp download/${JDK8_TAR_NAME}.tar.gz base-ubuntu-2004/download/${JDK8_TAR_NAME}.tar.gz
-{% endif %}
-{% if jdk17_enabled %}
 if [ $(uname -m) = "arm64" ] || [ $(uname -m) = "aarch64" ]; then JDK17_TAR_NAME=zulu${ZULU17_VERSION}-ca-jdk${JDK17_VERSION}-linux_aarch64; else JDK17_TAR_NAME=zulu${ZULU17_VERSION}-ca-jdk${JDK17_VERSION}-linux_x64; fi
 cp download/${JDK17_TAR_NAME}.tar.gz base-ubuntu-2004/download/${JDK17_TAR_NAME}.tar.gz
-{% endif %}
 {% if jdk21_enabled %}
 if [ $(uname -m) = "arm64" ] || [ $(uname -m) = "aarch64" ]; then JDK21_TAR_NAME=zulu${ZULU21_VERSION}-ca-jdk${JDK21_VERSION}-linux_aarch64; else JDK21_TAR_NAME=zulu${ZULU21_VERSION}-ca-jdk${JDK21_VERSION}-linux_x64; fi
 cp download/${JDK21_TAR_NAME}.tar.gz base-ubuntu-2004/download/${JDK21_TAR_NAME}.tar.gz
@@ -69,7 +65,9 @@ function build_hadoop_master_image() {
   if [ $(uname -m) = "arm64" ] || [ $(uname -m) = "aarch64" ]; then HADOOP_TAR_NAME=hadoop-${HADOOP_VERSION}-aarch64; else HADOOP_TAR_NAME=hadoop-${HADOOP_VERSION}; fi
   cp download/${HADOOP_TAR_NAME}.tar.gz hadoop-master${INDEX}/download/hadoop-${HADOOP_VERSION}.tar.gz
   cp download/apache-hive-${HIVE_VERSION}-bin.tar.gz hadoop-master${INDEX}/download/apache-hive-${HIVE_VERSION}-bin.tar.gz
+  {% if spark_enabled %}
   cp download/spark-${SPARK_VERSION}-bin-hadoop3.tgz hadoop-master${INDEX}/download/spark-${SPARK_VERSION}-bin-hadoop3.tgz
+  {% endif %}
   {% if flink_enabled %}
   cp download/flink-${FLINK_VERSION}-bin-scala_${SCALA_BINARY_VERSION}.tgz hadoop-master${INDEX}/download/flink-${FLINK_VERSION}-bin-scala_${SCALA_BINARY_VERSION}.tgz
   cp download/flink-sql-connector-hive-${FLINK_HIVE_VERSION}_${SCALA_BINARY_VERSION}-${FLINK_VERSION}.jar hadoop-master${INDEX}/download/flink-sql-connector-hive-${FLINK_HIVE_VERSION}_${SCALA_BINARY_VERSION}-${FLINK_VERSION}.jar
@@ -78,17 +76,19 @@ function build_hadoop_master_image() {
   {% if ranger_enabled %}
   cp download/ranger-${RANGER_VERSION}-admin.tar.gz hadoop-master${INDEX}/download/ranger-${RANGER_VERSION}-admin.tar.gz
   {% endif %}
+  {% if spark_enabled %}
   cp download/kyuubi-spark-connector-tpch_${SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar hadoop-master${INDEX}/download/kyuubi-spark-connector-tpch_${SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar
   cp download/kyuubi-spark-connector-tpcds_${SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar hadoop-master${INDEX}/download/kyuubi-spark-connector-tpcds_${SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar
+  {% endif %}
   cp download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar hadoop-master${INDEX}/download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar
   cp download/log4j2-appender-nodep-${LOKI_APPENDER_VERSION}.jar hadoop-master${INDEX}/download/log4j2-appender-nodep-${LOKI_APPENDER_VERSION}.jar
-  {% if iceberg_enabled %}
+  {% if spark_enabled and iceberg_enabled %}
   cp download/iceberg-spark-runtime-${SPARK_BINARY_VERSION}_${SCALA_BINARY_VERSION}-${ICEBERG_VERSION}.jar hadoop-master${INDEX}/download/iceberg-spark-runtime-${SPARK_BINARY_VERSION}_${SCALA_BINARY_VERSION}-${ICEBERG_VERSION}.jar
   {% endif %}
   {% if flink_enabled and iceberg_enabled %}
   cp download/iceberg-flink-runtime-${FLINK_BINARY_VERSION}-${ICEBERG_VERSION}.jar hadoop-master${INDEX}/download/iceberg-flink-runtime-${FLINK_BINARY_VERSION}-${ICEBERG_VERSION}.jar
   {% endif %}
-  {% if hudi_enabled %}
+  {% if spark_enabled and hudi_enabled %}
   cp download/hudi-spark${SPARK_BINARY_VERSION}-bundle_${SCALA_BINARY_VERSION}-${HUDI_VERSION}.jar hadoop-master${INDEX}/download/hudi-spark${SPARK_BINARY_VERSION}-bundle_${SCALA_BINARY_VERSION}-${HUDI_VERSION}.jar
   {% endif %}
   cp download/jcl-over-slf4j-1.7.36.jar hadoop-master${INDEX}/download/jcl-over-slf4j-1.7.36.jar
@@ -129,11 +129,15 @@ function build_hadoop_worker_image() {
   mkdir -p hadoop-worker${INDEX}/download
   if [ $(uname -m) = "arm64" ] || [ $(uname -m) = "aarch64" ]; then HADOOP_TAR_NAME=hadoop-${HADOOP_VERSION}-aarch64; else HADOOP_TAR_NAME=hadoop-${HADOOP_VERSION}; fi
   cp download/${HADOOP_TAR_NAME}.tar.gz hadoop-worker${INDEX}/download/hadoop-${HADOOP_VERSION}.tar.gz
+  {% if spark_enabled %}
   cp download/spark-${SPARK_VERSION}-bin-hadoop3.tgz hadoop-worker${INDEX}/download/spark-${SPARK_VERSION}-bin-hadoop3.tgz
+  {% endif %}
   {% if trino_enabled %}
   cp download/trino-server-${TRINO_VERSION}.tar.gz hadoop-worker${INDEX}/download/trino-server-${TRINO_VERSION}.tar.gz
   {% endif %}
+  {% if spark_enabled %}
   tar -xzf hadoop-worker${INDEX}/download/spark-${SPARK_VERSION}-bin-hadoop3.tgz -C hadoop-worker${INDEX}/download spark-${SPARK_VERSION}-bin-hadoop3/yarn
+  {% endif %}
   ${BUILD_CMD} \
     --build-arg PROJECT_VERSION=${PROJECT_VERSION} \
     --build-arg HADOOP_VERSION=${HADOOP_VERSION} \

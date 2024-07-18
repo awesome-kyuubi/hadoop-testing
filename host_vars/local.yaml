@@ -1,11 +1,9 @@
 project_version: 1-SNAPSHOT
 
 # base
-jdk8_enabled: true
 zulu8_version: 8.74.0.17
 jdk8_version: 8.0.392
 
-jdk17_enabled: true
 zulu17_version: 17.46.19
 jdk17_version: 17.0.9
 
@@ -19,16 +17,13 @@ aws_java_sdk_version: 1.12.620
 # components
 kerberos_enabled: false
 
-hadoop_enabled: true
 hadoop_version: 3.3.6
 
-hive_enabled: true
 hive_version: 2.3.9
 
 zeppelin_enabled: true
 zeppelin_version: 0.11.0
 
-zookeeper_enabled: true
 zookeeper_version: 3.8.4
 
 scala_binary_version: 2.12
@@ -38,7 +33,7 @@ spark_binary_version: 3.5
 spark_hadoop_version: 3.3.4
 spark_version: 3.5.1
 
-flink_enabled: true
+flink_enabled: false
 flink_binary_version: 1.18
 flink_version: 1.18.1
 flink_hive_version: 2.3.9

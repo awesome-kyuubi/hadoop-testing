@@ -24,33 +24,36 @@ We try to deploy a big data ecosystem in multiple Docker containers to simulate 
 
 The supported components are listed below:
 
-| Name           | Version | Kerberos Ready | Note          |
-| -------------- | ------- | -------------- | ------------- |
-| Hadoop HDFS    | 3.3.6   | Yes            |               | 
-| Hadoop YARN    | 3.3.6   | Yes            |               |
-| Hive Metastore | 2.3.9   | Yes            |               |
-| HiveServer2    | 2.3.9   | Yes            |               |
-| Kyuubi         | 1.9.0   | Yes            |               |
-| Spark          | 3.5.1   | Yes            |               |
-| Flink          | 1.18.1  | Yes            |               |
-| Trino          | 436     | Not Yet        |               |
-| Ranger         | 2.4.0   | Not Yet        |               |
-| Zeppelin       | 0.11.0  | Not Yet        |               |
-| ZooKeeper      | 3.8.4   | Not Yet        |               |
-| Kafka          | 2.8.1   | Not Yet        |               |
-| MySQL          | 8.0     | No             |               |
-| KDC            | latest  | Yes            | APT-installed |
-| Grafana        | 9.5.2   | No             |               |
-| Prometheus     | latest  | No             |               |
-| Loki           | 2.8.0   | No             |               |
-| Iceberg        | 1.5.2   | No             |               |
-| Hudi           | 0.14.1  | No             |               |
+| Name           | Version | Kerberos Ready | Optional | Default Enabled | Flags             |
+| -------------- | ------- | -------------- | -------- | --------------- | ----------------- |
+| JDK 8          | 8.0.392 | Not Applicable | No       | Yes             |                   |
+| JDK 17         | 17.0.9  | Not Applicable | No       | Yes             |                   |
+| JDK 21         | 21.0.1  | Not Applicable | Yes      | No              | jdk21_enabled     |
+| KDC            | latest  | Yes            | Yes      | No              | kerberos_enabled  |
+| MySQL          | 8.0     | No             | No       | Yes             |                   |
+| ZooKeeper      | 3.8.4   | Not Yet        | No       | Yes             |                   |
+| Hadoop HDFS    | 3.3.6   | Yes            | No       | Yes             |                   |
+| Hadoop YARN    | 3.3.6   | Yes            | No       | Yes             |                   |
+| Hive Metastore | 2.3.9   | Yes            | No       | Yes             |                   |
+| HiveServer2    | 2.3.9   | Yes            | No       | Yes             |                   |
+| Kyuubi         | 1.9.1   | Yes            | No       | Yes             |                   |
+| Spark          | 3.5.1   | Yes            | Yes      | Yes             | spark_enabled     |
+| Flink          | 1.18.1  | Yes            | Yes      | No              | flink_enabled     |
+| Trino          | 436     | Not Yet        | Yes      | No              | trino_enabled     |
+| Ranger         | 2.4.0   | Not Yet        | Yes      | No              | ranger_enabled    |
+| Zeppelin       | 0.11.0  | Not Yet        | Yes      | No              | zeppelin_enabled  |
+| Kafka          | 2.8.1   | Not Yet        | Yes      | No              | kafka_enabled     |
+| Grafana        | 9.5.2   | Not Applicable | Yes      | No              | grafana_enabled   |
+| Prometheus     | latest  | Not Applicable | Yes      | No              | promeheus_enabled |
+| Loki           | 2.8.0   | Not Applicable | Yes      | No              | loki_enabled      |
+| Iceberg        | 1.5.2   | Yes            | Yes      | Yes             | iceberg_enabled   |
+| Hudi           | 0.14.1  | Yes            | Yes      | No              | hudi_enabled      |
 
-### JDK
+**Note** :
 
-* JDK 8 (1.8.0.392, default)
-* JDK 17 (17.0.9)
-* JDK 21 (21.0.1)
+- Most components respect `JAVA_HOME`, which is configured as JDK 8
+- Spark is configured to use JDK 17
+- Trino is configured to use JDK 21
 
 ## Prepare
 
@@ -58,7 +61,7 @@ This project uses [Ansible](https://www.ansible.com/) to render the Dockerfile, 
 
 ### (Optional, Recommended) Install pyenv
 
-Considering, ansible strongly depends on the Python environment. To make the Python environment independent and easy to manage, it is recommended to use [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv) to manage Python environment. 
+Considering, ansible strongly depends on the Python environment. To make the Python environment independent and easy to manage, it is recommended to use [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv) to manage Python environment.
 
 Here we provide guides for macOS and CentOS users.
 
@@ -89,10 +92,6 @@ Then, install pyenv:
 
 ```bash
 curl https://pyenv.run | bash
-
-# or
-
-curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
 ```
 
 If you use `bash`, add it into `~/.bash_profile` or `~/.bashrc`:
@@ -255,6 +254,6 @@ Once the testing environment is fully operational, the following services will b
 
 ## Roadmap
 
-1. Add more components, such as LDAP, HBase, Zeppelin etc.
+1. Add more components, such as LDAP, HBase, Superset etc.
 2. Fully templatized. Leverage Ansible and Jinja2 to templatize the Dockerfiles, shell scripts, and configuration files, so that users can easily customize the testing environment by modifying the configurations, e.g. only enabling a subset of components, and changing the version of the components.
 3. Provide user-friendly docs, with some basic tutorials and examples, e.g. how to create a customized testing environment, how to run some basic examples, how to add a new component, etc.
