@@ -20,13 +20,6 @@ SELF_DIR="$(cd "$(dirname "$0")"; pwd)"
 
 source "${SELF_DIR}/.env"
 
-BUILD_CMD="docker build"
-
-if [ $BUILDX ]; then
-  echo "Using buildx to build cross-platform images"
-  BUILD_CMD="docker buildx build --platform=linux/amd64,linux/arm64 --push"
-fi
-
 # use fast copy (CoW)
 # https://github.com/pkolaczk/fclones/issues/219
 CP="cp --reflink"
@@ -44,7 +37,7 @@ if [ $(uname -m) = "arm64" ] || [ $(uname -m) = "aarch64" ]; then JDK21_TAR_NAME
 $CP download/${JDK21_TAR_NAME}.tar.gz base-ubuntu-2004/download/${JDK21_TAR_NAME}.tar.gz
 {% endif %}
 
-${BUILD_CMD} \
+docker build \
   --file "${SELF_DIR}/base-ubuntu-2004/Dockerfile" \
   --build-arg JDK8_TAR_NAME=${JDK8_TAR_NAME} \
   --build-arg JDK17_TAR_NAME=${JDK17_TAR_NAME} \
@@ -55,7 +48,7 @@ ${BUILD_CMD} \
 rm -rf base-ubuntu-2004/download/*
 
 {% if kerberos_enabled %}
-${BUILD_CMD} \
+docker build \
   --build-arg PROJECT_VERSION=${PROJECT_VERSION} \
   --file "${SELF_DIR}/kdc/Dockerfile" \
   --tag hadoop-testing/kdc:${PROJECT_VERSION} \
@@ -103,7 +96,7 @@ function build_hadoop_master_image() {
   $CP download/trino-server-${TRINO_VERSION}.tar.gz hadoop-master${INDEX}/download/trino-server-${TRINO_VERSION}.tar.gz
   $CP download/trino-cli-${TRINO_VERSION}-executable.jar hadoop-master${INDEX}/download/trino-cli-${TRINO_VERSION}-executable.jar
   {% endif %}
-  ${BUILD_CMD} \
+  docker build \
     --build-arg PROJECT_VERSION=${PROJECT_VERSION} \
     --build-arg ZEPPELIN_VERSION=${ZEPPELIN_VERSION} \
     --build-arg ZOOKEEPER_VERSION=${ZOOKEEPER_VERSION} \
@@ -145,7 +138,7 @@ function build_hadoop_worker_image() {
   {% if spark_enabled %}
   tar -xzf hadoop-worker${INDEX}/download/spark-${SPARK_VERSION}-bin-hadoop3.tgz -C hadoop-worker${INDEX}/download spark-${SPARK_VERSION}-bin-hadoop3/yarn
   {% endif %}
-  ${BUILD_CMD} \
+  docker build \
     --build-arg PROJECT_VERSION=${PROJECT_VERSION} \
     --build-arg HADOOP_VERSION=${HADOOP_VERSION} \
     --build-arg SPARK_VERSION=${SPARK_VERSION} \
