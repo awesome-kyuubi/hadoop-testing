@@ -5,7 +5,7 @@ of the Hadoop ecosystem to facilitate the rapid establishment of test environmen
 
 We try to deploy a big data ecosystem in multiple Docker containers to simulate the production environment. Generally speaking, it contains two types of deployment modes(standalone and mixed deployed). Standalone mode is just like a SaaS service provided by cloud vendors, while the mixed deployed mode is just like the semi-managed EMR service of cloud vendors. The whole deployment architecture is shown below:
 
-![deployment_architecture](./materials/deployment_architecture.png)
+![deployment_architecture](./docs/imgs/deployment_architecture.png)
 
 > Draw by [excalidraw](https://excalidraw.com/)
 
