@@ -41,7 +41,7 @@ The supported components are listed below:
 | Flink          | 1.18.1  | Yes            | Yes      | No              | flink_enabled     |
 | Trino          | 436     | Not Yet        | Yes      | No              | trino_enabled     |
 | Ranger         | 2.4.0   | Not Yet        | Yes      | No              | ranger_enabled    |
-| Zeppelin       | 0.11.0  | Not Yet        | Yes      | No              | zeppelin_enabled  |
+| Zeppelin       | 0.11.0  | Not Yet        | Yes      | Yes             | zeppelin_enabled  |
 | Kafka          | 2.8.1   | Not Yet        | Yes      | No              | kafka_enabled     |
 | Grafana        | 9.5.2   | Not Applicable | Yes      | No              | grafana_enabled   |
 | Prometheus     | latest  | Not Applicable | Yes      | No              | promeheus_enabled |
