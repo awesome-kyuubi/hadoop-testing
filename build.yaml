@@ -1,5 +1,5 @@
 ---
-- name: hadoop-testing playbook
+- name: compile template files
 
   hosts: local
 

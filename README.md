@@ -142,7 +142,7 @@ chmod 600 ~/.ssh/id_rsa_hadoop_testing
 After all the containers have been launched, test the controllability via this command:
 
 ```bash
-ansible-playbook ping.yaml
+ansible-playbook test-ssh.yaml
 ```
 
 It should print all nodes' OS information (include host and hadoop related containers).
@@ -166,33 +166,36 @@ pyenv local hadoop-testing
 
 Install packages to the isolated virtualenv
 
-```
+```bash
 pip install -r requirements.txt
 ```
 
 ## How to use
 
-Firstly, use ansible to render some build files(`download.sh`, `.env`, `compose.yaml`...).
+Firstly, use ansible to render some templates files, including `download.sh`, `.env`, `compose.yaml`, `Dockerfile`, configuration files, etc.
 
-```
-ansible-playbook playbook.yaml
+```bash
+ansible-playbook build.yaml
 ```
 
 By default, all services disable authN, you can enable Kerberos by passing the `kerberos_enabled` variable:
-```
-ansible-playbook playbook.yaml -e "{kerberos_enabled: true}"
+
+```bash
+ansible-playbook build.yaml -e "{kerberos_enabled: true}"
 ```
 
 And some components are disabled by default, you can enable them by passing the `<component>_enabled` variable:
+
+```bash
+ansible-playbook build.yaml -e "{jdk21_enabled: true, trino_enabled: true}"
 ```
-ansible-playbook playbook.yaml -e "{jdk21_enabled: true, trino_enabled: true}"
-```
+
 Note: the whole variable list are defined in `host_vars/local.yaml`.
 
-You can add `-vvv` arg to debug the playbook:
+If something goes wrong, consider adding `-vvv` arg to debug the playbook:
 
-```
-ansible-playbook playbook.yaml -vvv
+```bash
+ansible-playbook build.yaml -vvv
 ```
 
 Download all required artifacts, which will be used for building Docker images.
@@ -202,17 +205,19 @@ it may take a few minutes or even hours to complete. You can also download them 
 put them into the `download` directory, the scripts won't download them again if they already
 exist.
 
-```
+```bash
 ./download.sh
 ```
 
 Build docker images
-```
+
+```bash
 ./build-image.sh
 ```
 
 Run the testing plagground
-```
+
+```bash
 docker compose up
 ```
 
