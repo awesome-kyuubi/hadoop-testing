@@ -200,7 +200,7 @@ ansible-playbook build.yaml -vvv
 
 Download all required artifacts, which will be used for building Docker images.
 
-This scripts will download a large amount of artifacts, depending on your network bandwidth,
+This script will download a large amount of artifacts, depending on your network bandwidth,
 it may take a few minutes or even hours to complete. You can also download them manually and
 put them into the `download` directory, the scripts won't download them again if they already
 exist.
@@ -215,11 +215,15 @@ Build docker images
 ./build-image.sh
 ```
 
-Run the testing plagground
+Run the testing playground
 
 ```bash
 docker compose up
 ```
+
+Note: depending on the performance of your hardware, some components may take dozens of seconds
+after container launching to complete the initial work, generally, the slowest one is creating
+folders on HDFS, the progress can be observed by monitoring container logs.
 
 ## Access services
 
