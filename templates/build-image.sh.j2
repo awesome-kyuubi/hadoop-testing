@@ -73,6 +73,7 @@ function build_hadoop_master_image() {
   $CP download/flink-sql-connector-hive-${FLINK_HIVE_VERSION}_${SCALA_BINARY_VERSION}-${FLINK_VERSION}.jar hadoop-master${INDEX}/download/flink-sql-connector-hive-${FLINK_HIVE_VERSION}_${SCALA_BINARY_VERSION}-${FLINK_VERSION}.jar
   {% endif %}
   $CP download/apache-kyuubi-${KYUUBI_VERSION}-bin.tgz hadoop-master${INDEX}/download/apache-kyuubi-${KYUUBI_VERSION}-bin.tgz
+  $CP download/kyuubi-hive-jdbc-shaded-${KYUUBI_VERSION}.jar hadoop-master${INDEX}/download/kyuubi-hive-jdbc-shaded-${KYUUBI_VERSION}.jar
   {% if ranger_enabled %}
   $CP download/ranger-${RANGER_VERSION}-admin.tar.gz hadoop-master${INDEX}/download/ranger-${RANGER_VERSION}-admin.tar.gz
   {% endif %}

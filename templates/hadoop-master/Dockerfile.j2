@@ -122,6 +122,15 @@ RUN ln -snf /opt/zeppelin-${ZEPPELIN_VERSION}-bin{{ '-%s' % zeppelin_custom_name
     chown -R 6014:6014 /var/run/zeppelin && \
     chown -R 6014:6014 /var/lib/zeppelin && \
     chown -R 6014:6014 /var/log/zeppelin
+
+ADD download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar ${ZEPPELIN_HOME}/interpreter/jdbc/
+ADD download/kyuubi-hive-jdbc-shaded-${KYUUBI_VERSION}.jar ${ZEPPELIN_HOME}/interpreter/jdbc/
+RUN ln -s ${HIVE_HOME}/jdbc/hive-jdbc-${HIVE_VERSION}-standalone.jar ${ZEPPELIN_HOME}/interpreter/jdbc/ && \
+    ln -s ${HADOOP_HOME}/share/hadoop/client/hadoop-client-api-${HADOOP_VERSION}.jar ${ZEPPELIN_HOME}/interpreter/jdbc/ && \
+    ln -s ${HADOOP_HOME}/share/hadoop/client/hadoop-client-runtime-${HADOOP_VERSION}.jar ${ZEPPELIN_HOME}/interpreter/jdbc/
+{% endif %}
+
+{% if ranger_enabled %}
 {% endif %}
 {% if ranger_enabled %}
 RUN ln -snf /opt/ranger-${RANGER_VERSION}-admin ${RANGER_HOME}

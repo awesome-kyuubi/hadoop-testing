@@ -63,7 +63,7 @@
 
 <property>
   <name>zeppelin.interpreter.include</name>
-  <value></value>
+  <value>md,spark,jdbc</value>
   <description>All the inteprreters that you would like to include. You can only specify either 'zeppelin.interpreter.include' or 'zeppelin.interpreter.exclude'. Specifying them together is not allowed.</description>
 </property>
 
