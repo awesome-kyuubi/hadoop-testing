@@ -20,7 +20,6 @@ ARG TRINO_VERSION
 
 ENV HADOOP_HOME=/opt/hadoop
 ENV HADOOP_CONF_DIR=/etc/hadoop/conf
-ENV HADOOP_CLASSPATH=${HADOOP_HOME}/share/hadoop/client/*
 ENV LD_LIBRARY_PATH=${HADOOP_HOME}/lib/native
 {% if trino_enabled %}
 ENV TRINO_HOME=/opt/trino
