@@ -36,7 +36,7 @@ The supported components are listed below:
 | Hadoop YARN    | 3.3.6   | Yes            | No       | Yes             |                                        |
 | Hive Metastore | 2.3.9   | Yes            | No       | Yes             |                                        |
 | HiveServer2    | 2.3.9   | Yes            | No       | Yes             |                                        |
-| Kyuubi         | 1.9.1   | Yes            | No       | Yes             |                                        |
+| Kyuubi         | 1.9.2   | Yes            | No       | Yes             |                                        |
 | Spark          | 3.5.1   | Yes            | Yes      | Yes             | spark_enabled                          |
 | Flink          | 1.18.1  | Yes            | Yes      | No              | flink_enabled                          |
 | Trino          | 436     | Not Yet        | Yes      | No              | trino_enabled                          |
