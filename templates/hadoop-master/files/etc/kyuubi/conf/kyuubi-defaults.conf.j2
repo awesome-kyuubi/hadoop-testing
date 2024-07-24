@@ -25,16 +25,26 @@ kyuubi.kinit.keytab                      /share/keytabs/hadoop-master1/kyuubi.se
 
 kyuubi.frontend.bind.host                hadoop-master1.orb.local
 kyuubi.frontend.protocols                THRIFT_BINARY,REST
-# kyuubi.frontend.thrift.binary.bind.port  10009
+kyuubi.frontend.thrift.binary.bind.port  10009
 kyuubi.frontend.rest.bind.port           10099
-kyuubi.metadata.store.jdbc.url           jdbc:sqlite:file:/var/lib/kyuubi/kyuubi_state_store.db
-#
-# kyuubi.engine.type                       SPARK_SQL
-# kyuubi.engine.share.level                USER
-# kyuubi.session.engine.initialize.timeout PT3M
-#
+
+kyuubi.engine.type                       SPARK_SQL
+kyuubi.engine.share.level                USER
+kyuubi.session.engine.initialize.timeout PT3M
+
 kyuubi.ha.addresses                      hadoop-master1.orb.local:2181
 kyuubi.ha.namespace                      kyuubi
+
+kyuubi.yarn.user.strategy  ADMIN
+kyuubi.yarn.user.admin     yarn
+
+kyuubi.operation.progress.enabled=true
+kyuubi.metadata.store.jdbc.database.schema.init=false
+kyuubi.metadata.store.jdbc.database.type=mysql
+kyuubi.metadata.store.jdbc.driver=com.mysql.jdbc.Driver
+kyuubi.metadata.store.jdbc.url=jdbc:mysql://mysql:3306/kyuubi?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+kyuubi.metadata.store.jdbc.user=root
+kyuubi.metadata.store.jdbc.password=root
 
 # spark engine
 kyuubi.session.engine.spark.initialize.sql \

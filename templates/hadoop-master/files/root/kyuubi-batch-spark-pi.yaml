@@ -1,0 +1,18 @@
+#jinja2: trim_blocks: True, lstrip_blocks: True
+
+apiVersion: v1
+user: hive
+request:
+  batchType: Spark
+  name: SparkPi
+  resource: hdfs://hadoop-master1.orb.local:8020/tmp/spark-examples_{{ scala_binary_version }}-{{ spark_version }}.jar
+  className: org.apache.spark.examples.SparkPi
+  args:
+    - 10
+  configs:
+    kyuubi.batch.impl.version: 2
+    hive.server2.proxy.user: spark
+    spark.yarn.queue: root.default
+    wait.completion: true
+options:
+  verbose: true

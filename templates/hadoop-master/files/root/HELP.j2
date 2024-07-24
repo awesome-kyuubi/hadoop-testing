@@ -26,3 +26,14 @@ beeline -u 'jdbc:kyuubi://hadoop-master1.orb.local:2181/default;principal=kyuubi
 {% else %}
 beeline -u 'jdbc:kyuubi://hadoop-master1.orb.local:2181/default;serviceDiscoveryMode=zookeeper;zooKeeperNamespace=kyuubi'
 {% endif %}
+
+# Submit Spark Pi using Kyuubi Batch API
+hadoop fs -put file:///opt/spark/examples/jars/spark-examples_{{ scala_binary_version }}-{{ spark_version }}.jar hdfs://hadoop-master1.orb.local:8020/tmp/
+
+{% if kerberos_enabled %}
+# TODO
+{% else %}
+kyuubi-ctl submit batch \
+  --hostUrl=http://hadoop-master1.orb.local:10099 \
+  -f kyuubi-batch-spark-pi.yaml
+{% endif %}

@@ -98,6 +98,8 @@ RUN ln -snf /opt/apache-zookeeper-${ZOOKEEPER_VERSION}-bin ${ZOOKEEPER_HOME} && 
     ln -snf /opt/apache-kyuubi-${KYUUBI_VERSION}-bin ${KYUUBI_HOME} && \
     ln -snf ${HIVE_CONF_DIR}/hive-site.xml ${KYUUBI_CONF_DIR}/hive-site.xml
 
+ADD download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar ${KYUUBI_VERSION}/jars/
+
 {% if spark_enabled %}
 RUN ln -snf /opt/spark-${SPARK_VERSION}-bin-hadoop3 ${SPARK_HOME} && \
     ln -snf ${HIVE_CONF_DIR}/hive-site.xml ${SPARK_CONF_DIR}/hive-site.xml
