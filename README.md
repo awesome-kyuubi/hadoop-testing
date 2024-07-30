@@ -44,7 +44,7 @@ The supported components are listed below:
 | Zeppelin       | 0.11.0  | Not Yet        | Yes      | Yes             | zeppelin_enabled, zeppelin_custom_name |
 | Kafka          | 2.8.1   | Not Yet        | Yes      | No              | kafka_enabled                          |
 | Grafana        | 9.5.2   | Not Applicable | Yes      | No              | grafana_enabled                        |
-| Prometheus     | latest  | Not Applicable | Yes      | No              | promeheus_enabled                      |
+| Prometheus     | 2.53.1  | Not Applicable | Yes      | No              | promeheus_enabled                      |
 | Loki           | 2.8.0   | Not Applicable | Yes      | No              | loki_enabled                           |
 | Iceberg        | 1.5.2   | Yes            | Yes      | Yes             | iceberg_enabled                        |
 | Hudi           | 0.14.1  | Yes            | Yes      | No              | hudi_enabled                           |

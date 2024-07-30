@@ -97,7 +97,7 @@ services:
 
 {% if prometheus_enabled %}
   prometheus:
-    image: prom/prometheus
+    image: prom/prometheus:v${PROMETHEUS_VERSION}
     hostname: prometheus.orb.local
     container_name: prometheus
     networks:

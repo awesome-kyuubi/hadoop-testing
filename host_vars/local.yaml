@@ -62,6 +62,7 @@ grafana_enabled: false
 grafana_version: 11.0.0
 
 prometheus_enabled: false
+prometheus_version: 2.53.1
 
 loki_enabled: false
 loki_version: 3.0.0
