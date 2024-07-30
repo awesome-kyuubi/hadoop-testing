@@ -43,7 +43,7 @@ The supported components are listed below:
 | Ranger         | 2.4.0   | Not Yet        | Yes      | No              | ranger_enabled                         |
 | Zeppelin       | 0.11.0  | Not Yet        | Yes      | Yes             | zeppelin_enabled, zeppelin_custom_name |
 | Kafka          | 2.8.1   | Not Yet        | Yes      | No              | kafka_enabled                          |
-| Grafana        | 9.5.2   | Not Applicable | Yes      | No              | grafana_enabled                        |
+| Grafana        | 11.1.3  | Not Applicable | Yes      | No              | grafana_enabled                        |
 | Prometheus     | 2.53.1  | Not Applicable | Yes      | No              | promeheus_enabled                      |
 | Loki           | 3.1.0   | Not Applicable | Yes      | No              | loki_enabled                           |
 | Iceberg        | 1.5.2   | Yes            | Yes      | Yes             | iceberg_enabled                        |
