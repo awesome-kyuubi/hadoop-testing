@@ -154,8 +154,8 @@ If not, use `-vvv` config option to debug it.
 Create virtualenv
 
 ```bash
-pyenv install 3.9
-pyenv virtualenv 3.9 hadoop-testing
+pyenv install 3.11
+pyenv virtualenv 3.11 hadoop-testing
 ```
 
 Localize virtualenv
