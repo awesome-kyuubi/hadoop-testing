@@ -107,7 +107,9 @@ RUN ln -snf /opt/spark-${SPARK_VERSION}-bin-hadoop3 ${SPARK_HOME} && \
 
 {% if flink_enabled %}
 RUN ln -snf /opt/flink-${FLINK_VERSION} ${FLINK_HOME} && \
-    ln -snf ${HIVE_CONF_DIR}/hive-site.xml ${FLINK_CONF_DIR}/hive-site.xml
+    ln -snf ${HIVE_CONF_DIR}/hive-site.xml ${FLINK_CONF_DIR}/hive-site.xml && \
+    ln -s ${HADOOP_HOME}/share/hadoop/client/hadoop-client-api-${HADOOP_VERSION}.jar ${FLINK_HOME}/lib/ && \
+    ln -s ${HADOOP_HOME}/share/hadoop/client/hadoop-client-runtime-${HADOOP_VERSION}.jar ${FLINK_HOME}/lib/
 {% endif %}
 
 {% if zeppelin_enabled %}
