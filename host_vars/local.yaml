@@ -37,7 +37,7 @@ spark_version: 3.5.1
 flink_enabled: false
 flink_binary_version: 1.20
 flink_version: 1.20.0
-flink_hive_version: 2.3.9
+flink_hive_version: 2.3.10
 
 kyuubi_enabled: true
 kyuubi_version: 1.9.2
