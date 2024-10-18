@@ -260,3 +260,5 @@ historyserver.archive.fs.dir: hdfs://hadoop-master1.orb.local:8020/flink-history
 #historyserver.archive.fs.refresh-interval: 10000
 
 flink.yarn.application.classpath: /etc/hadoop/conf:/opt/hadoop/share/hadoop/client/*:/opt/hadoop/share/hadoop/mapreduce/*
+
+env.log.dir: /var/log/flink
