@@ -32,7 +32,7 @@ scala_binary_version: 2.12
 spark_enabled: true
 spark_binary_version: 3.5
 spark_hadoop_version: 3.3.4
-spark_version: 3.5.1
+spark_version: 3.5.2
 
 flink_enabled: false
 flink_binary_version: 1.20
