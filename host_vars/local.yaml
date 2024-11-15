@@ -1,15 +1,18 @@
 project_version: 1-SNAPSHOT
 
 # base
-zulu8_version: 8.74.0.17
-jdk8_version: 8.0.392
+zulu8_version: 8.82.0.21
+jdk8_version: 8.0.432
 
-zulu17_version: 17.46.19
-jdk17_version: 17.0.9
+zulu11_version: 11.76.21
+jdk11_version: 11.0.25
+
+zulu17_version: 17.54.21
+jdk17_version: 17.0.13
 
 jdk21_enabled: false
-zulu21_version: 21.30.15
-jdk21_version: 21.0.1
+zulu21_version: 21.38.21
+jdk21_version: 21.0.5
 
 s3_enabled: false
 aws_java_sdk_version: 1.12.620

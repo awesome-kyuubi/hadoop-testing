@@ -13,6 +13,7 @@
 FROM ubuntu:20.04
 
 ARG JDK8_TAR_NAME
+ARG JDK11_TAR_NAME
 ARG JDK17_TAR_NAME
 ARG JDK21_TAR_NAME
 
@@ -31,12 +32,14 @@ RUN set -xeu && \
     mkdir /opt/busybox && busybox --install /opt/busybox
 
 ADD download/${JDK8_TAR_NAME}.tar.gz  /opt
+ADD download/${JDK11_TAR_NAME}.tar.gz  /opt
 ADD download/${JDK17_TAR_NAME}.tar.gz /opt
 {% if jdk21_enabled %}
 ADD download/${JDK21_TAR_NAME}.tar.gz /opt
 {% endif %}
 
 RUN ln -snf /opt/${JDK8_TAR_NAME}  /opt/openjdk-8
+RUN ln -snf /opt/${JDK11_TAR_NAME} /opt/openjdk-11
 RUN ln -snf /opt/${JDK17_TAR_NAME} /opt/openjdk-17
 {% if jdk21_enabled %}
 RUN ln -snf /opt/${JDK21_TAR_NAME} /opt/openjdk-21
