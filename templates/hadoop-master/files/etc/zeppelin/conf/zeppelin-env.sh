@@ -16,6 +16,7 @@
 # limitations under the License.
 #
 
+export JAVA_HOME=/opt/openjdk-11
 export ZEPPELIN_LOG_DIR=/var/log/zeppelin
 export ZEPPELIN_PID_DIR=/var/run/zeppelin/pid
 

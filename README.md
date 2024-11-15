@@ -55,6 +55,7 @@ The supported components are listed below:
 - Most components respect `JAVA_HOME`, which is configured as JDK 8
 - Spark is configured to use JDK 17
 - Trino is configured to use JDK 21
+- Zeppelin is configured to use JDK 11
 
 ## Prepare
 
