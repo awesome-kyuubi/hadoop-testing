@@ -25,7 +25,7 @@ RUN cat /etc/apt/sources.list.mirror-$(uname -m) > /etc/apt/sources.list
 
 RUN set -xeu && \
     ln -snf /usr/bin/bash /usr/bin/sh && \
-    install_packages busybox python3-pip supervisor xsltproc curl tree python-is-python3 \
+    install_packages busybox python3-pip supervisor xsltproc curl tree jq python-is-python3 \
     openssh-client openssh-server sqlite3 libcap-dev \
     {% if kerberos_enabled %}krb5-user jsvc libssl1.1{% endif %} && \
     mkdir /run/sshd && chmod 0755 /run/sshd && \

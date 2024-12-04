@@ -10,9 +10,9 @@ mkdir /var/lib/hadoop-yarn
 chown -R yarn:yarn /var/lib/hadoop-yarn
 
 mkdir /opt/hadoop/logs /var/log/hadoop-hdfs /var/log/hadoop-yarn 
-chown -R hadoop.hadoop /opt/hadoop/logs
-chown -R hdfs.hadoop /var/log/hadoop-hdfs
-chown -R yarn.hadoop /var/log/hadoop-yarn
+chown -R hadoop:hadoop /opt/hadoop/logs
+chown -R hdfs:hadoop /var/log/hadoop-hdfs
+chown -R yarn:hadoop /var/log/hadoop-yarn
 chmod -R 770 /opt/hadoop/logs /var/log/hadoop-hdfs
 chmod 755 /var/log/hadoop-yarn
 

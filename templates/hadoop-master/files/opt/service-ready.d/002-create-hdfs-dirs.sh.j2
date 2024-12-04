@@ -2,67 +2,58 @@
 
 set -exuo pipefail
 
+HADOOP="$HADOOP_HOME/bin/hadoop"
 {% if kerberos_enabled %}
 kinit -kt /share/keytabs/hadoop-master1/nn.service.keytab nn/hadoop-master1.orb.local@TEST.ORG
 {% else %}
-export HADOOP_USER_NAME=hdfs
+HADOOP="HADOOP_USER_NAME=hdfs $HADOOP"
 {% endif %}
 
-# init basic hdfs directories
-/opt/hadoop/bin/hadoop fs -mkdir -p /tmp
-/opt/hadoop/bin/hadoop fs -chmod -R 1777 /tmp
-/opt/hadoop/bin/hadoop fs -mkdir -p /var
-/opt/hadoop/bin/hadoop fs -mkdir -p /var/log
-/opt/hadoop/bin/hadoop fs -chmod -R 1775 /var/log
-/opt/hadoop/bin/hadoop fs -chown yarn:mapred /var/log
-/opt/hadoop/bin/hadoop fs -mkdir -p /tmp/hadoop-yarn
-/opt/hadoop/bin/hadoop fs -chown -R mapred:mapred /tmp/hadoop-yarn
-/opt/hadoop/bin/hadoop fs -mkdir -p /tmp/hadoop-yarn/staging/history/done_intermediate
-/opt/hadoop/bin/hadoop fs -chown -R mapred:mapred /tmp/hadoop-yarn/staging
-/opt/hadoop/bin/hadoop fs -chmod -R 1777 /tmp/hadoop-yarn
-/opt/hadoop/bin/hadoop fs -mkdir -p /tmp/hadoop-yarn/staging
-/opt/hadoop/bin/hadoop fs -chown mapred:mapred /tmp/hadoop-yarn/staging
-/opt/hadoop/bin/hadoop fs -chmod -R 1777 /tmp/hadoop-yarn/staging
-/opt/hadoop/bin/hadoop fs -mkdir -p /tmp/hadoop-yarn/staging/history
-/opt/hadoop/bin/hadoop fs -chown mapred:mapred /tmp/hadoop-yarn/staging/history
-/opt/hadoop/bin/hadoop fs -chmod -R 1777 /tmp/hadoop-yarn/staging/history
-/opt/hadoop/bin/hadoop fs -chmod -R 1777 /tmp
-/opt/hadoop/bin/hadoop fs -mkdir -p /var/log/hadoop-yarn/apps
-/opt/hadoop/bin/hadoop fs -chmod -R 1777 /var/log/hadoop-yarn/apps
-/opt/hadoop/bin/hadoop fs -chown yarn:mapred /var/log/hadoop-yarn/apps
+DIR_LIST=/tmp/hdfs-init-dirs
 
-/opt/hadoop/bin/hadoop fs -mkdir -p /user
-/opt/hadoop/bin/hadoop fs -mkdir -p /user/history
-/opt/hadoop/bin/hadoop fs -chown mapred /user/history
-/opt/hadoop/bin/hadoop fs -mkdir -p /user/yarn
-/opt/hadoop/bin/hadoop fs -chown yarn:yarn /user/yarn
-/opt/hadoop/bin/hadoop fs -mkdir -p /user/hive
-/opt/hadoop/bin/hadoop fs -chmod -R 777 /user/hive
-/opt/hadoop/bin/hadoop fs -chown hive /user/hive
-/opt/hadoop/bin/hadoop fs -mkdir -p /user/root
-/opt/hadoop/bin/hadoop fs -chmod -R 777 /user/root
-/opt/hadoop/bin/hadoop fs -chown root /user/root
+set +x
 
-# MR1 JobTracker
-/opt/hadoop/bin/hadoop fs -mkdir -p /var/lib/hadoop-hdfs/cache/mapred/mapred/staging
-/opt/hadoop/bin/hadoop fs -chmod 1777 /var/lib/hadoop-hdfs/cache/mapred/mapred/staging
-/opt/hadoop/bin/hadoop fs -chown -R mapred /var/lib/hadoop-hdfs/cache/mapred
+function parallel_create_dirs() {
+    while read line; do
+        # skip empty or started with # line
+        [[ -z "$line" || "$line" =~ ^# ]] && continue
 
+        owner=$(echo $line | jq -r '.owner')
+        group=$(echo $line | jq -r '.group')
+        permission=$(echo $line | jq -r '.permission')
+        path=$(echo $line | jq -r '.path')
+        command="$HADOOP fs -mkdir -p $path && $HADOOP fs -chmod $permission $path && $HADOOP fs -chown $owner:$group $path"
+        echo $command
+    done < $DIR_LIST | xargs -t -I {} -P 5 bash -c "{}"
+}
+
+echo > $DIR_LIST
+# top-level
+echo '{"owner": "hdfs", "group": "hdfs", "permission": "1777", "path": "/tmp"}' >> $DIR_LIST
+echo '{"owner": "hdfs", "group": "hdfs", "permission": "1755", "path": "/var"}' >> $DIR_LIST
+echo '{"owner": "hdfs", "group": "hdfs", "permission": "1755", "path": "/user"}' >> $DIR_LIST
+echo '{"owner": "hive", "group": "hadoop", "permission": "1777", "path": "/warehouse"}' >> $DIR_LIST
+echo '{"owner": "yarn", "group": "hadoop", "permission": "1777", "path": "/yarn-app-log"}' >> $DIR_LIST
+echo '{"owner": "mapred", "group": "mapred", "permission": "1777", "path": "/mr-staging"}' >> $DIR_LIST
+echo '{"owner": "mapred", "group": "hdfs", "permission": "1777", "path": "/mr-history"}' >> $DIR_LIST
 {% if spark_enabled %}
-# Spark History Server
-/opt/hadoop/bin/hadoop fs -mkdir -p /spark-history
-/opt/hadoop/bin/hadoop fs -chmod 1777 /spark-history
-/opt/hadoop/bin/hadoop fs -chown spark /spark-history
+echo '{"owner": "spark", "group": "hdfs", "permission": "1777", "path": "/spark-history"}' >> $DIR_LIST
 {% endif %}
-
 {% if flink_enabled %}
-# Flink History Server
-/opt/hadoop/bin/hadoop fs -mkdir -p /flink-history
-/opt/hadoop/bin/hadoop fs -chmod 1777 /flink-history
-/opt/hadoop/bin/hadoop fs -chown flink /flink-history
+echo '{"owner": "flink", "group": "hdfs", "permission": "1777", "path": "/flink-history"}' >> $DIR_LIST
 {% endif %}
+parallel_create_dirs
 
-# init hive directories
-/opt/hadoop/bin/hadoop fs -mkdir -p /warehouse
-/opt/hadoop/bin/hadoop fs -chmod 1777 /warehouse
-/opt/hadoop/bin/hadoop fs -chown hive /warehouse
+echo > $DIR_LIST
+# user home
+echo '{"owner": "mapred", "group": "mapred", "permission": "755", "path": "/user/history"}' >> $DIR_LIST
+echo '{"owner": "yarn", "group": "hadoop", "permission": "755", "path": "/user/yarn"}' >> $DIR_LIST
+echo '{"owner": "hive", "group": "hadoop", "permission": "755", "path": "/user/hive"}' >> $DIR_LIST
+echo '{"owner": "root", "group": "hadoop", "permission": "755", "path": "/user/root"}' >> $DIR_LIST
+{% if spark_enabled %}
+echo '{"owner": "spark", "group": "hadoop", "permission": "755", "path": "/user/spark"}' >> $DIR_LIST
+{% endif %}
+{% if flink_enabled %}
+echo '{"owner": "flink", "group": "hadoop", "permission": "755", "path": "/user/flink"}' >> $DIR_LIST
+{% endif %}
+parallel_create_dirs

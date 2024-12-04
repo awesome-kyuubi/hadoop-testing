@@ -27,6 +27,21 @@
     <value>hadoop-master1.orb.local:19888</value>
   </property>
   <property>
+    <name>yarn.app.mapreduce.am.staging-dir</name>
+    <value>/mr-staging</value>
+    <description>hdfs</description>
+  </property>
+  <property>
+    <name>mapreduce.jobhistory.intermediate-done-dir</name>
+    <value>/mr-history/intermediate</value>
+    <description>hdfs</description>
+  </property>
+  <property>
+    <name>mapreduce.jobhistory.done-dir</name>
+    <value>/mr-history/done</value>
+    <description>hdfs</description>
+  </property>
+  <property>
     <name>mapreduce.task.tmp.dir</name>
     <value>/var/lib/hadoop-mapreduce/cache/${user.name}/tasks</value>
     <description>To set the value of tmp directory for map and reduce tasks.</description>

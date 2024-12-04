@@ -15,7 +15,12 @@
   </property>
   <property>
     <name>hadoop.security.auth_to_local</name>
-    <value>DEFAULT RULE:[1:$1] RULE:[2:$1]</value>
+    <value>
+      RULE:[2:$1/$2@$0]([ndj]n/.*@TEST.ORG)s/.*/hdfs/
+      RULE:[2:$1/$2@$0]([rn]m/.*@TEST.ORG)s/.*/yarn/
+      RULE:[2:$1/$2@$0](jhs/.*@TEST.ORG)s/.*/mapred/
+      DEFAULT RULE:[1:$1] RULE:[2:$1]
+    </value>
   </property>
   {% endif %}
   <property>
