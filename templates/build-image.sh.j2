@@ -69,7 +69,7 @@ function build_hadoop_master_image() {
   $CP download/${HADOOP_TAR_NAME}.tar.gz hadoop-master${INDEX}/download/hadoop-${HADOOP_VERSION}.tar.gz
   $CP download/apache-hive-${HIVE_VERSION}-bin.tar.gz hadoop-master${INDEX}/download/apache-hive-${HIVE_VERSION}-bin.tar.gz
   {% if spark_enabled %}
-  $CP download/spark-${SPARK_VERSION}-bin-hadoop3.tgz hadoop-master${INDEX}/download/spark-${SPARK_VERSION}-bin-hadoop3.tgz
+  $CP download/spark-${SPARK_VERSION}-bin-{{ spark_custom_name }}.tgz hadoop-master${INDEX}/download/spark-${SPARK_VERSION}-bin-{{ spark_custom_name }}.tgz
   {% endif %}
   {% if flink_enabled %}
   $CP download/flink-${FLINK_VERSION}-bin-scala_${SCALA_BINARY_VERSION}.tgz hadoop-master${INDEX}/download/flink-${FLINK_VERSION}-bin-scala_${SCALA_BINARY_VERSION}.tgz
@@ -134,13 +134,13 @@ function build_hadoop_worker_image() {
   if [ $(uname -m) = "arm64" ] || [ $(uname -m) = "aarch64" ]; then HADOOP_TAR_NAME=hadoop-${HADOOP_VERSION}-aarch64; else HADOOP_TAR_NAME=hadoop-${HADOOP_VERSION}; fi
   $CP download/${HADOOP_TAR_NAME}.tar.gz hadoop-worker${INDEX}/download/hadoop-${HADOOP_VERSION}.tar.gz
   {% if spark_enabled %}
-  $CP download/spark-${SPARK_VERSION}-bin-hadoop3.tgz hadoop-worker${INDEX}/download/spark-${SPARK_VERSION}-bin-hadoop3.tgz
+  $CP download/spark-${SPARK_VERSION}-bin-{{ spark_custom_name }}.tgz hadoop-worker${INDEX}/download/spark-${SPARK_VERSION}-bin-{{ spark_custom_name }}.tgz
   {% endif %}
   {% if trino_enabled %}
   $CP download/trino-server-${TRINO_VERSION}.tar.gz hadoop-worker${INDEX}/download/trino-server-${TRINO_VERSION}.tar.gz
   {% endif %}
   {% if spark_enabled %}
-  tar -xzf hadoop-worker${INDEX}/download/spark-${SPARK_VERSION}-bin-hadoop3.tgz -C hadoop-worker${INDEX}/download spark-${SPARK_VERSION}-bin-hadoop3/yarn
+  tar -xzf hadoop-worker${INDEX}/download/spark-${SPARK_VERSION}-bin-{{ spark_custom_name }}.tgz -C hadoop-worker${INDEX}/download spark-${SPARK_VERSION}-bin-{{ spark_custom_name }}/yarn
   {% endif %}
   docker build \
     --build-arg PROJECT_VERSION=${PROJECT_VERSION} \

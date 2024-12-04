@@ -27,7 +27,7 @@ ENV TRINO_HOME=/opt/trino
 ENV PATH=${HADOOP_HOME}/bin:${PATH}
 
 ADD download/hadoop-${HADOOP_VERSION}.tar.gz /opt
-ADD download/spark-${SPARK_VERSION}-bin-hadoop3/yarn /opt/spark-${SPARK_VERSION}-bin-hadoop3/yarn
+ADD download/spark-${SPARK_VERSION}-bin-{{ spark_custom_name }}/yarn /opt/spark-${SPARK_VERSION}-bin-{{ spark_custom_name }}/yarn
 {% if trino_enabled %}
 ADD download/trino-server-${TRINO_VERSION}.tar.gz /opt
 {% endif %}
@@ -36,7 +36,7 @@ ADD download/trino-server-${TRINO_VERSION}.tar.gz /opt
 COPY ./files /
 
 RUN ln -snf /opt/hadoop-${HADOOP_VERSION} ${HADOOP_HOME} && \
-    ln -snf spark-${SPARK_VERSION}-bin-hadoop3 /opt/spark
+    ln -snf spark-${SPARK_VERSION}-bin-{{ spark_custom_name }} /opt/spark
 {% if trino_enabled %}
 RUN ln -snf /opt/trino-server-${TRINO_VERSION} ${TRINO_HOME}
 {% endif %}

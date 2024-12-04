@@ -41,7 +41,7 @@ download_if_not_exists ${APACHE_MIRROR}/hadoop/core/hadoop-${HADOOP_VERSION}/${H
 {# Hive 2 is EOL, only avaiable at archive.apache.org/dist #}
 download_if_not_exists https://archive.apache.org/dist/hive/hive-${HIVE_VERSION}/apache-hive-${HIVE_VERSION}-bin.tar.gz
 {% if spark_enabled %}
-download_if_not_exists ${APACHE_MIRROR}/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop3.tgz
+download_if_not_exists ${APACHE_MIRROR}/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-{{ spark_custom_name }}.tgz
 {% endif %}
 {% if flink_enabled %}
 download_if_not_exists ${APACHE_MIRROR}/flink/flink-${FLINK_VERSION}/flink-${FLINK_VERSION}-bin-scala_${SCALA_BINARY_VERSION}.tgz
