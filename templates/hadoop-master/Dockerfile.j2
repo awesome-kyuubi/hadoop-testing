@@ -20,6 +20,8 @@ ARG HADOOP_VERSION
 ARG HIVE_VERSION
 ARG SPARK_VERSION
 ARG SPARK_BINARY_VERSION
+ARG SPARK_PARQUET_VERSION
+ARG SPARK_PARQUET_JCOMMANDER_VERSION
 ARG FLINK_VERSION
 ARG FLINK_BINARY_VERSION
 ARG FLINK_HIVE_VERSION
@@ -44,6 +46,7 @@ ENV HIVE_CONF_DIR=/etc/hive/conf
 {% if spark_enabled %}
 ENV SPARK_HOME=/opt/spark
 ENV SPARK_CONF_DIR=/etc/spark/conf
+ENV PARQUET_HOME=/opt/parquet
 {% endif %}
 {% if flink_enabled %}
 ENV FLINK_HOME=/opt/flink
@@ -61,6 +64,7 @@ ENV MYSQL_JDBC_VERSION=${MYSQL_JDBC_VERSION}
 ENV PATH=${HIVE_HOME}/bin:${HADOOP_HOME}/bin:${ZEPPELIN_HOME}/bin:${ZOOKEEPER_HOME}/bin:${PATH}
 {% if spark_enabled %}
 ENV PATH=${SPARK_HOME}/bin:${PATH}
+ENV PATH=${PARQUET_HOME}/bin:${PATH}
 {% endif %}
 {% if flink_enabled %}
 ENV PATH=${FLINK_HOME}/bin:${PATH}
@@ -102,7 +106,8 @@ ADD download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar ${KYUUBI_HOME}/jars/
 
 {% if spark_enabled %}
 RUN ln -snf /opt/spark-${SPARK_VERSION}-bin-{{ spark_custom_name }} ${SPARK_HOME} && \
-    ln -snf ${HIVE_CONF_DIR}/hive-site.xml ${SPARK_CONF_DIR}/hive-site.xml
+    ln -snf ${HIVE_CONF_DIR}/hive-site.xml ${SPARK_CONF_DIR}/hive-site.xml && \
+    mkdir -p ${PARQUET_HOME}/jars
 {% endif %}
 
 {% if flink_enabled %}
@@ -171,6 +176,8 @@ ADD download/log4j2-appender-nodep-${LOKI_APPENDER_VERSION}.jar ${KYUUBI_HOME}/j
 ADD download/kyuubi-spark-connector-tpch_${SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar ${SPARK_HOME}/jars/
 ADD download/kyuubi-spark-connector-tpcds_${SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar ${SPARK_HOME}/jars/
 ADD download/log4j2-appender-nodep-${LOKI_APPENDER_VERSION}.jar ${SPARK_HOME}/jars/
+ADD download/jcommander-${SPARK_PARQUET_JCOMMANDER_VERSION}.jar ${PARQUET_HOME}/jars/
+ADD download/parquet-cli-${SPARK_PARQUET_VERSION}.jar ${PARQUET_HOME}/jars/
 {% endif %}
 
 {% if ranger_enabled %}

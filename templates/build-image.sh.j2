@@ -83,6 +83,8 @@ function build_hadoop_master_image() {
   {% if spark_enabled %}
   $CP download/kyuubi-spark-connector-tpch_${SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar hadoop-master${INDEX}/download/kyuubi-spark-connector-tpch_${SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar
   $CP download/kyuubi-spark-connector-tpcds_${SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar hadoop-master${INDEX}/download/kyuubi-spark-connector-tpcds_${SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar
+  $CP download/jcommander-${SPARK_PARQUET_JCOMMANDER_VERSION}.jar hadoop-master${INDEX}/download/jcommander-${SPARK_PARQUET_JCOMMANDER_VERSION}.jar
+  $CP download/parquet-cli-${SPARK_PARQUET_VERSION}.jar hadoop-master${INDEX}/download/parquet-cli-${SPARK_PARQUET_VERSION}.jar
   {% endif %}
   $CP download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar hadoop-master${INDEX}/download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar
   $CP download/log4j2-appender-nodep-${LOKI_APPENDER_VERSION}.jar hadoop-master${INDEX}/download/log4j2-appender-nodep-${LOKI_APPENDER_VERSION}.jar
@@ -108,6 +110,8 @@ function build_hadoop_master_image() {
     --build-arg HIVE_VERSION=${HIVE_VERSION} \
     --build-arg SPARK_VERSION=${SPARK_VERSION} \
     --build-arg SPARK_BINARY_VERSION=${SPARK_BINARY_VERSION} \
+    --build-arg SPARK_PARQUET_VERSION=${SPARK_PARQUET_VERSION} \
+    --build-arg SPARK_PARQUET_JCOMMANDER_VERSION=${SPARK_PARQUET_JCOMMANDER_VERSION} \
     --build-arg FLINK_VERSION=${FLINK_VERSION} \
     --build-arg FLINK_BINARY_VERSION=${FLINK_BINARY_VERSION} \
     --build-arg FLINK_HIVE_VERSION=${FLINK_HIVE_VERSION} \

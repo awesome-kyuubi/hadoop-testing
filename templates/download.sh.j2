@@ -82,6 +82,10 @@ TPCDS_CONNECTOR_JAR_NAME=kyuubi-spark-connector-tpcds_${SCALA_BINARY_VERSION}
 download_if_not_exists ${MAVEN_MIRROR}/org/apache/kyuubi/${TPCDS_CONNECTOR_JAR_NAME}/${KYUUBI_VERSION}/${TPCDS_CONNECTOR_JAR_NAME}-${KYUUBI_VERSION}.jar
 TPCH_CONNECTOR_JAR_NAME=kyuubi-spark-connector-tpch_${SCALA_BINARY_VERSION}
 download_if_not_exists ${MAVEN_MIRROR}/org/apache/kyuubi/${TPCH_CONNECTOR_JAR_NAME}/${KYUUBI_VERSION}/${TPCH_CONNECTOR_JAR_NAME}-${KYUUBI_VERSION}.jar
+JCOMMANDER_JAR_NAME=jcommander
+download_if_not_exists ${MAVEN_MIRROR}/com/beust/${JCOMMANDER_JAR_NAME}/${SPARK_PARQUET_JCOMMANDER_VERSION}/${JCOMMANDER_JAR_NAME}-${SPARK_PARQUET_JCOMMANDER_VERSION}.jar
+PARQUET_CLI_JAR_NAME=parquet-cli
+download_if_not_exists ${MAVEN_MIRROR}/org/apache/parquet/${PARQUET_CLI_JAR_NAME}/${SPARK_PARQUET_VERSION}/${PARQUET_CLI_JAR_NAME}-${SPARK_PARQUET_VERSION}.jar
 {% endif %}
 
 {% if spark_enabled and iceberg_enabled %}
