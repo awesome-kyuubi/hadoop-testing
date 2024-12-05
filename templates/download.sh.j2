@@ -62,6 +62,10 @@ download_if_not_exists https://github.com/pan3793/ranger/releases/download/relea
 download_if_not_exists ${MAVEN_MIRROR}/io/trino/trino-server/${TRINO_VERSION}/trino-server-${TRINO_VERSION}.tar.gz
 download_if_not_exists ${MAVEN_MIRROR}/io/trino/trino-cli/${TRINO_VERSION}/trino-cli-${TRINO_VERSION}-executable.jar
 {% endif %}
+{% if parquet_enabled %}
+PARQUET_CLI_JAR_NAME=parquet-cli
+download_if_not_exists ${MAVEN_MIRROR}/org/apache/parquet/${PARQUET_CLI_JAR_NAME}/${PARQUET_VERSION}/${PARQUET_CLI_JAR_NAME}-${PARQUET_VERSION}-runtime.jar
+{% endif %}
 
 MYSQL_JDBC_JAR_NAME=mysql-connector-j
 download_if_not_exists ${MAVEN_MIRROR}/com/mysql/${MYSQL_JDBC_JAR_NAME}/${MYSQL_JDBC_VERSION}/${MYSQL_JDBC_JAR_NAME}-${MYSQL_JDBC_VERSION}.jar
@@ -82,10 +86,6 @@ TPCDS_CONNECTOR_JAR_NAME=kyuubi-spark-connector-tpcds_${SCALA_BINARY_VERSION}
 download_if_not_exists ${MAVEN_MIRROR}/org/apache/kyuubi/${TPCDS_CONNECTOR_JAR_NAME}/${KYUUBI_VERSION}/${TPCDS_CONNECTOR_JAR_NAME}-${KYUUBI_VERSION}.jar
 TPCH_CONNECTOR_JAR_NAME=kyuubi-spark-connector-tpch_${SCALA_BINARY_VERSION}
 download_if_not_exists ${MAVEN_MIRROR}/org/apache/kyuubi/${TPCH_CONNECTOR_JAR_NAME}/${KYUUBI_VERSION}/${TPCH_CONNECTOR_JAR_NAME}-${KYUUBI_VERSION}.jar
-JCOMMANDER_JAR_NAME=jcommander
-download_if_not_exists ${MAVEN_MIRROR}/com/beust/${JCOMMANDER_JAR_NAME}/${SPARK_PARQUET_JCOMMANDER_VERSION}/${JCOMMANDER_JAR_NAME}-${SPARK_PARQUET_JCOMMANDER_VERSION}.jar
-PARQUET_CLI_JAR_NAME=parquet-cli
-download_if_not_exists ${MAVEN_MIRROR}/org/apache/parquet/${PARQUET_CLI_JAR_NAME}/${SPARK_PARQUET_VERSION}/${PARQUET_CLI_JAR_NAME}-${SPARK_PARQUET_VERSION}.jar
 {% endif %}
 
 {% if spark_enabled and iceberg_enabled %}

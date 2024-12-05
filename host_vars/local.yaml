@@ -35,8 +35,6 @@ scala_binary_version: 2.12
 spark_enabled: true
 spark_binary_version: 3.5
 spark_hadoop_version: 3.3.4
-spark_parquet_version: 1.13.1
-spark_parquet_jcommander_version: 1.72
 spark_version: 3.5.2
 spark_custom_name: hadoop3
 
@@ -54,6 +52,9 @@ ranger_version: 2.4.0
 
 trino_enabled: false
 trino_version: 436
+
+parquet_enabled: true
+parquet_version: 1.13.1
 
 iceberg_enabled: true
 iceberg_version: 1.7.0

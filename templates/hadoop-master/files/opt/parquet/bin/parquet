@@ -1,3 +1,2 @@
 #!/usr/bin/env bash
-source "${SPARK_HOME}"/bin/load-spark-env.sh
-${JAVA_HOME}/bin/java -cp "${PARQUET_HOME}/jars/*:${SPARK_HOME}/jars/*" org.apache.parquet.cli.Main "$@"
+${JAVA_HOME}/bin/java -cp "${PARQUET_HOME}/jars/*:`${HADOOP_HOME}/bin/hadoop classpath`" org.apache.parquet.cli.Main "$@"

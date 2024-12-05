@@ -83,8 +83,6 @@ function build_hadoop_master_image() {
   {% if spark_enabled %}
   $CP download/kyuubi-spark-connector-tpch_${SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar hadoop-master${INDEX}/download/kyuubi-spark-connector-tpch_${SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar
   $CP download/kyuubi-spark-connector-tpcds_${SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar hadoop-master${INDEX}/download/kyuubi-spark-connector-tpcds_${SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar
-  $CP download/jcommander-${SPARK_PARQUET_JCOMMANDER_VERSION}.jar hadoop-master${INDEX}/download/jcommander-${SPARK_PARQUET_JCOMMANDER_VERSION}.jar
-  $CP download/parquet-cli-${SPARK_PARQUET_VERSION}.jar hadoop-master${INDEX}/download/parquet-cli-${SPARK_PARQUET_VERSION}.jar
   {% endif %}
   $CP download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar hadoop-master${INDEX}/download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar
   $CP download/log4j2-appender-nodep-${LOKI_APPENDER_VERSION}.jar hadoop-master${INDEX}/download/log4j2-appender-nodep-${LOKI_APPENDER_VERSION}.jar
@@ -102,6 +100,10 @@ function build_hadoop_master_image() {
   $CP download/trino-server-${TRINO_VERSION}.tar.gz hadoop-master${INDEX}/download/trino-server-${TRINO_VERSION}.tar.gz
   $CP download/trino-cli-${TRINO_VERSION}-executable.jar hadoop-master${INDEX}/download/trino-cli-${TRINO_VERSION}-executable.jar
   {% endif %}
+  {% if parquet_enabled %}
+  $CP download/parquet-cli-${PARQUET_VERSION}-runtime.jar hadoop-master${INDEX}/download/parquet-cli-${PARQUET_VERSION}-runtime.jar
+  {% endif %}
+
   docker build \
     --build-arg PROJECT_VERSION=${PROJECT_VERSION} \
     --build-arg ZEPPELIN_VERSION=${ZEPPELIN_VERSION} \
@@ -110,8 +112,6 @@ function build_hadoop_master_image() {
     --build-arg HIVE_VERSION=${HIVE_VERSION} \
     --build-arg SPARK_VERSION=${SPARK_VERSION} \
     --build-arg SPARK_BINARY_VERSION=${SPARK_BINARY_VERSION} \
-    --build-arg SPARK_PARQUET_VERSION=${SPARK_PARQUET_VERSION} \
-    --build-arg SPARK_PARQUET_JCOMMANDER_VERSION=${SPARK_PARQUET_JCOMMANDER_VERSION} \
     --build-arg FLINK_VERSION=${FLINK_VERSION} \
     --build-arg FLINK_BINARY_VERSION=${FLINK_BINARY_VERSION} \
     --build-arg FLINK_HIVE_VERSION=${FLINK_HIVE_VERSION} \
@@ -123,6 +123,7 @@ function build_hadoop_master_image() {
     --build-arg HUDI_VERSION=${HUDI_VERSION} \
     --build-arg LOKI_APPENDER_VERSION=${LOKI_APPENDER_VERSION} \
     --build-arg TRINO_VERSION=${TRINO_VERSION} \
+    --build-arg PARQUET_VERSION=${PARQUET_VERSION} \
     --file "${SELF_DIR}/hadoop-master${INDEX}/Dockerfile" \
     --tag hadoop-testing/hadoop-master${INDEX}:${PROJECT_VERSION} \
     "${SELF_DIR}/hadoop-master${INDEX}" $2

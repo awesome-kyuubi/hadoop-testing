@@ -20,8 +20,6 @@ ARG HADOOP_VERSION
 ARG HIVE_VERSION
 ARG SPARK_VERSION
 ARG SPARK_BINARY_VERSION
-ARG SPARK_PARQUET_VERSION
-ARG SPARK_PARQUET_JCOMMANDER_VERSION
 ARG FLINK_VERSION
 ARG FLINK_BINARY_VERSION
 ARG FLINK_HIVE_VERSION
@@ -33,6 +31,7 @@ ARG RANGER_VERSION
 ARG ICEBERG_VERSION
 ARG HUDI_VERSION
 ARG TRINO_VERSION
+ARG PARQUET_VERSION
 
 ENV ZEPPELIN_HOME=/opt/zeppelin
 ENV ZEPPELIN_CONF_DIR=/etc/zeppelin/conf
@@ -46,7 +45,6 @@ ENV HIVE_CONF_DIR=/etc/hive/conf
 {% if spark_enabled %}
 ENV SPARK_HOME=/opt/spark
 ENV SPARK_CONF_DIR=/etc/spark/conf
-ENV PARQUET_HOME=/opt/parquet
 {% endif %}
 {% if flink_enabled %}
 ENV FLINK_HOME=/opt/flink
@@ -60,16 +58,21 @@ ENV RANGER_HOME=/opt/ranger
 {% if trino_enabled %}
 ENV TRINO_HOME=/opt/trino
 {% endif %}
+{% if parquet_enabled %}
+ENV PARQUET_HOME=/opt/parquet
+{% endif %}
 ENV MYSQL_JDBC_VERSION=${MYSQL_JDBC_VERSION}
 ENV PATH=${HIVE_HOME}/bin:${HADOOP_HOME}/bin:${ZEPPELIN_HOME}/bin:${ZOOKEEPER_HOME}/bin:${PATH}
 {% if spark_enabled %}
 ENV PATH=${SPARK_HOME}/bin:${PATH}
-ENV PATH=${PARQUET_HOME}/bin:${PATH}
 {% endif %}
 {% if flink_enabled %}
 ENV PATH=${FLINK_HOME}/bin:${PATH}
 {% endif %}
 ENV PATH=${KYUUBI_HOME}/bin:${PATH}
+{% if parquet_enabled %}
+ENV PATH=${PARQUET_HOME}/bin:${PATH}
+{% endif %}
 
 {% if zeppelin_enabled %}
 ADD download/zeppelin-${ZEPPELIN_VERSION}-bin{{ '-%s' % zeppelin_custom_name if zeppelin_custom_name }}.tgz /opt
@@ -167,6 +170,9 @@ ADD download/flink-sql-connector-hive-${FLINK_HIVE_VERSION}_${SCALA_BINARY_VERSI
 {% if trino_enabled %}
 ADD --chmod=755 download/trino-cli-${TRINO_VERSION}-executable.jar ${TRINO_HOME}/bin/trino-cli
 {% endif %}
+{% if parquet_enabled %}
+ADD download/parquet-cli-${PARQUET_VERSION}-runtime.jar ${PARQUET_HOME}/jars/
+{% endif %}
 
 ADD download/log4j2-appender-nodep-${LOKI_APPENDER_VERSION}.jar ${HIVE_HOME}/lib/
 ADD download/log4j2-appender-nodep-${LOKI_APPENDER_VERSION}.jar ${KYUUBI_HOME}/jars/
@@ -175,8 +181,6 @@ ADD download/log4j2-appender-nodep-${LOKI_APPENDER_VERSION}.jar ${KYUUBI_HOME}/j
 ADD download/kyuubi-spark-connector-tpch_${SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar ${SPARK_HOME}/jars/
 ADD download/kyuubi-spark-connector-tpcds_${SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar ${SPARK_HOME}/jars/
 ADD download/log4j2-appender-nodep-${LOKI_APPENDER_VERSION}.jar ${SPARK_HOME}/jars/
-ADD download/jcommander-${SPARK_PARQUET_JCOMMANDER_VERSION}.jar ${PARQUET_HOME}/jars/
-ADD download/parquet-cli-${SPARK_PARQUET_VERSION}.jar ${PARQUET_HOME}/jars/
 {% endif %}
 
 {% if ranger_enabled %}
