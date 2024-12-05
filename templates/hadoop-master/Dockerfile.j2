@@ -106,8 +106,7 @@ ADD download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar ${KYUUBI_HOME}/jars/
 
 {% if spark_enabled %}
 RUN ln -snf /opt/spark-${SPARK_VERSION}-bin-{{ spark_custom_name }} ${SPARK_HOME} && \
-    ln -snf ${HIVE_CONF_DIR}/hive-site.xml ${SPARK_CONF_DIR}/hive-site.xml && \
-    mkdir -p ${PARQUET_HOME}/jars
+    ln -snf ${HIVE_CONF_DIR}/hive-site.xml ${SPARK_CONF_DIR}/hive-site.xml
 {% endif %}
 
 {% if flink_enabled %}
