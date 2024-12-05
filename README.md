@@ -179,6 +179,7 @@ Firstly, use ansible to render some templates files, including `download.sh`, `.
 ```bash
 ansible-playbook build.yaml
 ```
+Ensure you specify the inventory file when running the playbook if it is not located in the default path or correctly recognized by Ansible. For instance, use `ansible-playbook -i hosts playbook.yaml` to explicitly define the inventory.
 
 By default, all services disable authN, you can enable Kerberos by passing the `kerberos_enabled` variable:
 
