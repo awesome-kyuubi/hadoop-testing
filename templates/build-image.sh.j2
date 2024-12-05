@@ -100,6 +100,10 @@ function build_hadoop_master_image() {
   $CP download/trino-server-${TRINO_VERSION}.tar.gz hadoop-master${INDEX}/download/trino-server-${TRINO_VERSION}.tar.gz
   $CP download/trino-cli-${TRINO_VERSION}-executable.jar hadoop-master${INDEX}/download/trino-cli-${TRINO_VERSION}-executable.jar
   {% endif %}
+  {% if parquet_enabled %}
+  $CP download/parquet-cli-${PARQUET_VERSION}-runtime.jar hadoop-master${INDEX}/download/parquet-cli-${PARQUET_VERSION}-runtime.jar
+  {% endif %}
+
   docker build \
     --build-arg PROJECT_VERSION=${PROJECT_VERSION} \
     --build-arg ZEPPELIN_VERSION=${ZEPPELIN_VERSION} \
@@ -119,6 +123,7 @@ function build_hadoop_master_image() {
     --build-arg HUDI_VERSION=${HUDI_VERSION} \
     --build-arg LOKI_APPENDER_VERSION=${LOKI_APPENDER_VERSION} \
     --build-arg TRINO_VERSION=${TRINO_VERSION} \
+    --build-arg PARQUET_VERSION=${PARQUET_VERSION} \
     --file "${SELF_DIR}/hadoop-master${INDEX}/Dockerfile" \
     --tag hadoop-testing/hadoop-master${INDEX}:${PROJECT_VERSION} \
     "${SELF_DIR}/hadoop-master${INDEX}" $2

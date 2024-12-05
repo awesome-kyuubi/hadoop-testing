@@ -31,6 +31,7 @@ ARG RANGER_VERSION
 ARG ICEBERG_VERSION
 ARG HUDI_VERSION
 ARG TRINO_VERSION
+ARG PARQUET_VERSION
 
 ENV ZEPPELIN_HOME=/opt/zeppelin
 ENV ZEPPELIN_CONF_DIR=/etc/zeppelin/conf
@@ -57,6 +58,9 @@ ENV RANGER_HOME=/opt/ranger
 {% if trino_enabled %}
 ENV TRINO_HOME=/opt/trino
 {% endif %}
+{% if parquet_enabled %}
+ENV PARQUET_HOME=/opt/parquet
+{% endif %}
 ENV MYSQL_JDBC_VERSION=${MYSQL_JDBC_VERSION}
 ENV PATH=${HIVE_HOME}/bin:${HADOOP_HOME}/bin:${ZEPPELIN_HOME}/bin:${ZOOKEEPER_HOME}/bin:${PATH}
 {% if spark_enabled %}
@@ -66,6 +70,9 @@ ENV PATH=${SPARK_HOME}/bin:${PATH}
 ENV PATH=${FLINK_HOME}/bin:${PATH}
 {% endif %}
 ENV PATH=${KYUUBI_HOME}/bin:${PATH}
+{% if parquet_enabled %}
+ENV PATH=${PARQUET_HOME}/bin:${PATH}
+{% endif %}
 
 {% if zeppelin_enabled %}
 ADD download/zeppelin-${ZEPPELIN_VERSION}-bin{{ '-%s' % zeppelin_custom_name if zeppelin_custom_name }}.tgz /opt
@@ -162,6 +169,9 @@ ADD download/flink-sql-connector-hive-${FLINK_HIVE_VERSION}_${SCALA_BINARY_VERSI
 {% endif %}
 {% if trino_enabled %}
 ADD --chmod=755 download/trino-cli-${TRINO_VERSION}-executable.jar ${TRINO_HOME}/bin/trino-cli
+{% endif %}
+{% if parquet_enabled %}
+ADD download/parquet-cli-${PARQUET_VERSION}-runtime.jar ${PARQUET_HOME}/jars/
 {% endif %}
 
 ADD download/log4j2-appender-nodep-${LOKI_APPENDER_VERSION}.jar ${HIVE_HOME}/lib/

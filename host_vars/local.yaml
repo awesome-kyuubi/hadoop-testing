@@ -53,6 +53,9 @@ ranger_version: 2.4.0
 trino_enabled: false
 trino_version: 436
 
+parquet_enabled: true
+parquet_version: 1.15.0
+
 iceberg_enabled: true
 iceberg_version: 1.7.0
 

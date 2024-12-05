@@ -49,6 +49,7 @@ The supported components are listed below:
 | Loki           | 3.1.0   | Not Applicable | Yes      | No              | loki_enabled                           |
 | Iceberg        | 1.7.0   | Yes            | Yes      | Yes             | iceberg_enabled                        |
 | Hudi           | 0.14.1  | Yes            | Yes      | No              | hudi_enabled                           |
+| Parquet        | 1.15.0  | Not Applicable | Yes      | Yes             | parquet_enabled                        |
 
 **Note** :
 
