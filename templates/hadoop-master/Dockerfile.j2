@@ -60,7 +60,7 @@ ENV TRINO_HOME=/opt/trino
 ENV MYSQL_JDBC_VERSION=${MYSQL_JDBC_VERSION}
 ENV PATH=${HIVE_HOME}/bin:${HADOOP_HOME}/bin:${ZEPPELIN_HOME}/bin:${ZOOKEEPER_HOME}/bin:${PATH}
 {% if spark_enabled %}
-ENV PATH=${KYUUBI_HOME}/bin:${SPARK_HOME}/bin:${PATH}
+ENV PATH=${SPARK_HOME}/bin:${PATH}
 {% endif %}
 {% if flink_enabled %}
 ENV PATH=${FLINK_HOME}/bin:${PATH}
