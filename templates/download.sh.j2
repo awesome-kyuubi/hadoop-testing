@@ -8,6 +8,10 @@ source "${SELF_DIR}/.env"
 function download_if_not_exists() {
   local url=$1
   local filename=${url##*/}
+  if [ ! -s "${SELF_DIR}/download/$filename" ]; then
+    echo "delete empty $filename ..."
+    rm -f "${SELF_DIR}/download/$filename"
+  fi
   if [ ! -f "${SELF_DIR}/download/$filename" ]; then
     echo "downloading $filename ..."
     wget -O "${SELF_DIR}/download/$filename" $url
