@@ -69,7 +69,7 @@ grafana_enabled: false
 grafana_version: 11.4.0
 
 prometheus_enabled: false
-prometheus_version: 2.53.1
+prometheus_version: 2.53.3
 
 loki_enabled: false
 loki_version: 3.3.2
