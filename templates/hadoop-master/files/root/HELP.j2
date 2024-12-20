@@ -5,6 +5,13 @@
 kinit -kt /share/keytabs/hadoop-master1/spark.service.keytab spark/hadoop-master1.orb.local@TEST.ORG
 {% endif %}
 
+Run Spark Pi
+{% if kerberos_enabled %}
+spark-submit run-example --deploy-mode cluster --queue root.default --proxy-user spark SparkPi 10
+{% else %}
+spark-submit run-example --deploy-mode cluster --queue root.default SparkPi 10
+{% endif %}
+
 # Connect to HiveServer2 directly
 {% if kerberos_enabled %}
 kyuubi-beeline -u 'jdbc:hive2://hadoop-master1.orb.local:10000/default;principal=hive/_HOST@TEST.ORG'
@@ -16,8 +23,10 @@ kyuubi-beeline -u 'jdbc:hive2://hadoop-master1.orb.local:10000/default;user=hive
 {% if kerberos_enabled %}
 kyuubi-beeline -u 'jdbc:kyuubi://hadoop-master1.orb.local:10009/default;kyuubiClientPrincipal=spark/_HOST@TEST.ORG;kyuubiClientKeytab=/share/keytabs/hadoop-master1/spark.service.keytab;kyuubiServerPrincipal=kyuubi/_HOST@TEST.ORG'
 kyuubi-beeline -u 'jdbc:kyuubi://hadoop-master1.orb.local:10009/default;principal=kyuubi/_HOST@TEST.ORG'
+kyuubi-beeline -u 'jdbc:kyuubi://hadoop-master1.orb.local:10009/default;principal=kyuubi/_HOST@TEST.ORG' --conf kyuubi.engine.share.level=CONNECTION
 {% else %}
 kyuubi-beeline -u 'jdbc:kyuubi://hadoop-master1.orb.local:10009/default;user=kyuubi'
+kyuubi-beeline -u 'jdbc:kyuubi://hadoop-master1.orb.local:10009/default;user=kyuubi' --conf kyuubi.engine.share.level=CONNECTION
 {% endif %}
 
 # Connect to Kyuubi HA
