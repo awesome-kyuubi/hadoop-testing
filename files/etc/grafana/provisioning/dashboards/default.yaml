@@ -2,7 +2,7 @@ apiVersion: 1
 
 providers:
   - name: Default # A uniquely identifiable name for the provider
-    folder: Default # The folder where to place the dashboards
+    folder: ~ # The folder where to place the dashboards
     type: file
     options:
       path: /var/lib/grafana/dashboards
