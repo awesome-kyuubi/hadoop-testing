@@ -110,3 +110,6 @@ LOKI_APPENDER_JAR_NAME=log4j2-appender-nodep
 download_if_not_exists ${MAVEN_MIRROR}/pl/tkowalcz/tjahzi/${LOKI_APPENDER_JAR_NAME}/${LOKI_APPENDER_VERSION}/${LOKI_APPENDER_JAR_NAME}-${LOKI_APPENDER_VERSION}.jar
 
 download_if_not_exists ${MAVEN_MIRROR}/org/slf4j/jcl-over-slf4j/1.7.36/jcl-over-slf4j-1.7.36.jar 
+
+# TODO: Remove after kyuubi ships that jar
+download_if_not_exists ${MAVEN_MIRROR}/org/apache/logging/log4j/log4j-layout-template-json/2.20.0/log4j-layout-template-json-2.20.0.jar

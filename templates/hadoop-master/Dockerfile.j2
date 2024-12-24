@@ -103,8 +103,10 @@ RUN ln -snf /opt/apache-zookeeper-${ZOOKEEPER_VERSION}-bin ${ZOOKEEPER_HOME} && 
     ln -snf /opt/hadoop-${HADOOP_VERSION} ${HADOOP_HOME} && \
     ln -snf /opt/apache-hive-${HIVE_VERSION}-bin ${HIVE_HOME} && \
     ln -snf /opt/apache-kyuubi-${KYUUBI_VERSION}-bin ${KYUUBI_HOME} && \
-    ln -snf ${HIVE_CONF_DIR}/hive-site.xml ${KYUUBI_CONF_DIR}/hive-site.xml
+    ln -snf ${HIVE_CONF_DIR}/hive-site.xml ${KYUUBI_CONF_DIR}/hive-site.xml && \
+    mkdir -p /var/log/kyuubi && chmod -R 777 /var/log/kyuubi
 
+ADD download/log4j-layout-template-json-2.20.0.jar ${KYUUBI_HOME}/jars/
 ADD download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar ${KYUUBI_HOME}/jars/
 
 {% if spark_enabled %}

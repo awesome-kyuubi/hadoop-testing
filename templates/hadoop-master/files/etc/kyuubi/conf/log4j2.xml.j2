@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Properties>
+        <Property name="logDir">${env:KYUUBI_LOG_DIR}</Property>
+        <Property name="restAuditLogPath">rest-audit.log</Property>
+        <Property name="k8sAuditLogPath">k8s-audit.log</Property>
+        <Property name="opAuditLogPath">operation-audit.log</Property>
+    </Properties>
+    <Appenders>
+        <Console name="stdout" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %p %tn %c: %m%n%ex"/>
+        </Console>
+        <File name="restAudit" fileName="${sys:logDir}/${sys:restAuditLogPath}">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %p %c{1}: %m%n%ex"/>
+        </File>
+        <File name="k8sAudit" fileName="${sys:logDir}/${sys:k8sAuditLogPath}">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %p %c{1}: %m%n%ex"/>
+        </File>
+        <File name="opAudit" fileName="${sys:logDir}/${sys:opAuditLogPath}">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %p %c{1}: %m%n%ex"/>
+        </File>
+        {% if kafka_enabled %}
+        <Kafka name="kafka" topic="ecs-json-logs" syncSend="false">
+            <JsonTemplateLayout>
+                <EventTemplateAdditionalField key="app" value="kyuubi"/>
+                <EventTemplateAdditionalField key="cluster" value="hadoop-testing"/>
+                <EventTemplateAdditionalField key="host" value="${hostName}"/>
+            </JsonTemplateLayout>
+            <Property name="bootstrap.servers" value="kafka:9092"/>
+        </Kafka>
+        {% endif %}
+    </Appenders>
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="stdout"/>
+            {% if kafka_enabled %}
+            <AppenderRef ref="kafka"/>
+            {% endif %}
+        </Root>
+        <Logger name="org.apache.kyuubi.ctl" level="error" additivity="false">
+            <AppenderRef ref="stdout"/>
+        </Logger>
+        <Logger name="org.apache.hive.beeline.KyuubiBeeLine" level="error" additivity="false">
+            <AppenderRef ref="stdout"/>
+        </Logger>
+        <Logger name="org.apache.kyuubi.server.http.authentication.AuthenticationAuditLogger" additivity="false">
+            <AppenderRef ref="stdout"/>
+            <AppenderRef ref="restAudit" />
+            {% if kafka_enabled %}
+            <AppenderRef ref="kafka"/>
+            {% endif %}
+        </Logger>
+        <Logger name="org.apache.kyuubi.engine.KubernetesApplicationAuditLogger" additivity="false">
+            <AppenderRef ref="stdout"/>
+            <AppenderRef ref="k8sAudit" />
+            {% if kafka_enabled %}
+            <AppenderRef ref="kafka"/>
+            {% endif %}
+        </Logger>
+        <Logger name="org.apache.kyuubi.operation.OperationAuditLogger" additivity="false">
+            <AppenderRef ref="stdout"/>
+            <AppenderRef ref="opAudit" />
+            {% if kafka_enabled %}
+            <AppenderRef ref="kafka"/>
+            {% endif %}
+        </Logger>
+    </Loggers>
+</Configuration>
