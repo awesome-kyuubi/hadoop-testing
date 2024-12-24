@@ -142,7 +142,7 @@ services:
 
 {% if kafka_enabled %}
   kafka:
-    image: bitnami/kafka:{{ kafka_version }}
+    image: bitnami/kafka:${KAFKA_VERSION}
     hostname: kafka.orb.local
     container_name: kafkabroker
     networks:
