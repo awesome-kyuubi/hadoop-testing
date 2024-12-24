@@ -144,7 +144,7 @@ services:
   kafka:
     image: bitnami/kafka:${KAFKA_VERSION}
     hostname: kafka.orb.local
-    container_name: kafkabroker
+    container_name: kafka
     networks:
       - hadoop_net
     ports:
