@@ -62,9 +62,13 @@ The supported components are listed below:
 
 This project uses [Ansible](https://www.ansible.com/) to render the Dockerfile, shell scripts, and configuration files from the templates. Please make sure you have installed it before building.
 
-### (Optional, Recommended) Install pyenv
+<details>
+
+<summary> (Optional, Recommended) Use pyenv to manage Python environments </summary>
 
 Considering, ansible strongly depends on the Python environment. To make the Python environment independent and easy to manage, it is recommended to use [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv) to manage Python environment.
+
+### Install pyenv
 
 Here we provide guides for macOS and CentOS users.
 
@@ -113,15 +117,51 @@ eval "$(pyenv virtualenv-init -)"
 
 After all, source `~/.bash_profile` and `~/.bashrc`.
 
-### (Optional) Configure SSH
+### Use pyenv
+
+Create virtualenv
+
+```bash
+pyenv install 3.11
+pyenv virtualenv 3.11 hadoop-testing
+```
+
+Localize virtualenv
+
+```bash
+pyenv local hadoop-testing
+```
+
+Install packages to the isolated virtualenv
+
+```bash
+pip install -r requirements.txt
+```
+</details>
+
+<details>
+
+<summary>(Optional) Configure SSH containers from host</summary>
 
 This step allows you to ssh all the `hadoop-*` containers from your host, then can use ansible to control all the `hadoop-*` containers.
 
-The macOS should have pre-installed `nc`, and you can manually install `nc` on CentOS using the following command:
+### Install nc
+
+Here we provide guides for macOS and CentOS users.
+
+#### macOS
+
+The macOS should have pre-installed `nc`.
+
+#### CentOS
+
+Install `nc` using YUM:
 
 ```bash
 yum install epel-release && yum install -y nc
 ```
+
+### Configure SSH
 
 Then configure the `~/.ssh/config` file in your host:
 
@@ -151,27 +191,7 @@ ansible-playbook test-ssh.yaml
 It should print all nodes' OS information (include host and hadoop related containers).
 
 If not, use `-vvv` config option to debug it.
-
-### Use pyenv
-
-Create virtualenv
-
-```bash
-pyenv install 3.11
-pyenv virtualenv 3.11 hadoop-testing
-```
-
-Localize virtualenv
-
-```bash
-pyenv local hadoop-testing
-```
-
-Install packages to the isolated virtualenv
-
-```bash
-pip install -r requirements.txt
-```
+</details>
 
 ## How to use
 
