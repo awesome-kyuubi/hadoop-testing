@@ -27,6 +27,7 @@
                 <EventTemplateAdditionalField key="host" value="${hostName}"/>
             </JsonTemplateLayout>
             <Property name="bootstrap.servers" value="kafka:9092"/>
+            <Property name="compression.type" value="gzip"/>
         </Kafka>
         {% endif %}
     </Appenders>
