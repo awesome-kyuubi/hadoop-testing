@@ -156,6 +156,20 @@ services:
       - hadoop-master1
 {% endif %}
 
+{% if kafka_enabled and kafka_ui_enabled %}
+  kafka-ui:
+    image: ghcr.io/kafbat/kafka-ui:latest
+    hostname: kafka-ui.orb.local
+    container_name: kafka-ui
+    networks:
+      - hadoop_net
+    ports:
+      - 19092:19092
+    environment:
+      SERVER_PORT: 19092
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka.orb.local:9092
+{% endif %}
+
 volumes:
   share:
 
