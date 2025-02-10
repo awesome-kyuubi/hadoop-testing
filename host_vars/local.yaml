@@ -25,7 +25,7 @@ hadoop_version: 3.3.6
 hive_version: 2.3.9
 
 zeppelin_enabled: true
-zeppelin_version: 0.11.0
+zeppelin_version: 0.12.0
 zeppelin_custom_name: all
 
 zookeeper_version: 3.8.4
