@@ -48,8 +48,8 @@ download_if_not_exists https://archive.apache.org/dist/hive/hive-${HIVE_VERSION}
 download_if_not_exists ${APACHE_MIRROR}/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-{{ spark_custom_name }}.tgz
 {% endif %}
 {% if flink_enabled %}
-download_if_not_exists ${APACHE_MIRROR}/flink/flink-${FLINK_VERSION}/flink-${FLINK_VERSION}-bin-scala_${SCALA_BINARY_VERSION}.tgz
-download_if_not_exists ${MAVEN_MIRROR}/org/apache/flink/flink-sql-connector-hive-${FLINK_HIVE_VERSION}_${SCALA_BINARY_VERSION}/${FLINK_VERSION}/flink-sql-connector-hive-${FLINK_HIVE_VERSION}_${SCALA_BINARY_VERSION}-${FLINK_VERSION}.jar
+download_if_not_exists ${APACHE_MIRROR}/flink/flink-${FLINK_VERSION}/flink-${FLINK_VERSION}-bin-scala_2.12.tgz
+download_if_not_exists ${MAVEN_MIRROR}/org/apache/flink/flink-sql-connector-hive-${FLINK_HIVE_VERSION}_2.12/${FLINK_VERSION}/flink-sql-connector-hive-${FLINK_HIVE_VERSION}_2.12-${FLINK_VERSION}.jar
 {% endif %}
 {% if kyuubi_enabled %}
 download_if_not_exists ${APACHE_MIRROR}/kyuubi/kyuubi-${KYUUBI_VERSION}/apache-kyuubi-${KYUUBI_VERSION}-bin.tgz
@@ -78,21 +78,21 @@ HADOOP_AWS_JAR_NAME=hadoop-aws
 download_if_not_exists ${MAVEN_MIRROR}/org/apache/hadoop/${HADOOP_AWS_JAR_NAME}/${SPARK_HADOOP_VERSION}/${HADOOP_AWS_JAR_NAME}-${SPARK_HADOOP_VERSION}.jar
 AWS_JAVA_SDK_BUNDLE_JAR_NAME=aws-java-sdk-bundle
 download_if_not_exists ${MAVEN_MIRROR}/com/amazonaws/${AWS_JAVA_SDK_BUNDLE_JAR_NAME}/${AWS_JAVA_SDK_VERSION}/${AWS_JAVA_SDK_BUNDLE_JAR_NAME}-${AWS_JAVA_SDK_VERSION}.jar
-SPARK_HADOOP_CLOUD_JAR_NAME=spark-hadoop-cloud_${SCALA_BINARY_VERSION}
+SPARK_HADOOP_CLOUD_JAR_NAME=spark-hadoop-cloud_${SPARK_SCALA_BINARY_VERSION}
 download_if_not_exists ${MAVEN_MIRROR}/org/apache/spark/${SPARK_HADOOP_CLOUD_JAR_NAME}/${SPARK_VERSION}/${SPARK_HADOOP_CLOUD_JAR_NAME}-${SPARK_VERSION}.jar
 HADOOP_CLOUD_STORAGE_JAR_NAME=hadoop-cloud-storage
 download_if_not_exists ${MAVEN_MIRROR}/org/apache/hadoop/${HADOOP_CLOUD_STORAGE_JAR_NAME}/${SPARK_HADOOP_VERSION}/${HADOOP_CLOUD_STORAGE_JAR_NAME}-${SPARK_HADOOP_VERSION}.jar
 {% endif %}
 
 {% if spark_enabled %}
-TPCDS_CONNECTOR_JAR_NAME=kyuubi-spark-connector-tpcds_${SCALA_BINARY_VERSION}
+TPCDS_CONNECTOR_JAR_NAME=kyuubi-spark-connector-tpcds_${SPARK_SCALA_BINARY_VERSION}
 download_if_not_exists ${MAVEN_MIRROR}/org/apache/kyuubi/${TPCDS_CONNECTOR_JAR_NAME}/${KYUUBI_VERSION}/${TPCDS_CONNECTOR_JAR_NAME}-${KYUUBI_VERSION}.jar
-TPCH_CONNECTOR_JAR_NAME=kyuubi-spark-connector-tpch_${SCALA_BINARY_VERSION}
+TPCH_CONNECTOR_JAR_NAME=kyuubi-spark-connector-tpch_${SPARK_SCALA_BINARY_VERSION}
 download_if_not_exists ${MAVEN_MIRROR}/org/apache/kyuubi/${TPCH_CONNECTOR_JAR_NAME}/${KYUUBI_VERSION}/${TPCH_CONNECTOR_JAR_NAME}-${KYUUBI_VERSION}.jar
 {% endif %}
 
 {% if spark_enabled and iceberg_enabled %}
-ICEBERG_SPARK_JAR_NAME=iceberg-spark-runtime-${SPARK_BINARY_VERSION}_${SCALA_BINARY_VERSION}
+ICEBERG_SPARK_JAR_NAME=iceberg-spark-runtime-${SPARK_BINARY_VERSION}_${SPARK_SCALA_BINARY_VERSION}
 download_if_not_exists ${MAVEN_MIRROR}/org/apache/iceberg/${ICEBERG_SPARK_JAR_NAME}/${ICEBERG_VERSION}/${ICEBERG_SPARK_JAR_NAME}-${ICEBERG_VERSION}.jar
 {% endif %}
 
@@ -102,7 +102,7 @@ download_if_not_exists ${MAVEN_MIRROR}/org/apache/iceberg/${ICEBERG_FLINK_JAR_NA
 {% endif %}
 
 {% if spark_enabled and hudi_enabled %}
-HUDI_SPARK_BUNDLE_JAR_NAME=hudi-spark${SPARK_BINARY_VERSION}-bundle_${SCALA_BINARY_VERSION}
+HUDI_SPARK_BUNDLE_JAR_NAME=hudi-spark${SPARK_BINARY_VERSION}-bundle_${SPARK_SCALA_BINARY_VERSION}
 download_if_not_exists https://github.com/yanghua/incubator-hudi/releases/download/release-${HUDI_VERSION}/${HUDI_SPARK_BUNDLE_JAR_NAME}-${HUDI_VERSION}.jar
 {% endif %}
 

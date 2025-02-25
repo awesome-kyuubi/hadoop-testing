@@ -37,7 +37,7 @@ kyuubi-beeline -u 'jdbc:kyuubi://hadoop-master1.orb.local:2181/default;serviceDi
 {% endif %}
 
 # Submit Spark Pi using Kyuubi Batch API
-hadoop fs -put file:///opt/spark/examples/jars/spark-examples_{{ scala_binary_version }}-{{ spark_version }}.jar hdfs://hadoop-master1.orb.local:8020/tmp/
+hadoop fs -put file:///opt/spark/examples/jars/spark-examples_{{ spark_scala_binary_version }}-{{ spark_version }}.jar hdfs://hadoop-master1.orb.local:8020/tmp/
 
 {% if kerberos_enabled %}
 # TODO

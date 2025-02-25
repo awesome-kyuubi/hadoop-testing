@@ -30,12 +30,11 @@ zeppelin_custom_name: all
 
 zookeeper_version: 3.8.4
 
-scala_binary_version: 2.12
-
 spark_enabled: true
-spark_binary_version: 3.5
-spark_hadoop_version: 3.3.4
 spark_version: 3.5.2
+spark_binary_version: 3.5
+spark_scala_binary_version: 2.12
+spark_hadoop_version: 3.3.4
 spark_custom_name: hadoop3
 
 flink_enabled: false

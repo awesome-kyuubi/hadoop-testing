@@ -5,7 +5,7 @@ user: hive
 request:
   batchType: Spark
   name: SparkPi
-  resource: hdfs://hadoop-master1.orb.local:8020/tmp/spark-examples_{{ scala_binary_version }}-{{ spark_version }}.jar
+  resource: hdfs://hadoop-master1.orb.local:8020/tmp/spark-examples_{{ spark_scala_binary_version }}-{{ spark_version }}.jar
   className: org.apache.spark.examples.SparkPi
   args:
     - 10
