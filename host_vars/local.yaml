@@ -31,7 +31,7 @@ zeppelin_custom_name: all
 zookeeper_version: 3.8.4
 
 spark_enabled: true
-spark_version: 3.5.2
+spark_version: 3.5.5
 spark_binary_version: 3.5
 spark_scala_binary_version: 2.12
 spark_hadoop_version: 3.3.4
@@ -56,7 +56,7 @@ parquet_enabled: true
 parquet_version: 1.15.0
 
 iceberg_enabled: true
-iceberg_version: 1.7.0
+iceberg_version: 1.8.1
 
 hudi_enabled: false
 hudi_version: 0.14.1
