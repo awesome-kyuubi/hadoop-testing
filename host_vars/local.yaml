@@ -64,6 +64,7 @@ hudi_version: 0.14.1
 kafka_enabled: false
 kafka_version: 3.6.2
 kafka_ui_enabled: false
+kafka_ui_version: 1.1.0
 
 grafana_enabled: false
 grafana_version: 11.5.2
