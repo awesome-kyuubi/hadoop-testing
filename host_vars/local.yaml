@@ -66,13 +66,13 @@ kafka_version: 3.6.2
 kafka_ui_enabled: false
 
 grafana_enabled: false
-grafana_version: 11.4.0
+grafana_version: 11.5.2
 
 prometheus_enabled: false
 prometheus_version: 2.53.3
 
 loki_enabled: false
-loki_version: 3.3.2
+loki_version: 3.4.2
 loki_log4j2_appender_version: 0.9.32
 
 # repository
