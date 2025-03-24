@@ -2,6 +2,7 @@
 - name: compile template files
 
   hosts: local
+  gather_facts: no
 
   tasks:
     - name: orchestrate basic files
