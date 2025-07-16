@@ -30,6 +30,7 @@ ARG LOKI_APPENDER_VERSION
 ARG RANGER_VERSION
 ARG ICEBERG_VERSION
 ARG HUDI_VERSION
+ARG KAFKA_VERSION
 ARG TRINO_VERSION
 ARG PARQUET_VERSION
 
@@ -185,6 +186,10 @@ ADD download/log4j2-appender-nodep-${LOKI_APPENDER_VERSION}.jar ${KYUUBI_HOME}/j
 ADD download/kyuubi-spark-connector-tpch_${SPARK_SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar ${SPARK_HOME}/jars/
 ADD download/kyuubi-spark-connector-tpcds_${SPARK_SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar ${SPARK_HOME}/jars/
 ADD download/log4j2-appender-nodep-${LOKI_APPENDER_VERSION}.jar ${SPARK_HOME}/jars/
+{% endif %}
+
+{% if spark_enabled and kafka_enabled %}
+ADD download/kafka-clients-${KAFKA_VERSION}.jar ${SPARK_HOME}/jars/
 {% endif %}
 
 {% if ranger_enabled %}

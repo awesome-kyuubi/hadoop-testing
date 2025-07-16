@@ -97,6 +97,9 @@ function build_hadoop_master_image() {
   {% endif %}
   $CP download/jcl-over-slf4j-1.7.36.jar hadoop-master${INDEX}/download/jcl-over-slf4j-1.7.36.jar
   $CP download/log4j-layout-template-json-2.20.0.jar hadoop-master${INDEX}/download/log4j-layout-template-json-2.20.0.jar
+  {% if kafka_enabled %}
+  $CP download/kafka-clients-${KAFKA_VERSION}.jar hadoop-master${INDEX}/download/kafka-clients-${KAFKA_VERSION}.jar
+  {% endif %}
   {% if trino_enabled %}
   $CP download/trino-server-${TRINO_VERSION}.tar.gz hadoop-master${INDEX}/download/trino-server-${TRINO_VERSION}.tar.gz
   $CP download/trino-cli-${TRINO_VERSION}-executable.jar hadoop-master${INDEX}/download/trino-cli-${TRINO_VERSION}-executable.jar
@@ -123,6 +126,7 @@ function build_hadoop_master_image() {
     --build-arg ICEBERG_VERSION=${ICEBERG_VERSION} \
     --build-arg HUDI_VERSION=${HUDI_VERSION} \
     --build-arg LOKI_APPENDER_VERSION=${LOKI_APPENDER_VERSION} \
+    --build-arg KAFKA_VERSION=${KAFKA_VERSION} \
     --build-arg TRINO_VERSION=${TRINO_VERSION} \
     --build-arg PARQUET_VERSION=${PARQUET_VERSION} \
     --file "${SELF_DIR}/hadoop-master${INDEX}/Dockerfile" \
