@@ -44,7 +44,7 @@ flink_version: 1.20.1
 flink_hive_version: 2.3.10
 
 kyuubi_enabled: true
-kyuubi_version: 1.10.1
+kyuubi_version: 1.10.2
 kyuubi_hadoop_version: 3.3.6
 
 ranger_enabled: false
