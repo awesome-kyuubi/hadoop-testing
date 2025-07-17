@@ -36,6 +36,7 @@ spark_binary_version: 3.5
 spark_scala_binary_version: 2.12
 spark_hadoop_version: 3.3.4
 spark_custom_name: hadoop3
+spark_structured_logging_enabled: false
 
 flink_enabled: false
 flink_binary_version: '1.20'

@@ -33,6 +33,10 @@ spark.executor.extraLibraryPath=/opt/hadoop/lib/native
 spark.eventLog.enabled=true
 spark.eventLog.dir=hdfs://hadoop-master1.orb.local:8020/spark-history
 
+{% if spark_structured_logging_enabled %}
+spark.log.structuredLogging.enabled=true
+{% endif %}
+
 spark.history.ui.port=18080
 spark.history.fs.logDirectory=hdfs://hadoop-master1.orb.local:8020/spark-history
 {% if kerberos_enabled %}

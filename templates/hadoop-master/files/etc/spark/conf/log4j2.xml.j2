@@ -1,8 +1,12 @@
+#jinja2: trim_blocks: True, lstrip_blocks: True
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="INFO">
+<Configuration status="WARN">
+  <Properties>
+    <Property name="__EMPTY__" value="-"/>
+  </Properties>
   <Appenders>
     <Console name="stdout" target="SYSTEM_OUT">
-      <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %p %c{1}: %m%n"/>
+      <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %p %c{1}: %m%n%ex"/>
     </Console>
     {% if loki_enabled %}
     <Loki name="loki">
@@ -15,6 +19,20 @@
       <useDaemonThreads>true</useDaemonThreads>
     </Loki>
     {% endif %}
+    {% if kafka_enabled and spark_structured_logging_enabled %}
+    <Kafka name="kafka" topic="spark-logs" syncSend="false">
+      <JsonTemplateLayout eventTemplateUri="classpath:org/apache/spark/SparkLayout.json">
+        <EventTemplateAdditionalField key="app" value="spark"/>
+        <EventTemplateAdditionalField key="cluster" value="hadoop-testing"/>
+        <EventTemplateAdditionalField key="host" value="${hostName}"/>
+        <EventTemplateAdditionalField key="appId" value="${env:SPARK_APPLICATION_ID:-${__EMPTY__}}"/>
+        <EventTemplateAdditionalField key="namespaceName" value="${env:KUBERNETES_NAMESPACE:-${__EMPTY__}}"/>
+        <EventTemplateAdditionalField key="podName" value="${env:KUBERNETES_POD_NAME:-${__EMPTY__}}"/>
+      </JsonTemplateLayout>
+      <Property name="bootstrap.servers" value="kafka:9092"/>
+      <Property name="compression.type" value="gzip"/>
+    </Kafka>
+    {% endif %}
   </Appenders>
   <Loggers>
     <Root level="INFO">
@@ -22,11 +40,78 @@
       {% if loki_enabled %}
       <AppenderRef ref="loki"/>
       {% endif %}
+      {% if kafka_enabled and spark_structured_logging_enabled %}
+      <AppenderRef ref="kafka"/>
+      {% endif %}
     </Root>
-    <Logger name="org.apache.hadoop.util.Shell" level="ERROR" additivity="false">
+    <!-- Avoid recursive logging -->
+    <Logger name="org.apache.kafka.clients" level="INFO" additivity="false">
       <AppenderRef ref="stdout"/>
       {% if loki_enabled %}
       <AppenderRef ref="loki"/>
+      {% endif %}
+    </Logger>
+    <Logger name="org.sparkproject.jetty" level="WARN" additivity="false">
+      <AppenderRef ref="stdout"/>
+      {% if loki_enabled %}
+      <AppenderRef ref="loki"/>
+      {% endif %}
+      {% if kafka_enabled and spark_structured_logging_enabled %}
+      <AppenderRef ref="kafka"/>
+      {% endif %}
+    </Logger>
+    <Logger name="org.sparkproject.jetty.util.component.AbstractLifeCycle" level="ERROR" additivity="false">
+      <AppenderRef ref="stdout"/>
+      {% if loki_enabled %}
+      <AppenderRef ref="loki"/>
+      {% endif %}
+      {% if kafka_enabled and spark_structured_logging_enabled %}
+      <AppenderRef ref="kafka"/>
+      {% endif %}
+    </Logger>
+    <Logger name="org.apache.spark.repl.Main" level="WARN" additivity="false">
+      <AppenderRef ref="stdout"/>
+      {% if loki_enabled %}
+      <AppenderRef ref="loki"/>
+      {% endif %}
+      {% if kafka_enabled and spark_structured_logging_enabled %}
+      <AppenderRef ref="kafka"/>
+      {% endif %}
+    </Logger>
+    <Logger name="org.apache.hadoop.hive.metastore.RetryingHMSHandler" level="FATAL" additivity="false">
+      <AppenderRef ref="stdout"/>
+      {% if loki_enabled %}
+      <AppenderRef ref="loki"/>
+      {% endif %}
+      {% if kafka_enabled and spark_structured_logging_enabled %}
+      <AppenderRef ref="kafka"/>
+      {% endif %}
+    </Logger>
+    <Logger name="org.apache.hadoop.hive.ql.exec.FunctionRegistry" level="ERROR" additivity="false">
+      <AppenderRef ref="stdout"/>
+      {% if loki_enabled %}
+      <AppenderRef ref="loki"/>
+      {% endif %}
+      {% if kafka_enabled and spark_structured_logging_enabled %}
+      <AppenderRef ref="kafka"/>
+      {% endif %}
+    </Logger>
+    <Logger name="org.apache.parquet.CorruptStatistics" level="ERROR" additivity="false">
+      <AppenderRef ref="stdout"/>
+      {% if loki_enabled %}
+      <AppenderRef ref="loki"/>
+      {% endif %}
+      {% if kafka_enabled and spark_structured_logging_enabled %}
+      <AppenderRef ref="kafka"/>
+      {% endif %}
+    </Logger>
+    <Logger name="parquet.CorruptStatistics" level="ERROR" additivity="false">
+      <AppenderRef ref="stdout"/>
+      {% if loki_enabled %}
+      <AppenderRef ref="loki"/>
+      {% endif %}
+      {% if kafka_enabled and spark_structured_logging_enabled %}
+      <AppenderRef ref="kafka"/>
       {% endif %}
     </Logger>
   </Loggers>
