@@ -169,6 +169,7 @@ services:
       - 19092:19092
     environment:
       SERVER_PORT: 19092
+      KAFKA_CLUSTERS_0_NAME: hadoop-testing
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka.orb.local:9092
 {% endif %}
 
