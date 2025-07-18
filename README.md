@@ -43,7 +43,8 @@ The supported components are listed below:
 | Trino          | 436     | Not Yet        | Yes      | No              | trino_enabled                          |
 | Ranger         | 2.4.0   | Not Yet        | Yes      | No              | ranger_enabled                         |
 | Zeppelin       | 0.12.0  | Not Yet        | Yes      | Yes             | zeppelin_enabled, zeppelin_custom_name |
-| Kafka          | 3.6.2   | Not Yet        | Yes      | No              | kafka_enabled, kafka_ui_enabled        |
+| Kafka          | 3.6.2   | Not Yet        | Yes      | No              | kafka_enabled                          |
+| Kafka UI       | 1.2.0   | Not Applicable | Yes      | No              | kafka_ui_enabled                       |
 | Grafana        | 11.1.3  | Not Applicable | Yes      | No              | grafana_enabled                        |
 | Prometheus     | 2.53.1  | Not Applicable | Yes      | No              | promeheus_enabled                      |
 | Loki           | 3.1.0   | Not Applicable | Yes      | No              | loki_enabled                           |
