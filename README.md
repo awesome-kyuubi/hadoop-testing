@@ -39,15 +39,15 @@ The supported components are listed below:
 | HiveServer2    | 2.3.9   | Yes            | No       | Yes             |                                        |
 | Kyuubi         | 1.10.2  | Yes            | No       | Yes             |                                        |
 | Spark          | 3.5.6   | Yes            | Yes      | Yes             | spark_enabled, spark_custom_name       |
-| Flink          | 1.20.0  | Yes            | Yes      | No              | flink_enabled                          |
+| Flink          | 1.20.1  | Yes            | Yes      | No              | flink_enabled                          |
 | Trino          | 436     | Not Yet        | Yes      | No              | trino_enabled                          |
 | Ranger         | 2.4.0   | Not Yet        | Yes      | No              | ranger_enabled                         |
 | Zeppelin       | 0.12.0  | Not Yet        | Yes      | Yes             | zeppelin_enabled, zeppelin_custom_name |
 | Kafka          | 3.6.2   | Not Yet        | Yes      | No              | kafka_enabled                          |
 | Kafka UI       | 1.2.0   | Not Applicable | Yes      | No              | kafka_ui_enabled                       |
-| Grafana        | 11.1.3  | Not Applicable | Yes      | No              | grafana_enabled                        |
-| Prometheus     | 2.53.1  | Not Applicable | Yes      | No              | promeheus_enabled                      |
-| Loki           | 3.1.0   | Not Applicable | Yes      | No              | loki_enabled                           |
+| Grafana        | 11.5.2  | Not Applicable | Yes      | No              | grafana_enabled                        |
+| Prometheus     | 2.53.3  | Not Applicable | Yes      | No              | promeheus_enabled                      |
+| Loki           | 3.4.2   | Not Applicable | Yes      | No              | loki_enabled                           |
 | Iceberg        | 1.8.1   | Yes            | Yes      | Yes             | iceberg_enabled                        |
 | Hudi           | 0.14.1  | Yes            | Yes      | No              | hudi_enabled                           |
 | Parquet        | 1.15.0  | Not Applicable | Yes      | Yes             | parquet_enabled                        |
