@@ -48,7 +48,7 @@ The supported components are listed below:
 | Grafana        | 11.1.3  | Not Applicable | Yes      | No              | grafana_enabled                        |
 | Prometheus     | 2.53.1  | Not Applicable | Yes      | No              | promeheus_enabled                      |
 | Loki           | 3.1.0   | Not Applicable | Yes      | No              | loki_enabled                           |
-| Iceberg        | 1.7.0   | Yes            | Yes      | Yes             | iceberg_enabled                        |
+| Iceberg        | 1.8.1   | Yes            | Yes      | Yes             | iceberg_enabled                        |
 | Hudi           | 0.14.1  | Yes            | Yes      | No              | hudi_enabled                           |
 | Parquet        | 1.15.0  | Not Applicable | Yes      | Yes             | parquet_enabled                        |
 
