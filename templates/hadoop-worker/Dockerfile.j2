@@ -15,7 +15,7 @@ ARG PROJECT_VERSION
 FROM hadoop-testing/base-ubuntu-2004:$PROJECT_VERSION
 
 ARG HADOOP_VERSION
-ARG SPARK_VERSION
+ARG SPARK_ESS_VERSION
 ARG TRINO_VERSION
 
 ENV HADOOP_HOME=/opt/hadoop
@@ -27,7 +27,7 @@ ENV TRINO_HOME=/opt/trino
 ENV PATH=${HADOOP_HOME}/bin:${PATH}
 
 ADD download/hadoop-${HADOOP_VERSION}.tar.gz /opt
-ADD download/spark-${SPARK_VERSION}-bin-{{ spark_custom_name }}/yarn /opt/spark-${SPARK_VERSION}-bin-{{ spark_custom_name }}/yarn
+ADD download/spark-${SPARK_ESS_VERSION}-bin-{{ spark_ess_custom_name }}/yarn /opt/spark-${SPARK_ESS_VERSION}-bin-{{ spark_ess_custom_name }}/yarn
 {% if trino_enabled %}
 ADD download/trino-server-${TRINO_VERSION}.tar.gz /opt
 {% endif %}
@@ -36,7 +36,7 @@ ADD download/trino-server-${TRINO_VERSION}.tar.gz /opt
 COPY ./files /
 
 RUN ln -snf /opt/hadoop-${HADOOP_VERSION} ${HADOOP_HOME} && \
-    ln -snf spark-${SPARK_VERSION}-bin-{{ spark_custom_name }} /opt/spark
+    ln -snf spark-${SPARK_ESS_VERSION}-bin-{{ spark_ess_custom_name }} /opt/spark
 {% if trino_enabled %}
 RUN ln -snf /opt/trino-server-${TRINO_VERSION} ${TRINO_HOME}
 {% endif %}

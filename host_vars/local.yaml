@@ -41,6 +41,11 @@ spark_structured_logging_enabled: false
 spark_connect_server_enabled: false
 spark_thrift_server_enabled: false
 
+# Spark 4.0 requires Java 17 or later, but Hadoop does not support Java 17 as of 3.4.0.
+# SPARK-52942: Spark YARN External Shuffle Service 4.0.0 is broken.
+spark_ess_version: 3.5.6
+spark_ess_custom_name: hadoop3
+
 flink_enabled: false
 flink_binary_version: '1.20'
 flink_version: 1.20.1

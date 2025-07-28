@@ -143,18 +143,18 @@ function build_hadoop_worker_image() {
   if [ $(uname -m) = "arm64" ] || [ $(uname -m) = "aarch64" ]; then HADOOP_TAR_NAME=hadoop-${HADOOP_VERSION}-aarch64; else HADOOP_TAR_NAME=hadoop-${HADOOP_VERSION}; fi
   $CP download/${HADOOP_TAR_NAME}.tar.gz hadoop-worker${INDEX}/download/hadoop-${HADOOP_VERSION}.tar.gz
   {% if spark_enabled %}
-  $CP download/spark-${SPARK_VERSION}-bin-{{ spark_custom_name }}.tgz hadoop-worker${INDEX}/download/spark-${SPARK_VERSION}-bin-{{ spark_custom_name }}.tgz
+  $CP download/spark-${SPARK_ESS_VERSION}-bin-{{ spark_ess_custom_name }}.tgz hadoop-worker${INDEX}/download/spark-${SPARK_ESS_VERSION}-bin-{{ spark_ess_custom_name }}.tgz
   {% endif %}
   {% if trino_enabled %}
   $CP download/trino-server-${TRINO_VERSION}.tar.gz hadoop-worker${INDEX}/download/trino-server-${TRINO_VERSION}.tar.gz
   {% endif %}
   {% if spark_enabled %}
-  tar -xzf hadoop-worker${INDEX}/download/spark-${SPARK_VERSION}-bin-{{ spark_custom_name }}.tgz -C hadoop-worker${INDEX}/download spark-${SPARK_VERSION}-bin-{{ spark_custom_name }}/yarn
+  tar -xzf hadoop-worker${INDEX}/download/spark-${SPARK_ESS_VERSION}-bin-{{ spark_ess_custom_name }}.tgz -C hadoop-worker${INDEX}/download spark-${SPARK_ESS_VERSION}-bin-{{ spark_ess_custom_name }}/yarn
   {% endif %}
   docker build \
     --build-arg PROJECT_VERSION=${PROJECT_VERSION} \
     --build-arg HADOOP_VERSION=${HADOOP_VERSION} \
-    --build-arg SPARK_VERSION=${SPARK_VERSION} \
+    --build-arg SPARK_ESS_VERSION=${SPARK_ESS_VERSION} \
     --build-arg TRINO_VERSION=${TRINO_VERSION} \
     --file "${SELF_DIR}/hadoop-worker${INDEX}/Dockerfile" \
     --tag hadoop-testing/hadoop-worker${INDEX}:${PROJECT_VERSION} \
