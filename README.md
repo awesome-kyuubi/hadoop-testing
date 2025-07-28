@@ -33,8 +33,8 @@ The supported components are listed below:
 | KDC                  | latest  | Yes             | Yes      | No              | kerberos_enabled                       |
 | MySQL                | 8.0     | No              | No       | Yes             |                                        |
 | ZooKeeper            | 3.8.4   | Not Yet         | No       | Yes             |                                        |
-| Hadoop HDFS          | 3.3.6   | Yes             | No       | Yes             |                                        |
-| Hadoop YARN          | 3.3.6   | Yes             | No       | Yes             |                                        |
+| Hadoop HDFS          | 3.4.2   | Yes             | No       | Yes             |                                        |
+| Hadoop YARN          | 3.4.2   | Yes             | No       | Yes             |                                        |
 | Hive Metastore       | 2.3.9   | Yes             | No       | Yes             |                                        |
 | HiveServer2          | 2.3.9   | Yes             | Yes      | Yes             | hive_server2_enabled                   |
 | Kyuubi               | 1.10.2  | Yes             | No       | Yes             |                                        |
@@ -57,6 +57,7 @@ The supported components are listed below:
 **Note** :
 
 - Most components respect `JAVA_HOME`, which is configured as JDK 8
+- Hadoop HDFS and YARN are configured to use JDK 17
 - Spark is configured to use JDK 17
 - Trino is configured to use JDK 21
 - Zeppelin is configured to use JDK 11

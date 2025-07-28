@@ -20,7 +20,8 @@ aws_java_sdk_version: 1.12.620
 # components
 kerberos_enabled: false
 
-hadoop_version: 3.3.6
+hadoop_version: 3.4.2
+hadoop_custom_name: lean
 
 hive_version: 2.3.9
 hive_server2_enabled: true
