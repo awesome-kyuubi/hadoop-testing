@@ -60,6 +60,12 @@ spark.shuffle.service.enabled=true
 spark.sql.catalog.tpcds=org.apache.kyuubi.spark.connector.tpcds.TPCDSCatalog
 spark.sql.catalog.tpch=org.apache.kyuubi.spark.connector.tpch.TPCHCatalog
 
+spark.sql.catalog.mysql=org.apache.spark.sql.execution.datasources.v2.jdbc.JDBCTableCatalog
+spark.sql.catalog.mysql.url=jdbc:mysql://mysql:3306/metastore?useSSL=false
+spark.sql.catalog.mysql.driver=com.mysql.cj.jdbc.Driver
+spark.sql.catalog.mysql.user=root
+spark.sql.catalog.mysql.password=root
+
 {% if iceberg_enabled %}
 spark.sql.extensions=org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions
 
