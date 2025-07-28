@@ -37,6 +37,15 @@ spark.eventLog.dir=hdfs://hadoop-master1.orb.local:8020/spark-history
 spark.log.structuredLogging.enabled=true
 {% endif %}
 
+{% if spark_connect_server_enabled %}
+spark.connect.grpc.binding.address=hadoop-master1.orb.local
+spark.connect.grpc.binding.port=15002
+{% endif %}
+
+{% if spark_thrift_server_enabled %}
+spark.hadoop.hive.server2.thrift.port=10010
+{% endif %}
+
 spark.history.ui.port=18080
 spark.history.fs.logDirectory=hdfs://hadoop-master1.orb.local:8020/spark-history
 {% if kerberos_enabled %}

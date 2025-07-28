@@ -1,7 +1,11 @@
 <?xml version="1.0"?>
 <configuration>
-  {% if kerberos_enabled %}
   <!-- Hive Server2 -->
+  <property>
+    <name>hive.server2.thrift.port</name>
+    <value>10000</value>
+  </property>
+  {% if kerberos_enabled %}
   <property>
     <name>hive.server2.authentication</name>
     <value>kerberos</value>

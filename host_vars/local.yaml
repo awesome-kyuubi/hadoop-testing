@@ -23,6 +23,7 @@ kerberos_enabled: false
 hadoop_version: 3.3.6
 
 hive_version: 2.3.9
+hive_server2_enabled: true
 
 zeppelin_enabled: true
 zeppelin_version: 0.12.0
@@ -37,6 +38,8 @@ spark_scala_binary_version: 2.12
 spark_hadoop_version: 3.3.4
 spark_custom_name: hadoop3
 spark_structured_logging_enabled: false
+spark_connect_server_enabled: false
+spark_thrift_server_enabled: false
 
 flink_enabled: false
 flink_binary_version: '1.20'

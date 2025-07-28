@@ -24,7 +24,7 @@ We try to deploy a big data ecosystem in multiple Docker containers to simulate 
 
 The supported components are listed below:
 
-| Name           | Version | Kerberos Ready | Optional | Default Enabled | Variables                              |
+| Name           | Version | Kerberos Ready | Optional | Default Enabled | Frequently Used Variables              |
 | -------------- | ------- | -------------- | -------- | --------------- | -------------------------------------- |
 | JDK 8          | 8.0.432 | Not Applicable | No       | Yes             |                                        |
 | JDK 11         | 11.0.25 | Not Applicable | No       | Yes             |                                        |
