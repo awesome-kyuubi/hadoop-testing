@@ -24,33 +24,35 @@ We try to deploy a big data ecosystem in multiple Docker containers to simulate 
 
 The supported components are listed below:
 
-| Name           | Version | Kerberos Ready | Optional | Default Enabled | Frequently Used Variables              |
-| -------------- | ------- | -------------- | -------- | --------------- | -------------------------------------- |
-| JDK 8          | 8.0.432 | Not Applicable | No       | Yes             |                                        |
-| JDK 11         | 11.0.25 | Not Applicable | No       | Yes             |                                        |
-| JDK 17         | 17.0.13 | Not Applicable | No       | Yes             |                                        |
-| JDK 21         | 21.0.5  | Not Applicable | Yes      | No              | jdk21_enabled                          |
-| KDC            | latest  | Yes            | Yes      | No              | kerberos_enabled                       |
-| MySQL          | 8.0     | No             | No       | Yes             |                                        |
-| ZooKeeper      | 3.8.4   | Not Yet        | No       | Yes             |                                        |
-| Hadoop HDFS    | 3.3.6   | Yes            | No       | Yes             |                                        |
-| Hadoop YARN    | 3.3.6   | Yes            | No       | Yes             |                                        |
-| Hive Metastore | 2.3.9   | Yes            | No       | Yes             |                                        |
-| HiveServer2    | 2.3.9   | Yes            | No       | Yes             |                                        |
-| Kyuubi         | 1.10.2  | Yes            | No       | Yes             |                                        |
-| Spark          | 3.5.6   | Yes            | Yes      | Yes             | spark_enabled, spark_custom_name       |
-| Flink          | 1.20.1  | Yes            | Yes      | No              | flink_enabled                          |
-| Trino          | 436     | Not Yet        | Yes      | No              | trino_enabled                          |
-| Ranger         | 2.4.0   | Not Yet        | Yes      | No              | ranger_enabled                         |
-| Zeppelin       | 0.12.0  | Not Yet        | Yes      | Yes             | zeppelin_enabled, zeppelin_custom_name |
-| Kafka          | 3.6.2   | Not Yet        | Yes      | No              | kafka_enabled                          |
-| Kafka UI       | 1.2.0   | Not Applicable | Yes      | No              | kafka_ui_enabled                       |
-| Grafana        | 11.5.2  | Not Applicable | Yes      | No              | grafana_enabled                        |
-| Prometheus     | 2.53.3  | Not Applicable | Yes      | No              | promeheus_enabled                      |
-| Loki           | 3.4.2   | Not Applicable | Yes      | No              | loki_enabled                           |
-| Iceberg        | 1.8.1   | Yes            | Yes      | Yes             | iceberg_enabled                        |
-| Hudi           | 0.14.1  | Yes            | Yes      | No              | hudi_enabled                           |
-| Parquet        | 1.15.0  | Not Applicable | Yes      | Yes             | parquet_enabled                        |
+| Name                 | Version | Kerberos Ready  | Optional | Default Enabled | Frequently Used Variables              |
+|----------------------| ------- |-----------------| -------- |-----------------|----------------------------------------|
+| JDK 8                | 8.0.432 | Not Applicable  | No       | Yes             |                                        |
+| JDK 11               | 11.0.25 | Not Applicable  | No       | Yes             |                                        |
+| JDK 17               | 17.0.13 | Not Applicable  | No       | Yes             |                                        |
+| JDK 21               | 21.0.5  | Not Applicable  | Yes      | No              | jdk21_enabled                          |
+| KDC                  | latest  | Yes             | Yes      | No              | kerberos_enabled                       |
+| MySQL                | 8.0     | No              | No       | Yes             |                                        |
+| ZooKeeper            | 3.8.4   | Not Yet         | No       | Yes             |                                        |
+| Hadoop HDFS          | 3.3.6   | Yes             | No       | Yes             |                                        |
+| Hadoop YARN          | 3.3.6   | Yes             | No       | Yes             |                                        |
+| Hive Metastore       | 2.3.9   | Yes             | No       | Yes             |                                        |
+| HiveServer2          | 2.3.9   | Yes             | Yes      | Yes             | hive_server2_enabled                   |
+| Kyuubi               | 1.10.2  | Yes             | No       | Yes             |                                        |
+| Spark                | 3.5.6   | Yes             | Yes      | Yes             | spark_enabled, spark_custom_name       |
+| Spark Connect Server | 3.5.6   | Yes             | Yes      | No              | spark_connect_server_enabled           |
+| Spark Thrift Server  | 3.5.6   | Yes             | Yes      | No              | spark_thrift_server_enabled            |
+| Flink                | 1.20.1  | Yes             | Yes      | No              | flink_enabled                          |
+| Trino                | 436     | Not Yet         | Yes      | No              | trino_enabled                          |
+| Ranger               | 2.4.0   | Not Yet         | Yes      | No              | ranger_enabled                         |
+| Zeppelin             | 0.12.0  | Not Yet         | Yes      | Yes             | zeppelin_enabled, zeppelin_custom_name |
+| Kafka                | 3.6.2   | Not Yet         | Yes      | No              | kafka_enabled                          |
+| Kafka UI             | 1.2.0   | Not Applicable  | Yes      | No              | kafka_ui_enabled                       |
+| Grafana              | 11.5.2  | Not Applicable  | Yes      | No              | grafana_enabled                        |
+| Prometheus           | 2.53.3  | Not Applicable  | Yes      | No              | promeheus_enabled                      |
+| Loki                 | 3.4.2   | Not Applicable  | Yes      | No              | loki_enabled                           |
+| Iceberg              | 1.8.1   | Yes             | Yes      | Yes             | iceberg_enabled                        |
+| Hudi                 | 0.14.1  | Yes             | Yes      | No              | hudi_enabled                           |
+| Parquet              | 1.15.0  | Not Applicable  | Yes      | Yes             | parquet_enabled                        |
 
 **Note** :
 
