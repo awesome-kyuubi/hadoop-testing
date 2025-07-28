@@ -32,7 +32,7 @@ kyuubi-beeline -u 'jdbc:hive2://hadoop-master1.orb.local:10010/default;user=hive
 
 {% if spark_connect_server_enabled %}
 # Connect to Spark Connect Server
-spark-shell --remote sc://hadoop-master1.orb.local:15002
+spark-shell --properties-file /etc/spark/conf/spark-connect.conf
 {% endif %}
 
 # Connect to Kyuubi
