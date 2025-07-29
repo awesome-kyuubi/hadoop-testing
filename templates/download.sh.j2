@@ -59,6 +59,11 @@ download_if_not_exists ${MAVEN_MIRROR}/org/apache/kyuubi/kyuubi-hive-jdbc-shaded
 {% if kafka_enabled %}
 download_if_not_exists ${MAVEN_MIRROR}/org/apache/kafka/kafka-clients/${KAFKA_VERSION}/kafka-clients-${KAFKA_VERSION}.jar
 {% endif %}
+{% if spark_enabled and kafka_enabled %}
+download_if_not_exists ${MAVEN_MIRROR}/org/apache/spark/spark-sql-kafka-0-10_${SPARK_BINARY_VERSION}/${SPARK_VERSION}/spark-sql-kafka-0-10_${SPARK_SCALA_BINARY_VERSION}-${SPARK_VERSION}.jar
+download_if_not_exists ${MAVEN_MIRROR}/org/apache/spark/spark-token-provider-kafka-0-10_${SPARK_BINARY_VERSION}/${SPARK_VERSION}/spark-token-provider-kafka-0-10_${SPARK_SCALA_BINARY_VERSION}-${SPARK_VERSION}.jar
+download_if_not_exists ${MAVEN_MIRROR}/org/apache/commons/commons-pool2/2.12.1/commons-pool2-2.12.1.jar
+{% endif %}
 {% if ranger_enabled %}
 download_if_not_exists https://github.com/pan3793/ranger/releases/download/release-ranger-${RANGER_VERSION}/ranger-${RANGER_VERSION}-admin.tar.gz
 {% endif %}

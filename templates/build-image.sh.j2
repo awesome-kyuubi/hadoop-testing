@@ -99,6 +99,11 @@ function build_hadoop_master_image() {
   {% if kafka_enabled %}
   $CP download/kafka-clients-${KAFKA_VERSION}.jar hadoop-master${INDEX}/download/kafka-clients-${KAFKA_VERSION}.jar
   {% endif %}
+  {% if spark_enabled and kafka_enabled %}
+  $CP download/spark-sql-kafka-0-10_${SPARK_SCALA_BINARY_VERSION}-${SPARK_VERSION}.jar hadoop-master${INDEX}/download/spark-sql-kafka-0-10_${SPARK_SCALA_BINARY_VERSION}-${SPARK_VERSION}.jar
+  $CP download/spark-token-provider-kafka-0-10_${SPARK_SCALA_BINARY_VERSION}-${SPARK_VERSION}.jar hadoop-master${INDEX}/download/spark-token-provider-kafka-0-10_${SPARK_SCALA_BINARY_VERSION}-${SPARK_VERSION}.jar
+  $CP download/commons-pool2-2.12.1.jar hadoop-master${INDEX}/download/commons-pool2-2.12.1.jar
+  {% endif %}
   {% if trino_enabled %}
   $CP download/trino-server-${TRINO_VERSION}.tar.gz hadoop-master${INDEX}/download/trino-server-${TRINO_VERSION}.tar.gz
   $CP download/trino-cli-${TRINO_VERSION}-executable.jar hadoop-master${INDEX}/download/trino-cli-${TRINO_VERSION}-executable.jar

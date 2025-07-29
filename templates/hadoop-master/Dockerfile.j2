@@ -189,6 +189,9 @@ ADD download/log4j2-appender-nodep-${LOKI_APPENDER_VERSION}.jar ${SPARK_HOME}/ja
 
 {% if spark_enabled and kafka_enabled %}
 ADD download/kafka-clients-${KAFKA_VERSION}.jar ${SPARK_HOME}/jars/
+ADD download/spark-sql-kafka-0-10_${SPARK_SCALA_BINARY_VERSION}-${SPARK_VERSION}.jar ${SPARK_HOME}/jars/
+ADD download/spark-token-provider-kafka-0-10_${SPARK_SCALA_BINARY_VERSION}-${SPARK_VERSION}.jar ${SPARK_HOME}/jars/
+ADD download/commons-pool2-2.12.1.jar ${SPARK_HOME}/jars/
 {% endif %}
 
 {% if ranger_enabled %}

@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS kafka_spark_logs
+USING kafka
+OPTIONS (
+  "kafka.bootstrap.servers" = "kafka.orb.local:9092",
+  "subscribe" = "spark-logs",
+  "startingOffsets" = "earliest"
+);
+
+WITH spark_logs AS (SELECT from_json(CAST(value AS STRING), 'level STRING, logger STRING, msg STRING') AS json FROM kafka_spark_logs)
+SELECT json.level, json.logger, json.msg FROM spark_logs LIMIT 10;
