@@ -29,7 +29,7 @@
         <EventTemplateAdditionalField key="namespaceName" value="${env:KUBERNETES_NAMESPACE:-${__EMPTY__}}"/>
         <EventTemplateAdditionalField key="podName" value="${env:KUBERNETES_POD_NAME:-${__EMPTY__}}"/>
       </JsonTemplateLayout>
-      <Property name="bootstrap.servers" value="kafka:9092"/>
+      <Property name="bootstrap.servers" value="kafka.orb.local:9092"/>
       <Property name="compression.type" value="gzip"/>
     </Kafka>
     {% endif %}
@@ -45,7 +45,7 @@
       {% endif %}
     </Root>
     <!-- Avoid recursive logging -->
-    <Logger name="org.apache.kafka.clients" level="INFO" additivity="false">
+    <Logger name="org.apache.kafka" level="WARN" additivity="false">
       <AppenderRef ref="stdout"/>
       {% if loki_enabled %}
       <AppenderRef ref="loki"/>
