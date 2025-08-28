@@ -33,18 +33,18 @@ zeppelin_custom_name: all
 zookeeper_version: 3.8.4
 
 spark_enabled: true
-spark_version: 3.5.6
-spark_binary_version: 3.5
-spark_scala_binary_version: 2.12
-spark_hadoop_version: 3.3.4
+spark_version: 4.0.1
+spark_binary_version: 4.0
+spark_scala_binary_version: 2.13
+spark_hadoop_version: 3.4.1
 spark_custom_name: hadoop3
 spark_structured_logging_enabled: false
 spark_connect_server_enabled: false
 spark_thrift_server_enabled: false
 
-# Spark 4.0 requires Java 17 or later, but Hadoop does not support Java 17 as of 3.4.0.
-# SPARK-52942: Spark YARN External Shuffle Service 4.0.0 is broken.
-spark_ess_version: 3.5.6
+# Spark 4.0 requires Java 17 or later, Hadoop supports Java 17 since 3.4.2.
+# SPARK-52942: Spark YARN External Shuffle Service 4.0.0 is broken, fixed in 4.0.1.
+spark_ess_version: 4.0.1
 spark_ess_custom_name: hadoop3
 
 flink_enabled: false
