@@ -47,7 +47,6 @@ download_if_not_exists ${APACHE_MIRROR}/hadoop/core/hadoop-${HADOOP_VERSION}/${H
 download_if_not_exists https://archive.apache.org/dist/hive/hive-${HIVE_VERSION}/apache-hive-${HIVE_VERSION}-bin.tar.gz
 {% if spark_enabled %}
 download_if_not_exists ${APACHE_MIRROR}/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-{{ spark_custom_name }}.tgz
-download_if_not_exists ${APACHE_MIRROR}/spark/spark-${SPARK_ESS_VERSION}/spark-${SPARK_ESS_VERSION}-bin-{{ spark_ess_custom_name }}.tgz
 {% endif %}
 {% if flink_enabled %}
 download_if_not_exists ${APACHE_MIRROR}/flink/flink-${FLINK_VERSION}/flink-${FLINK_VERSION}-bin-scala_2.12.tgz
