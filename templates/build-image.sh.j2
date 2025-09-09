@@ -68,6 +68,9 @@ function build_hadoop_master_image() {
   if [ $(uname -m) = "arm64" ] || [ $(uname -m) = "aarch64" ]; then HADOOP_TAR_NAME=hadoop-${HADOOP_VERSION}-aarch64; else HADOOP_TAR_NAME=hadoop-${HADOOP_VERSION}; fi
   $CP download/${HADOOP_TAR_NAME}.tar.gz hadoop-master${INDEX}/download/hadoop-${HADOOP_VERSION}.tar.gz
   $CP download/apache-hive-${HIVE_VERSION}-bin.tar.gz hadoop-master${INDEX}/download/apache-hive-${HIVE_VERSION}-bin.tar.gz
+  {% if iceberg_enabled %}
+  $CP download/iceberg-hive-runtime-${HIVE_ICEBERG_VERSION}.jar hadoop-master${INDEX}/download/iceberg-hive-runtime-${HIVE_ICEBERG_VERSION}.jar
+  {% endif %}
   {% if spark_enabled %}
   $CP download/spark-${SPARK_VERSION}-bin-{{ spark_custom_name }}.tgz hadoop-master${INDEX}/download/spark-${SPARK_VERSION}-bin-{{ spark_custom_name }}.tgz
   {% endif %}
@@ -118,6 +121,7 @@ function build_hadoop_master_image() {
     --build-arg ZOOKEEPER_VERSION=${ZOOKEEPER_VERSION} \
     --build-arg HADOOP_VERSION=${HADOOP_VERSION} \
     --build-arg HIVE_VERSION=${HIVE_VERSION} \
+    --build-arg HIVE_ICEBERG_VERSION=${HIVE_ICEBERG_VERSION} \
     --build-arg SPARK_VERSION=${SPARK_VERSION} \
     --build-arg SPARK_BINARY_VERSION=${SPARK_BINARY_VERSION} \
     --build-arg FLINK_VERSION=${FLINK_VERSION} \

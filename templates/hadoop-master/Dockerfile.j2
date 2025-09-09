@@ -18,6 +18,7 @@ ARG ZEPPELIN_VERSION
 ARG ZOOKEEPER_VERSION
 ARG HADOOP_VERSION
 ARG HIVE_VERSION
+ARG HIVE_ICEBERG_VERSION
 ARG SPARK_VERSION
 ARG SPARK_BINARY_VERSION
 ARG FLINK_VERSION
@@ -106,6 +107,10 @@ RUN ln -snf /opt/apache-zookeeper-${ZOOKEEPER_VERSION}-bin ${ZOOKEEPER_HOME} && 
     ln -snf /opt/apache-kyuubi-${KYUUBI_VERSION}-bin ${KYUUBI_HOME} && \
     ln -snf ${HIVE_CONF_DIR}/hive-site.xml ${KYUUBI_CONF_DIR}/hive-site.xml && \
     mkdir -p /var/log/kyuubi && chmod -R 777 /var/log/kyuubi
+
+{% if iceberg_enabled %}
+ADD download/iceberg-hive-runtime-${HIVE_ICEBERG_VERSION}.jar ${HIVE_HOME}/lib/
+{% endif %}
 
 ADD download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar ${KYUUBI_HOME}/jars/
 

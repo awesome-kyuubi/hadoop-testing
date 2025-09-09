@@ -45,6 +45,10 @@ HADOOP_TAR_NAME=${HADOOP_TAR_NAME}{{ '-%s' % hadoop_custom_name if hadoop_custom
 download_if_not_exists ${APACHE_MIRROR}/hadoop/core/hadoop-${HADOOP_VERSION}/${HADOOP_TAR_NAME}.tar.gz
 {# Hive 2 is EOL, only avaiable at archive.apache.org/dist #}
 download_if_not_exists https://archive.apache.org/dist/hive/hive-${HIVE_VERSION}/apache-hive-${HIVE_VERSION}-bin.tar.gz
+{% if iceberg_enabled %}
+ICEBERG_HIVE_JAR_NAME=iceberg-hive-runtime
+download_if_not_exists ${MAVEN_MIRROR}/org/apache/iceberg/${ICEBERG_HIVE_JAR_NAME}/${HIVE_ICEBERG_VERSION}/${ICEBERG_HIVE_JAR_NAME}-${HIVE_ICEBERG_VERSION}.jar
+{% endif %}
 {% if spark_enabled %}
 download_if_not_exists ${APACHE_MIRROR}/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-{{ spark_custom_name }}.tgz
 {% endif %}
