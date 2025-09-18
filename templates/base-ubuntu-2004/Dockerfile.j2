@@ -10,12 +10,41 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+{% if kerberos_enabled %}
+FROM ubuntu:20.04 AS builder
+
+ARG JDK17_TAR_NAME
+
+COPY ./files /
+
+ADD download/${JDK17_TAR_NAME}.tar.gz /opt
+RUN ln -snf /opt/${JDK17_TAR_NAME} /opt/openjdk-17
+ENV JAVA_HOME=/opt/openjdk-17
+
+{% if apt_mirror_enabled %}
+RUN cat /etc/apt/sources.list.mirror-$(uname -m) > /etc/apt/sources.list
+{% endif %}
+
+RUN set -xeu && \
+    install_packages curl build-essential
+
+RUN mkdir -p /opt/jsvc && \
+    curl -k -L -s -S https://archive.apache.org/dist/commons/daemon/source/commons-daemon-1.4.1-native-src.tar.gz \
+    -o /tmp/commons-daemon-1.4.1-native-src.tar.gz && \
+    tar -xzf /tmp/commons-daemon-1.4.1-native-src.tar.gz --strip-components 2 -C /opt/jsvc && \
+    cd /opt/jsvc && ./configure && make
+{% endif %}
+
 FROM ubuntu:20.04
 
 ARG JDK8_TAR_NAME
 ARG JDK11_TAR_NAME
 ARG JDK17_TAR_NAME
 ARG JDK21_TAR_NAME
+
+{% if kerberos_enabled %}
+COPY --from=builder --chmod=0755 /opt/jsvc/jsvc /usr/bin/
+{% endif %}
 
 COPY ./files /
 
@@ -27,12 +56,12 @@ RUN set -xeu && \
     ln -snf /usr/bin/bash /usr/bin/sh && \
     install_packages busybox python3-pip supervisor xsltproc curl tree jq python-is-python3 \
     openssh-client openssh-server sqlite3 libcap-dev \
-    {% if kerberos_enabled %}krb5-user jsvc libssl1.1{% endif %} && \
+    {% if kerberos_enabled %}krb5-user libssl1.1{% endif %} && \
     mkdir /run/sshd && chmod 0755 /run/sshd && \
     mkdir /opt/busybox && busybox --install /opt/busybox
 
 ADD download/${JDK8_TAR_NAME}.tar.gz  /opt
-ADD download/${JDK11_TAR_NAME}.tar.gz  /opt
+ADD download/${JDK11_TAR_NAME}.tar.gz /opt
 ADD download/${JDK17_TAR_NAME}.tar.gz /opt
 {% if jdk21_enabled %}
 ADD download/${JDK21_TAR_NAME}.tar.gz /opt
