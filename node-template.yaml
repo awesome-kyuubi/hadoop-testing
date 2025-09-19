@@ -1,36 +1,32 @@
 # Required Parameter: node
 
-- name: orchestrate {{ node.name }} - clean
+- name: orchestrate {{ node.name }} - clean and copy templates files to {{ node.name }}
+  ansible.builtin.shell: |
+    rm -rf "{{ node.name }}"
+    mkdir -p "{{ node.name }}"
+    cp -R templates/hadoop-common/* "{{ node.name }}/" 2>/dev/null || true
+    cp -R templates/{{ node.group }}/* "{{ node.name }}/" 2>/dev/null || true
+  args:
+    executable: /bin/bash
+    warn: false
+  changed_when: false
+
+- name: orchestrate {{ node.name }} - find all j2 templates in {{ node.name }}
+  ansible.builtin.find:
+    paths: "{{ node.name }}"
+    patterns: "*.j2"
+    recurse: yes
+  register: j2_files
+
+- name: orchestrate {{ node.name }} - render all j2 templates
+  ansible.builtin.template:
+    src: "{{ item.path }}"
+    dest: "{{ item.path | regex_replace('\\.j2$', '') }}"
+    mode: "a+x"
+  with_items: "{{ j2_files.files }}"
+
+- name: orchestrate {{ node.name }} - remove all j2 templates
   ansible.builtin.file:
-    path: "{{ node.name }}"
+    path: "{{ item.path }}"
     state: absent
-
-- name: orchestrate {{ node.name }} - hadoop-common - mkdir
-  ansible.builtin.file:
-    path: "{{ node.name }}/{{ item.path }}"
-    state: directory
-  with_community.general.filetree: "templates/hadoop-common"
-  when: item.state == "directory"
-
-- name: orchestrate {{ node.name }} - hadoop-common - template
-  ansible.builtin.template:
-    src: "{{ item.src }}"
-    dest: "{{ node.name }}/{{ item.path | regex_replace('\\.j2$', '') }}"
-    mode: "a+x"
-  with_community.general.filetree: "templates/hadoop-common"
-  when: item.state == "file"
-
-- name: orchestrate {{ node.name }} - {{ node.group }} - mkdir
-  ansible.builtin.file:
-    path: "{{ node.name }}/{{ item.path }}"
-    state: directory
-  with_community.general.filetree: "templates/{{ node.group }}"
-  when: item.state == "directory"
-
-- name: orchestrate {{ node.name }} - {{ node.group }} - template
-  ansible.builtin.template:
-    src: "{{ item.src }}"
-    dest: "{{ node.name }}/{{ item.path | regex_replace('\\.j2$', '') }}"
-    mode: "a+x"
-  with_community.general.filetree: "templates/{{ node.group }}"
-  when: item.state == "file"
+  with_items: "{{ j2_files.files }}"
