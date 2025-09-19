@@ -275,6 +275,10 @@ For example, to access service in Browser, use [SwitchyOmega](https://github.com
 
 Once the testing environment is fully operational, the following services will be accessible:
 
+- Supervisor: http://hadoop-master1.orb.local:9001
+- Supervisor: http://hadoop-worker1.orb.local:9001
+- Supervisor: http://hadoop-worker2.orb.local:9001
+- Supervisor: http://hadoop-worker3.orb.local:9001
 - Grafana: http://grafana.orb.local:3000
 - Prometheus: http://prometheus.orb.local:9090
 - Kafka UI: http://kafka-ui.orb.local:19092
