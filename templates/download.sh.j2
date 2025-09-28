@@ -36,6 +36,11 @@ if [ $(uname -m) = "arm64" ] || [ $(uname -m) = "aarch64" ]; then JDK21_TAR_NAME
 download_if_not_exists https://cdn.azul.com/zulu/bin/${JDK21_TAR_NAME}.tar.gz
 {% endif %}
 
+{% if jdk25_enabled %}
+if [ $(uname -m) = "arm64" ] || [ $(uname -m) = "aarch64" ]; then JDK25_TAR_NAME=zulu${ZULU25_VERSION}-ca-jdk${JDK25_VERSION}-linux_aarch64; else JDK25_TAR_NAME=zulu${ZULU25_VERSION}-ca-jdk${JDK25_VERSION}-linux_x64; fi
+download_if_not_exists https://cdn.azul.com/zulu/bin/${JDK25_TAR_NAME}.tar.gz
+{% endif %}
+
 {% if zeppelin_enabled %}
 download_if_not_exists ${APACHE_MIRROR}/zeppelin/zeppelin-${ZEPPELIN_VERSION}/zeppelin-${ZEPPELIN_VERSION}-bin{{ '-%s' % zeppelin_custom_name if zeppelin_custom_name }}.tgz
 {% endif %}
