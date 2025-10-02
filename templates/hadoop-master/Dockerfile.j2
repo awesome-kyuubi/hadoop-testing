@@ -177,7 +177,7 @@ ADD download/jcl-over-slf4j-1.7.36.jar ${FLINK_HOME}/lib/
 ADD download/flink-sql-connector-hive-${FLINK_HIVE_VERSION}_2.12-${FLINK_VERSION}.jar ${FLINK_HOME}/lib/
 {% endif %}
 {% if trino_enabled %}
-ADD --chmod=755 download/trino-cli-${TRINO_VERSION}-executable.jar ${TRINO_HOME}/bin/trino-cli
+ADD --chmod=755 download/trino-cli-${TRINO_VERSION} ${TRINO_HOME}/bin/trino-cli
 {% endif %}
 {% if parquet_enabled %}
 ADD download/parquet-cli-${PARQUET_VERSION}-runtime.jar ${PARQUET_HOME}/jars/
@@ -206,7 +206,7 @@ RUN chown -R ranger:hadoop /opt/ranger-${RANGER_VERSION}-admin
 
 RUN /opt/hadoop-init.d/init-hdfs.sh
 {% if trino_enabled %}
-RUN /opt/trino-init.d/init-workdir.sh
+RUN mkdir /var/trino && chown -R trino:trino /var/trino
 {% endif %}
 
 # Zookeeper ports

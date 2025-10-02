@@ -77,8 +77,8 @@ download_if_not_exists ${MAVEN_MIRROR}/org/apache/commons/commons-pool2/2.12.1/c
 download_if_not_exists https://github.com/pan3793/ranger/releases/download/release-ranger-${RANGER_VERSION}/ranger-${RANGER_VERSION}-admin.tar.gz
 {% endif %}
 {% if trino_enabled %}
-download_if_not_exists ${MAVEN_MIRROR}/io/trino/trino-server/${TRINO_VERSION}/trino-server-${TRINO_VERSION}.tar.gz
-download_if_not_exists ${MAVEN_MIRROR}/io/trino/trino-cli/${TRINO_VERSION}/trino-cli-${TRINO_VERSION}-executable.jar
+download_if_not_exists https://github.com/trinodb/trino/releases/download/${TRINO_VERSION}/trino-server-${TRINO_VERSION}.tar.gz
+download_if_not_exists https://github.com/trinodb/trino/releases/download/${TRINO_VERSION}/trino-cli-${TRINO_VERSION}
 {% endif %}
 {% if parquet_enabled %}
 PARQUET_CLI_JAR_NAME=parquet-cli

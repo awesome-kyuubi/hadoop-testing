@@ -49,7 +49,7 @@ RUN chown -R root:hadoop /opt/hadoop-${HADOOP_VERSION} && \
 
 RUN /opt/hadoop-init.d/init-hdfs.sh
 {% if trino_enabled %}
-RUN /opt/trino-init.d/init-workdir.sh
+RUN mkdir /var/trino && chown -R trino:trino /var/trino
 {% endif %}
 
 # HDFS ports

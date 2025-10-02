@@ -5,6 +5,10 @@
 kinit -kt /share/keytabs/hadoop-master1/spark.service.keytab spark/hadoop-master1.orb.local@TEST.ORG
 {% endif %}
 
+{% if trino_enabled %}
+PATH=/opt/openjdk-25/bin:$PATH /opt/trino/bin/trino-cli http://hadoop-master1.orb.local:18081 --catalog=lakehouse --schema=default
+{% endif %}
+
 Run Spark Pi
 {% if kerberos_enabled %}
 spark-submit run-example --deploy-mode cluster --queue root.default --proxy-user spark SparkPi 10

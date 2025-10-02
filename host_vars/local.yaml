@@ -60,7 +60,7 @@ ranger_enabled: false
 ranger_version: 2.4.0
 
 trino_enabled: false
-trino_version: 436
+trino_version: 477
 
 parquet_enabled: true
 parquet_version: 1.16.0

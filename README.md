@@ -43,7 +43,7 @@ The supported components are listed below:
 | Spark Connect Server | 4.0.1   | Not Applicable  | Yes      | No              | spark_connect_server_enabled           |
 | Spark Thrift Server  | 4.0.1   | Yes             | Yes      | No              | spark_thrift_server_enabled            |
 | Flink                | 1.20.1  | Yes             | Yes      | No              | flink_enabled                          |
-| Trino                | 436     | Not Yet         | Yes      | No              | trino_enabled                          |
+| Trino                | 477     | Not Yet         | Yes      | No              | trino_enabled                          |
 | Ranger               | 2.4.0   | Not Yet         | Yes      | No              | ranger_enabled                         |
 | Zeppelin             | 0.12.0  | Not Yet         | Yes      | Yes             | zeppelin_enabled, zeppelin_custom_name |
 | Kafka                | 3.6.2   | Not Yet         | Yes      | No              | kafka_enabled                          |
@@ -60,7 +60,7 @@ The supported components are listed below:
 - Most components respect `JAVA_HOME`, which is configured as JDK 8
 - Hadoop HDFS and YARN are configured to use JDK 17
 - Spark is configured to use JDK 17
-- Trino is configured to use JDK 21
+- Trino is configured to use JDK 25
 - Zeppelin is configured to use JDK 11
 
 ## Prepare

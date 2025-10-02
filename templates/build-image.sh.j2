@@ -114,7 +114,7 @@ function build_hadoop_master_image() {
   {% endif %}
   {% if trino_enabled %}
   $CP download/trino-server-${TRINO_VERSION}.tar.gz hadoop-master${INDEX}/download/trino-server-${TRINO_VERSION}.tar.gz
-  $CP download/trino-cli-${TRINO_VERSION}-executable.jar hadoop-master${INDEX}/download/trino-cli-${TRINO_VERSION}-executable.jar
+  $CP download/trino-cli-${TRINO_VERSION} hadoop-master${INDEX}/download/trino-cli-${TRINO_VERSION}
   {% endif %}
   {% if parquet_enabled %}
   $CP download/parquet-cli-${PARQUET_VERSION}-runtime.jar hadoop-master${INDEX}/download/parquet-cli-${PARQUET_VERSION}-runtime.jar
