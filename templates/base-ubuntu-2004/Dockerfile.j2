@@ -29,9 +29,9 @@ RUN set -xeu && \
     install_packages curl build-essential
 
 RUN mkdir -p /opt/jsvc && \
-    curl -k -L -s -S https://archive.apache.org/dist/commons/daemon/source/commons-daemon-1.4.1-native-src.tar.gz \
-    -o /tmp/commons-daemon-1.4.1-native-src.tar.gz && \
-    tar -xzf /tmp/commons-daemon-1.4.1-native-src.tar.gz --strip-components 2 -C /opt/jsvc && \
+    curl -k -L -s -S https://archive.apache.org/dist/commons/daemon/source/commons-daemon-1.5.1-native-src.tar.gz \
+    -o /tmp/commons-daemon-1.5.1-native-src.tar.gz && \
+    tar -xzf /tmp/commons-daemon-1.5.1-native-src.tar.gz --strip-components 2 -C /opt/jsvc && \
     cd /opt/jsvc && ./configure && make
 {% endif %}
 
