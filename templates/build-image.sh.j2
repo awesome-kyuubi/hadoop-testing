@@ -100,9 +100,6 @@ function build_hadoop_master_image() {
   {% if flink_enabled and iceberg_enabled %}
   $CP download/iceberg-flink-runtime-${FLINK_BINARY_VERSION}-${ICEBERG_VERSION}.jar hadoop-master${INDEX}/download/iceberg-flink-runtime-${FLINK_BINARY_VERSION}-${ICEBERG_VERSION}.jar
   {% endif %}
-  {% if spark_enabled and hudi_enabled %}
-  $CP download/hudi-spark${SPARK_BINARY_VERSION}-bundle_${SPARK_SCALA_BINARY_VERSION}-${HUDI_VERSION}.jar hadoop-master${INDEX}/download/hudi-spark${SPARK_BINARY_VERSION}-bundle_${SPARK_SCALA_BINARY_VERSION}-${HUDI_VERSION}.jar
-  {% endif %}
   $CP download/jcl-over-slf4j-1.7.36.jar hadoop-master${INDEX}/download/jcl-over-slf4j-1.7.36.jar
   {% if kafka_enabled %}
   $CP download/kafka-clients-${KAFKA_VERSION}.jar hadoop-master${INDEX}/download/kafka-clients-${KAFKA_VERSION}.jar
@@ -137,7 +134,6 @@ function build_hadoop_master_image() {
     --build-arg RANGER_VERSION=${RANGER_VERSION} \
     --build-arg MYSQL_JDBC_VERSION=${MYSQL_JDBC_VERSION} \
     --build-arg ICEBERG_VERSION=${ICEBERG_VERSION} \
-    --build-arg HUDI_VERSION=${HUDI_VERSION} \
     --build-arg LOKI_APPENDER_VERSION=${LOKI_APPENDER_VERSION} \
     --build-arg KAFKA_VERSION=${KAFKA_VERSION} \
     --build-arg TRINO_VERSION=${TRINO_VERSION} \

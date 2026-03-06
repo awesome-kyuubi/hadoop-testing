@@ -67,9 +67,6 @@ parquet_version: 1.16.0
 iceberg_enabled: true
 iceberg_version: 1.10.1
 
-hudi_enabled: false
-hudi_version: 0.14.1
-
 kafka_enabled: false
 kafka_version: 3.6.2
 kafka_ui_enabled: false

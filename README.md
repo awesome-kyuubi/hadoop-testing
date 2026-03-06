@@ -52,7 +52,6 @@ The supported components are listed below:
 | Prometheus           | 2.53.3  | Not Applicable  | Yes      | No              | promeheus_enabled                      |
 | Loki                 | 3.4.2   | Not Applicable  | Yes      | No              | loki_enabled                           |
 | Iceberg              | 1.10.1  | Yes             | Yes      | Yes             | iceberg_enabled                        |
-| Hudi                 | 0.14.1  | Yes             | Yes      | No              | hudi_enabled                           |
 | Parquet              | 1.16.0  | Not Applicable  | Yes      | Yes             | parquet_enabled                        |
 
 **Note** :

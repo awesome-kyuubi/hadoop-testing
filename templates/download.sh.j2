@@ -116,11 +116,6 @@ ICEBERG_FLINK_JAR_NAME=iceberg-flink-runtime-${FLINK_BINARY_VERSION}
 download_if_not_exists ${MAVEN_MIRROR}/org/apache/iceberg/${ICEBERG_FLINK_JAR_NAME}/${ICEBERG_VERSION}/${ICEBERG_FLINK_JAR_NAME}-${ICEBERG_VERSION}.jar
 {% endif %}
 
-{% if spark_enabled and hudi_enabled %}
-HUDI_SPARK_BUNDLE_JAR_NAME=hudi-spark${SPARK_BINARY_VERSION}-bundle_${SPARK_SCALA_BINARY_VERSION}
-download_if_not_exists https://github.com/yanghua/incubator-hudi/releases/download/release-${HUDI_VERSION}/${HUDI_SPARK_BUNDLE_JAR_NAME}-${HUDI_VERSION}.jar
-{% endif %}
-
 LOKI_APPENDER_JAR_NAME=log4j2-appender-nodep
 download_if_not_exists ${MAVEN_MIRROR}/pl/tkowalcz/tjahzi/${LOKI_APPENDER_JAR_NAME}/${LOKI_APPENDER_VERSION}/${LOKI_APPENDER_JAR_NAME}-${LOKI_APPENDER_VERSION}.jar
 

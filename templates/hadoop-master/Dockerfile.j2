@@ -30,7 +30,6 @@ ARG MYSQL_JDBC_VERSION
 ARG LOKI_APPENDER_VERSION
 ARG RANGER_VERSION
 ARG ICEBERG_VERSION
-ARG HUDI_VERSION
 ARG KAFKA_VERSION
 ARG TRINO_VERSION
 ARG PARQUET_VERSION
@@ -169,9 +168,6 @@ ADD download/iceberg-spark-runtime-${SPARK_BINARY_VERSION}_${SPARK_SCALA_BINARY_
 {% endif %}
 {% if flink_enabled and iceberg_enabled %}
 ADD download/iceberg-flink-runtime-${FLINK_BINARY_VERSION}-${ICEBERG_VERSION}.jar ${FLINK_HOME}/lib/
-{% endif %}
-{% if spark_enabled and hudi_enabled %}
-ADD download/hudi-spark${SPARK_BINARY_VERSION}-bundle_${SPARK_SCALA_BINARY_VERSION}-${HUDI_VERSION}.jar ${SPARK_HOME}/jars/
 {% endif %}
 {% if flink_enabled %}
 ADD download/jcl-over-slf4j-1.7.36.jar ${FLINK_HOME}/lib/
