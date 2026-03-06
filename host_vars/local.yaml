@@ -34,7 +34,7 @@ zeppelin_enabled: false
 zeppelin_version: 0.12.0
 zeppelin_custom_name: all
 
-zookeeper_version: 3.8.4
+zookeeper_version: 3.8.6
 
 spark_enabled: true
 spark_version: 4.0.1

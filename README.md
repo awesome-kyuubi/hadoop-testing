@@ -33,7 +33,7 @@ The supported components are listed below:
 | JDK 25               | 25.0.0  | Not Applicable  | Yes      | No              | jdk25_enabled                          |
 | KDC                  | latest  | Yes             | Yes      | No              | kerberos_enabled                       |
 | MySQL                | 8.0     | No              | No       | Yes             |                                        |
-| ZooKeeper            | 3.8.4   | Not Yet         | No       | Yes             |                                        |
+| ZooKeeper            | 3.8.6   | Not Yet         | No       | Yes             |                                        |
 | Hadoop HDFS          | 3.4.3   | Yes             | No       | Yes             |                                        |
 | Hadoop YARN          | 3.4.3   | Yes             | No       | Yes             |                                        |
 | Hive Metastore       | 2.3.9   | Yes             | No       | Yes             |                                        |
