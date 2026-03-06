@@ -39,9 +39,9 @@ The supported components are listed below:
 | Hive Metastore       | 2.3.9   | Yes             | No       | Yes             |                                        |
 | HiveServer2          | 2.3.9   | Yes             | Yes      | Yes             | hive_server2_enabled                   |
 | Kyuubi               | 1.11.0  | Yes             | No       | Yes             |                                        |
-| Spark                | 4.0.1   | Yes             | Yes      | Yes             | spark_enabled, spark_custom_name       |
-| Spark Connect Server | 4.0.1   | Not Applicable  | Yes      | No              | spark_connect_server_enabled           |
-| Spark Thrift Server  | 4.0.1   | Yes             | Yes      | No              | spark_thrift_server_enabled            |
+| Spark                | 4.0.2   | Yes             | Yes      | Yes             | spark_enabled, spark_custom_name       |
+| Spark Connect Server | 4.0.2   | Not Applicable  | Yes      | No              | spark_connect_server_enabled           |
+| Spark Thrift Server  | 4.0.2   | Yes             | Yes      | No              | spark_thrift_server_enabled            |
 | Flink                | 1.20.1  | Yes             | Yes      | No              | flink_enabled                          |
 | Trino                | 477     | Not Yet         | Yes      | No              | trino_enabled                          |
 | Ranger               | 2.4.0   | Not Yet         | Yes      | No              | ranger_enabled                         |

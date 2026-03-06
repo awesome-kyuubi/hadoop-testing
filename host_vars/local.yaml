@@ -37,7 +37,7 @@ zeppelin_custom_name: all
 zookeeper_version: 3.8.6
 
 spark_enabled: true
-spark_version: 4.0.1
+spark_version: 4.0.2
 spark_binary_version: 4.0
 spark_scala_binary_version: 2.13
 spark_hadoop_version: 3.4.1
