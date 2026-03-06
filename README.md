@@ -34,8 +34,8 @@ The supported components are listed below:
 | KDC                  | latest  | Yes             | Yes      | No              | kerberos_enabled                       |
 | MySQL                | 8.0     | No              | No       | Yes             |                                        |
 | ZooKeeper            | 3.8.4   | Not Yet         | No       | Yes             |                                        |
-| Hadoop HDFS          | 3.4.2   | Yes             | No       | Yes             |                                        |
-| Hadoop YARN          | 3.4.2   | Yes             | No       | Yes             |                                        |
+| Hadoop HDFS          | 3.4.3   | Yes             | No       | Yes             |                                        |
+| Hadoop YARN          | 3.4.3   | Yes             | No       | Yes             |                                        |
 | Hive Metastore       | 2.3.9   | Yes             | No       | Yes             |                                        |
 | HiveServer2          | 2.3.9   | Yes             | Yes      | Yes             | hive_server2_enabled                   |
 | Kyuubi               | 1.11.0  | Yes             | No       | Yes             |                                        |
