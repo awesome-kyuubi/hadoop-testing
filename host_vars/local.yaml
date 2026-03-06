@@ -65,7 +65,7 @@ parquet_enabled: true
 parquet_version: 1.16.0
 
 iceberg_enabled: true
-iceberg_version: 1.10.0
+iceberg_version: 1.10.1
 
 hudi_enabled: false
 hudi_version: 0.14.1
