@@ -4,6 +4,7 @@
 *.log
 .DS_Store
 .idea
+.vscode
 .python-version
 base-ubuntu-2004/Dockerfile
 depends
