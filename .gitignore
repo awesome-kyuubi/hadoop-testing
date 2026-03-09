@@ -6,7 +6,7 @@
 .idea
 .vscode
 .python-version
-base-ubuntu-2004/Dockerfile
+base-*/Dockerfile
 depends
 download/
 flags
