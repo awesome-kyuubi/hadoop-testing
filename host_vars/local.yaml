@@ -68,7 +68,7 @@ iceberg_enabled: true
 iceberg_version: 1.10.1
 
 kafka_enabled: false
-kafka_version: 3.6.2
+kafka_version: 3.9.2
 kafka_ui_enabled: false
 kafka_ui_version: 1.2.0
 
