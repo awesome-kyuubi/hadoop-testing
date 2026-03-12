@@ -36,8 +36,8 @@ The supported components are listed below:
 | ZooKeeper            | 3.8.6   | Not Yet         | No       | Yes             |                                        |
 | Hadoop HDFS          | 3.4.3   | Yes             | No       | Yes             |                                        |
 | Hadoop YARN          | 3.4.3   | Yes             | No       | Yes             |                                        |
-| Hive Metastore       | 2.3.9   | Yes             | No       | Yes             |                                        |
-| HiveServer2          | 2.3.9   | Yes             | Yes      | Yes             | hive_server2_enabled                   |
+| Hive Metastore       | 2.3.10  | Yes             | No       | Yes             |                                        |
+| HiveServer2          | 2.3.10  | Yes             | Yes      | Yes             | hive_server2_enabled                   |
 | Kyuubi               | 1.11.0  | Yes             | No       | Yes             |                                        |
 | Spark                | 4.0.2   | Yes             | Yes      | Yes             | spark_enabled, spark_custom_name       |
 | Spark Connect Server | 4.0.2   | Not Applicable  | Yes      | No              | spark_connect_server_enabled           |

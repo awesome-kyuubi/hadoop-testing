@@ -26,7 +26,7 @@ kerberos_enabled: false
 
 hadoop_version: 3.4.3
 
-hive_version: 2.3.9
+hive_version: 2.3.10
 hive_server2_enabled: true
 hive_iceberg_version: 1.7.2
 
