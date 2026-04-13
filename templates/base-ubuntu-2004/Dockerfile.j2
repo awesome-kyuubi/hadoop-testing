@@ -11,7 +11,7 @@
 # limitations under the License.
 
 {% if kerberos_enabled %}
-FROM ubuntu:24.04 AS builder
+FROM ubuntu:20.04 AS builder
 
 ARG JDK17_TAR_NAME
 
@@ -35,7 +35,7 @@ RUN mkdir -p /opt/jsvc && \
     cd /opt/jsvc && ./configure && make
 {% endif %}
 
-FROM ubuntu:24.04
+FROM ubuntu:20.04
 
 ARG JDK8_TAR_NAME
 ARG JDK11_TAR_NAME
@@ -57,7 +57,7 @@ RUN set -xeu && \
     ln -snf /usr/bin/bash /usr/bin/sh && \
     install_packages busybox python3-pip supervisor xsltproc curl tree less jq python-is-python3 \
     openssh-client openssh-server sqlite3 libcap-dev zip \
-    {% if kerberos_enabled %}krb5-user libssl-dev{% endif %} && \
+    {% if kerberos_enabled %}krb5-user libssl1.1{% endif %} && \
     mkdir /run/sshd && chmod 0755 /run/sshd && \
     mkdir /opt/busybox && busybox --install /opt/busybox
 
