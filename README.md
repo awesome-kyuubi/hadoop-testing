@@ -50,7 +50,7 @@ The supported components are listed below:
 | Kafka UI             | 1.4.2   | Not Applicable  | Yes      | No              | kafka_ui_enabled                       |
 | Grafana              | 11.5.2  | Not Applicable  | Yes      | No              | grafana_enabled                        |
 | Prometheus           | 2.53.3  | Not Applicable  | Yes      | No              | promeheus_enabled                      |
-| Loki                 | 3.4.2   | Not Applicable  | Yes      | No              | loki_enabled                           |
+| Loki                 | 3.7.1   | Not Applicable  | Yes      | No              | loki_enabled                           |
 | Iceberg              | 1.10.1  | Yes             | Yes      | Yes             | iceberg_enabled                        |
 | Parquet              | 1.16.0  | Not Applicable  | Yes      | Yes             | parquet_enabled                        |
 

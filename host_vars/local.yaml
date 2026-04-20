@@ -79,7 +79,7 @@ prometheus_enabled: false
 prometheus_version: 2.53.3
 
 loki_enabled: false
-loki_version: 3.4.2
+loki_version: 3.7.1
 loki_log4j2_appender_version: 0.9.42
 
 # repository
