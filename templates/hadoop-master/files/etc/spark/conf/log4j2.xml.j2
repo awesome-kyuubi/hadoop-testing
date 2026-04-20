@@ -15,6 +15,7 @@
       <PatternLayout>
         <Pattern>%X{tid} [%t] %d{yyyy-MM-dd HH:mm:ss.SSS} %5p %c{1} - %m%n%exception{full}</Pattern>
       </PatternLayout>
+      <Label name="service_name" value="${env:SUPERVISOR_PROCESS_NAME:-unknown_service}"/>
       <Label name="host" value="${hostName}"/>
       <useDaemonThreads>true</useDaemonThreads>
     </Loki>
