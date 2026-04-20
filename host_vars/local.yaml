@@ -73,7 +73,7 @@ kafka_ui_enabled: false
 kafka_ui_version: 1.4.2
 
 grafana_enabled: false
-grafana_version: 11.5.2
+grafana_version: 13.0.1
 
 prometheus_enabled: false
 prometheus_version: 2.53.3
