@@ -15,7 +15,7 @@
       <PatternLayout>
         <Pattern>%X{tid} [%t] %d{yyyy-MM-dd HH:mm:ss.SSS} %5p %c{1} - %m%n%exception{full}</Pattern>
       </PatternLayout>
-      <Label name="host" value="${sys:hostname}"/>
+      <Label name="host" value="${hostName}"/>
       <useDaemonThreads>true</useDaemonThreads>
     </Loki>
     {% endif %}
