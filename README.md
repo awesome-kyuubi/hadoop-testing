@@ -26,11 +26,11 @@ The supported components are listed below:
 
 | Name                 | Version | Kerberos Ready  | Optional | Default Enabled | Frequently Used Variables              |
 |----------------------| ------- |-----------------| -------- |-----------------|----------------------------------------|
-| JDK 8                | 8.0.432 | Not Applicable  | No       | Yes             |                                        |
-| JDK 11               | 11.0.25 | Not Applicable  | No       | Yes             |                                        |
-| JDK 17               | 17.0.13 | Not Applicable  | No       | Yes             |                                        |
-| JDK 21               | 21.0.5  | Not Applicable  | Yes      | No              | jdk21_enabled                          |
-| JDK 25               | 25.0.0  | Not Applicable  | Yes      | No              | jdk25_enabled                          |
+| JDK 8                | 8.0.492 | Not Applicable  | No       | Yes             |                                        |
+| JDK 11               | 11.0.31 | Not Applicable  | No       | Yes             |                                        |
+| JDK 17               | 17.0.19 | Not Applicable  | No       | Yes             |                                        |
+| JDK 21               | 21.0.11 | Not Applicable  | Yes      | No              | jdk21_enabled                          |
+| JDK 25               | 25.0.3  | Not Applicable  | Yes      | No              | jdk25_enabled                          |
 | KDC                  | latest  | Yes             | Yes      | No              | kerberos_enabled                       |
 | MySQL                | 8.0     | No              | No       | Yes             |                                        |
 | ZooKeeper            | 3.8.6   | Not Yet         | No       | Yes             |                                        |
