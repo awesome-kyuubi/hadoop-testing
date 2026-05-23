@@ -33,7 +33,7 @@ echo '{"owner": "hdfs", "group": "hdfs", "permission": "1777", "path": "/tmp"}' 
 echo '{"owner": "hdfs", "group": "hdfs", "permission": "1755", "path": "/var"}' >> $DIR_LIST
 echo '{"owner": "hdfs", "group": "hdfs", "permission": "1755", "path": "/user"}' >> $DIR_LIST
 echo '{"owner": "hive", "group": "hadoop", "permission": "1777", "path": "/warehouse"}' >> $DIR_LIST
-echo '{"owner": "yarn", "group": "hadoop", "permission": "1777", "path": "/yarn-app-log"}' >> $DIR_LIST
+echo '{"owner": "yarn", "group": "hadoop", "permission": "1777", "path": "/app-logs"}' >> $DIR_LIST
 echo '{"owner": "mapred", "group": "mapred", "permission": "1777", "path": "/mr-staging"}' >> $DIR_LIST
 echo '{"owner": "mapred", "group": "hdfs", "permission": "1777", "path": "/mr-history"}' >> $DIR_LIST
 {% if spark_enabled %}
