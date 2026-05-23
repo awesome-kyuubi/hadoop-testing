@@ -48,7 +48,7 @@ spark_thrift_server_enabled: false
 
 flink_enabled: false
 flink_binary_version: '1.20'
-flink_version: 1.20.1
+flink_version: 1.20.4
 flink_hive_version: 2.3.10
 
 kyuubi_enabled: true
