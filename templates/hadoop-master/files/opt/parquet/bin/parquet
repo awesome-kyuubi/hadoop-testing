@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
+export JAVA_HOME=/opt/openjdk-17
 ${JAVA_HOME}/bin/java -cp "${PARQUET_HOME}/jars/*:`${HADOOP_HOME}/bin/hadoop classpath`" org.apache.parquet.cli.Main "$@"

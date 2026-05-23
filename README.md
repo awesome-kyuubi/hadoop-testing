@@ -58,6 +58,7 @@ The supported components are listed below:
 
 - Most components respect `JAVA_HOME`, which is configured as JDK 8
 - Hadoop HDFS and YARN are configured to use JDK 17, but MapReduce keeps using JDK 8
+- Parquet CLI is configured to use JDK 17
 - Spark is configured to use JDK 17
 - Trino is configured to use JDK 25
 - Zeppelin is configured to use JDK 11
