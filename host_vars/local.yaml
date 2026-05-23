@@ -52,7 +52,7 @@ flink_version: 1.20.1
 flink_hive_version: 2.3.10
 
 kyuubi_enabled: true
-kyuubi_version: 1.11.0
+kyuubi_version: 1.11.1
 kyuubi_hadoop_version: 3.3.6
 
 ranger_enabled: false
@@ -65,7 +65,7 @@ parquet_enabled: true
 parquet_version: 1.16.0
 
 iceberg_enabled: true
-iceberg_version: 1.10.1
+iceberg_version: 1.11.0
 
 kafka_enabled: false
 kafka_version: 3.9.2
