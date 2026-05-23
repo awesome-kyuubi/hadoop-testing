@@ -62,7 +62,7 @@ trino_enabled: false
 trino_version: 477
 
 parquet_enabled: true
-parquet_version: 1.16.0
+parquet_version: 1.17.1
 
 iceberg_enabled: true
 iceberg_version: 1.11.0
