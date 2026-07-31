@@ -1,0 +1,13 @@
+[program:hbase-master]
+directory=/opt/hbase
+command=bash /opt/start-hbase-master.sh
+startsecs=30
+stopwaitsecs=10
+user=hbase
+redirect_stderr=true
+stdout_logfile=/var/log/hbase-master.log
+{% if hbase_enabled %}
+autostart=true
+{% else %}
+autostart=false
+{% endif %}

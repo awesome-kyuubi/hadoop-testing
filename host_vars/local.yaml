@@ -36,6 +36,9 @@ zeppelin_custom_name: all
 
 zookeeper_version: 3.8.6
 
+hbase_enabled: false
+hbase_version: 2.6.6
+
 spark_enabled: true
 spark_version: 4.1.2
 spark_binary_version: 4.1

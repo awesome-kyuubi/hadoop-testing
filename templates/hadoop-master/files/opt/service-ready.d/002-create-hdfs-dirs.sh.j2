@@ -36,6 +36,9 @@ echo '{"owner": "hive", "group": "hadoop", "permission": "1777", "path": "/wareh
 echo '{"owner": "yarn", "group": "hadoop", "permission": "1777", "path": "/app-logs"}' >> $DIR_LIST
 echo '{"owner": "mapred", "group": "mapred", "permission": "1777", "path": "/mr-staging"}' >> $DIR_LIST
 echo '{"owner": "mapred", "group": "hdfs", "permission": "1777", "path": "/mr-history"}' >> $DIR_LIST
+{% if hbase_enabled %}
+echo '{"owner": "hbase", "group": "hadoop", "permission": "755", "path": "/hbase"}' >> $DIR_LIST
+{% endif %}
 {% if spark_enabled %}
 echo '{"owner": "spark", "group": "hdfs", "permission": "1777", "path": "/spark-history"}' >> $DIR_LIST
 {% endif %}
@@ -50,6 +53,9 @@ echo '{"owner": "mapred", "group": "mapred", "permission": "755", "path": "/user
 echo '{"owner": "yarn", "group": "hadoop", "permission": "755", "path": "/user/yarn"}' >> $DIR_LIST
 echo '{"owner": "hive", "group": "hadoop", "permission": "755", "path": "/user/hive"}' >> $DIR_LIST
 echo '{"owner": "root", "group": "hadoop", "permission": "755", "path": "/user/root"}' >> $DIR_LIST
+{% if hbase_enabled %}
+echo '{"owner": "hbase", "group": "hadoop", "permission": "755", "path": "/user/hbase"}' >> $DIR_LIST
+{% endif %}
 {% if spark_enabled %}
 echo '{"owner": "spark", "group": "hadoop", "permission": "755", "path": "/user/spark"}' >> $DIR_LIST
 {% endif %}

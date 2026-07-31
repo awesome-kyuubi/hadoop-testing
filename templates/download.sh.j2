@@ -61,6 +61,9 @@ download_if_not_exists ${APACHE_MIRROR}/spark/spark-${SPARK_VERSION}/spark-${SPA
 download_if_not_exists ${APACHE_MIRROR}/flink/flink-${FLINK_VERSION}/flink-${FLINK_VERSION}-bin-scala_2.12.tgz
 download_if_not_exists ${MAVEN_MIRROR}/org/apache/flink/flink-sql-connector-hive-${FLINK_HIVE_VERSION}_2.12/${FLINK_VERSION}/flink-sql-connector-hive-${FLINK_HIVE_VERSION}_2.12-${FLINK_VERSION}.jar
 {% endif %}
+{% if hbase_enabled %}
+download_if_not_exists ${APACHE_MIRROR}/hbase/${HBASE_VERSION}/hbase-${HBASE_VERSION}-hadoop3-bin.tar.gz
+{% endif %}
 {% if kyuubi_enabled %}
 download_if_not_exists ${APACHE_MIRROR}/kyuubi/kyuubi-${KYUUBI_VERSION}/apache-kyuubi-${KYUUBI_VERSION}-bin.tgz
 download_if_not_exists ${MAVEN_MIRROR}/org/apache/kyuubi/kyuubi-hive-jdbc-shaded/${KYUUBI_VERSION}/kyuubi-hive-jdbc-shaded-${KYUUBI_VERSION}.jar

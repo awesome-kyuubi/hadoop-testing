@@ -36,6 +36,7 @@ The supported components are listed below:
 | ZooKeeper            | 3.8.6   | Not Yet         | No       | Yes             |                                        |
 | Hadoop HDFS          | 3.4.3   | Yes             | No       | Yes             |                                        |
 | Hadoop YARN          | 3.4.3   | Yes             | No       | Yes             |                                        |
+| HBase                | 2.6.6   | Yes             | Yes      | No              | hbase_enabled                          |
 | Hive Metastore       | 2.3.10  | Yes             | No       | Yes             |                                        |
 | HiveServer2          | 2.3.10  | Yes             | Yes      | Yes             | hive_server2_enabled                   |
 | Kyuubi               | 1.11.1  | Yes             | No       | Yes             |                                        |
@@ -58,6 +59,7 @@ The supported components are listed below:
 
 - Most components respect `JAVA_HOME`, which is configured as JDK 8
 - Hadoop HDFS and YARN are configured to use JDK 17, but MapReduce keeps using JDK 8
+- HBase is configured to use JDK 17
 - Parquet CLI is configured to use JDK 17
 - Spark is configured to use JDK 17
 - Trino is configured to use JDK 25
@@ -289,6 +291,7 @@ Once the testing environment is fully operational, the following services will b
 - Hadoop HDFS: http://hadoop-master1.orb.local:9870
 - Hadoop YARN: http://hadoop-master1.orb.local:8088
 - Hadoop MapReduce JobHistory: http://hadoop-master1.orb.local:19888
+- HBase Master: http://hadoop-master1.orb.local:16010
 - Ranger Admin: http://hadoop-master1.orb.local:6080 (admin/Ranger@admin123)
 - Trino Web UI: http://hadoop-master1.orb.local:18081 (admin/)
 - Zeppelin: http://hadoop-master1.orb.local:8081
@@ -297,6 +300,6 @@ Once the testing environment is fully operational, the following services will b
 
 ## Roadmap
 
-1. Add more components, such as LDAP, HBase, Superset etc.
+1. Add more components, such as LDAP, Superset etc.
 2. Fully templatized. Leverage Ansible and Jinja2 to templatize the Dockerfiles, shell scripts, and configuration files, so that users can easily customize the testing environment by modifying the configurations, e.g. only enabling a subset of components, and changing the version of the components.
 3. Provide user-friendly docs, with some basic tutorials and examples, e.g. how to create a customized testing environment, how to run some basic examples, how to add a new component, etc.

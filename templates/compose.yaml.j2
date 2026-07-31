@@ -44,6 +44,9 @@ services:
       - 18080:18080
       - 19888:19888
       - 6080:6080
+{% if hbase_enabled %}
+      - 16010:16010
+{% endif %}
     depends_on:
       - mysql
 

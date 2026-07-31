@@ -20,6 +20,9 @@ create_principal -p jhs/hadoop-master1.orb.local -k /share/keytabs/hadoop-master
 # Hive MetaStore & Hive Server2
 create_principal -p hive/hadoop-master1.orb.local -k /share/keytabs/hadoop-master1/hive.service.keytab
 
+# HBase Master
+create_principal -p hbase/hadoop-master1.orb.local -k /share/keytabs/hadoop-master1/hbase.service.keytab
+
 # Spark History Server
 create_principal -p spark/hadoop-master1.orb.local -k /share/keytabs/hadoop-master1/spark.service.keytab
 
@@ -37,6 +40,8 @@ for i in {1..3}; do
   # YARN NodeManger
   create_principal -p nm/hadoop-worker$i.orb.local -k /share/keytabs/hadoop-worker$i/nm.service.keytab
   create_principal -p host/hadoop-worker$i.orb.local -k /share/keytabs/hadoop-worker$i/nm.service.keytab
+  # HBase RegionServer
+  create_principal -p hbase/hadoop-worker$i.orb.local -k /share/keytabs/hadoop-worker$i/hbase.service.keytab
 done
 
 chmod -R a+r /share/keytabs

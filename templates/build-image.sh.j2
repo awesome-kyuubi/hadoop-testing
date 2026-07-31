@@ -73,6 +73,9 @@ function build_hadoop_master_image() {
   if [ $(uname -m) = "arm64" ] || [ $(uname -m) = "aarch64" ]; then HADOOP_TAR_NAME=hadoop-${HADOOP_VERSION}-aarch64; else HADOOP_TAR_NAME=hadoop-${HADOOP_VERSION}; fi
   $CP download/${HADOOP_TAR_NAME}.tar.gz hadoop-master${INDEX}/download/hadoop-${HADOOP_VERSION}.tar.gz
   $CP download/apache-hive-${HIVE_VERSION}-bin.tar.gz hadoop-master${INDEX}/download/apache-hive-${HIVE_VERSION}-bin.tar.gz
+  {% if hbase_enabled %}
+  $CP download/hbase-${HBASE_VERSION}-hadoop3-bin.tar.gz hadoop-master${INDEX}/download/hbase-${HBASE_VERSION}-hadoop3-bin.tar.gz
+  {% endif %}
   {% if iceberg_enabled %}
   $CP download/iceberg-hive-runtime-${HIVE_ICEBERG_VERSION}.jar hadoop-master${INDEX}/download/iceberg-hive-runtime-${HIVE_ICEBERG_VERSION}.jar
   {% endif %}
@@ -122,6 +125,7 @@ function build_hadoop_master_image() {
     --build-arg ZEPPELIN_VERSION=${ZEPPELIN_VERSION} \
     --build-arg ZOOKEEPER_VERSION=${ZOOKEEPER_VERSION} \
     --build-arg HADOOP_VERSION=${HADOOP_VERSION} \
+    --build-arg HBASE_VERSION=${HBASE_VERSION} \
     --build-arg HIVE_VERSION=${HIVE_VERSION} \
     --build-arg HIVE_ICEBERG_VERSION=${HIVE_ICEBERG_VERSION} \
     --build-arg SPARK_VERSION=${SPARK_VERSION} \
@@ -152,6 +156,9 @@ function build_hadoop_worker_image() {
   mkdir -p hadoop-worker${INDEX}/download
   if [ $(uname -m) = "arm64" ] || [ $(uname -m) = "aarch64" ]; then HADOOP_TAR_NAME=hadoop-${HADOOP_VERSION}-aarch64; else HADOOP_TAR_NAME=hadoop-${HADOOP_VERSION}; fi
   $CP download/${HADOOP_TAR_NAME}.tar.gz hadoop-worker${INDEX}/download/hadoop-${HADOOP_VERSION}.tar.gz
+  {% if hbase_enabled %}
+  $CP download/hbase-${HBASE_VERSION}-hadoop3-bin.tar.gz hadoop-worker${INDEX}/download/hbase-${HBASE_VERSION}-hadoop3-bin.tar.gz
+  {% endif %}
   {% if spark_enabled %}
   $CP download/spark-${SPARK_VERSION}-bin-{{ spark_custom_name }}.tgz hadoop-worker${INDEX}/download/spark-${SPARK_VERSION}-bin-{{ spark_custom_name }}.tgz
   {% endif %}
@@ -164,6 +171,7 @@ function build_hadoop_worker_image() {
   docker build \
     --build-arg PROJECT_VERSION=${PROJECT_VERSION} \
     --build-arg HADOOP_VERSION=${HADOOP_VERSION} \
+    --build-arg HBASE_VERSION=${HBASE_VERSION} \
     --build-arg SPARK_VERSION=${SPARK_VERSION} \
     --build-arg TRINO_VERSION=${TRINO_VERSION} \
     --file "${SELF_DIR}/hadoop-worker${INDEX}/Dockerfile" \
