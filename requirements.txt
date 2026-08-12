@@ -4,6 +4,7 @@ cffi==1.17.1
 cryptography==44.0.0
 Jinja2==3.1.5
 MarkupSafe==3.0.2
+mitogen==0.3.51
 packaging==24.2
 pycparser==2.22
 PyYAML==6.0.2
