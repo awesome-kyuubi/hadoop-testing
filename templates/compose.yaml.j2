@@ -14,6 +14,14 @@ services:
     ports:
       - 3306:3306
     command: --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      # The entrypoint init phase (Hive/Kyuubi/Ranger schemas) runs on a socket-only temp
+      # server, so a TCP probe stays failing until the real server is up.
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-proot", "--silent"]
+      interval: 5s
+      timeout: 3s
+      retries: 60
+      start_period: 30s
 
   socks5:
     image: serjs/go-socks5-proxy
@@ -47,8 +55,20 @@ services:
 {% if hbase_enabled %}
       - 16010:16010
 {% endif %}
+    healthcheck:
+      # The hdfs ready mark is created after the NameNode is up and HDFS dirs are created.
+      test: ["CMD", "test", "-f", "/share/marks/ready.d/hdfs"]
+      interval: 5s
+      timeout: 3s
+      retries: 60
+      start_period: 30s
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
+{% if kerberos_enabled %}
+      kdc:
+        condition: service_healthy
+{% endif %}
 
   hadoop-worker1:
     image: hadoop-testing/hadoop-worker1:${PROJECT_VERSION}
@@ -60,7 +80,8 @@ services:
     volumes:
       - share:/share
     depends_on:
-      - hadoop-master1
+      hadoop-master1:
+        condition: service_healthy
 
   hadoop-worker2:
     image: hadoop-testing/hadoop-worker2:${PROJECT_VERSION}
@@ -72,7 +93,8 @@ services:
     volumes:
       - share:/share
     depends_on:
-      - hadoop-master1
+      hadoop-master1:
+        condition: service_healthy
 
   hadoop-worker3:
     image: hadoop-testing/hadoop-worker3:${PROJECT_VERSION}
@@ -84,7 +106,8 @@ services:
     volumes:
       - share:/share
     depends_on:
-      - hadoop-master1
+      hadoop-master1:
+        condition: service_healthy
 
 {% if kerberos_enabled %}
   kdc:
@@ -98,6 +121,14 @@ services:
     ports:
       - 88:88
       - 89:89
+    healthcheck:
+      # The ready mark is created only after the KDC is up and all service keytabs are
+      # written to /share, which is what dependents actually need.
+      test: ["CMD", "test", "-f", "/share/marks/ready.d/kdc"]
+      interval: 5s
+      timeout: 3s
+      retries: 60
+      start_period: 10s
 {% endif %}
 
 {% if prometheus_enabled %}
@@ -182,6 +213,9 @@ services:
       SERVER_PORT: 19092
       KAFKA_CLUSTERS_0_NAME: hadoop-testing
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka.orb.local:9092
+    depends_on:
+      kafka:
+        condition: service_started
 {% endif %}
 
 volumes:
