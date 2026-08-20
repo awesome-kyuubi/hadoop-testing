@@ -32,6 +32,10 @@ create_principal -p flink/hadoop-master1.orb.local -k /share/keytabs/hadoop-mast
 # Kyuubi Server
 create_principal -p kyuubi/hadoop-master1.orb.local -k /share/keytabs/hadoop-master1/kyuubi.service.keytab
 
+mkdir -p /share/keytabs/kafka
+# Kafka
+create_principal -p kafka/kafka.orb.local -k /share/keytabs/kafka/kafka.service.keytab
+
 for i in {1..3}; do
   mkdir -p /share/keytabs/hadoop-worker$i
   # HDFS DataNode
