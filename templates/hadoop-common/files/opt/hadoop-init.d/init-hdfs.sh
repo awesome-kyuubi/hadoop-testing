@@ -9,12 +9,13 @@ chown -R mapred:mapred /var/lib/hadoop-mapreduce
 mkdir /var/lib/hadoop-yarn
 chown -R yarn:yarn /var/lib/hadoop-yarn
 
-mkdir /opt/hadoop/logs /var/log/hadoop-hdfs /var/log/hadoop-yarn 
+mkdir /opt/hadoop/logs /var/log/hadoop-hdfs /var/log/hadoop-yarn /var/log/hadoop-mapred 
 chown -R hadoop:hadoop /opt/hadoop/logs
 chown -R hdfs:hadoop /var/log/hadoop-hdfs
 chown -R yarn:hadoop /var/log/hadoop-yarn
+chown -R mapred:hadoop /var/log/hadoop-mapred
 chmod -R 770 /opt/hadoop/logs /var/log/hadoop-hdfs
-chmod 755 /var/log/hadoop-yarn
+chmod 755 /var/log/hadoop-yarn /var/log/hadoop-mapred
 
 # workaround for 'could not open session' bug as suggested here:
 # https://github.com/docker/docker/issues/7056#issuecomment-49371610
