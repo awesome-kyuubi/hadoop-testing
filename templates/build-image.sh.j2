@@ -90,6 +90,7 @@ function build_hadoop_master_image() {
   $CP download/kyuubi-hive-jdbc-shaded-${KYUUBI_VERSION}.jar hadoop-master${INDEX}/download/kyuubi-hive-jdbc-shaded-${KYUUBI_VERSION}.jar
   {% if ranger_enabled %}
   $CP download/ranger-${RANGER_VERSION}-admin.tar.gz hadoop-master${INDEX}/download/ranger-${RANGER_VERSION}-admin.tar.gz
+  $CP download/ranger-${RANGER_VERSION}-pdp.tar.gz hadoop-master${INDEX}/download/ranger-${RANGER_VERSION}-pdp.tar.gz
   {% endif %}
   {% if ranger_enabled and hdfs_ranger_enabled %}
   $CP download/ranger-${RANGER_VERSION}-hdfs-plugin.tar.gz hadoop-master${INDEX}/download/ranger-${RANGER_VERSION}-hdfs-plugin.tar.gz

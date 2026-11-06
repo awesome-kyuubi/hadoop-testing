@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <property>
+    <name>ranger.pdp.port</name>
+    <value>6500</value>
+  </property>
+  <property>
+    <name>ranger.pdp.log.dir</name>
+    <value>/var/log/ranger/pdp</value>
+  </property>
+
+  <!-- header authentication: the caller states the end user in a HTTP header -->
+  <property>
+    <name>ranger.pdp.authn.types</name>
+    <value>header</value>
+  </property>
+  <property>
+    <name>ranger.pdp.authn.header.enabled</name>
+    <value>true</value>
+  </property>
+  <property>
+    <name>ranger.pdp.authn.header.username</name>
+    <value>X-Forwarded-User</value>
+  </property>
+
+  <!-- callers that may request policy decisions on behalf of end users -->
+  <property>
+    <name>ranger.pdp.service.*.delegation.users</name>
+    <value>ranger</value>
+  </property>
+{% if ranger_enabled and hdfs_ranger_enabled %}
+  <property>
+    <name>ranger.pdp.service.service_hdfs.delegation.users</name>
+    <value>hdfs</value>
+  </property>
+{% endif %}
+
+  <!-- policies are pulled from Ranger Admin and cached locally -->
+{% if ranger_enabled and hdfs_ranger_enabled %}
+  <property>
+    <name>ranger.authz.init.services</name>
+    <value>service_hdfs</value>
+  </property>
+{% endif %}
+  <property>
+    <name>ranger.authz.default.policy.source.impl</name>
+    <value>org.apache.ranger.admin.client.RangerAdminRESTClient</value>
+  </property>
+  <property>
+    <name>ranger.authz.default.policy.rest.url</name>
+    <value>http://hadoop-master1.orb.local:6080</value>
+  </property>
+  <property>
+    <name>ranger.authz.default.policy.rest.client.username</name>
+    <value>admin</value>
+  </property>
+  <property>
+    <name>ranger.authz.default.policy.rest.client.password</name>
+    <value>Ranger@admin123</value>
+  </property>
+  <property>
+    <name>ranger.authz.default.policy.cache.dir</name>
+    <value>/var/lib/ranger/pdp/policycache</value>
+  </property>
+  <property>
+    <name>ranger.authz.default.policy.pollIntervalMs</name>
+    <value>30000</value>
+  </property>
+
+  <!-- no audit store is deployed: solr/hdfs destinations are the only ones packaged with pdp -->
+  <property>
+    <name>ranger.authz.audit.is.enabled</name>
+    <value>false</value>
+  </property>
+</configuration>

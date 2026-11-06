@@ -315,6 +315,7 @@ Once the testing environment is fully operational, the following services will b
 - Hadoop MapReduce JobHistory: http://hadoop-master1.orb.local:19888
 - HBase Master: http://hadoop-master1.orb.local:16010
 - Ranger Admin: http://hadoop-master1.orb.local:6080 (admin/Ranger@admin123)
+- Ranger PDP: http://hadoop-master1.orb.local:6500/health/ready
 - Trino Web UI: http://hadoop-master1.orb.local:18081 (admin/)
 - Zeppelin: http://hadoop-master1.orb.local:8081
 

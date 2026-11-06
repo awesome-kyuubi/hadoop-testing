@@ -78,6 +78,7 @@ download_if_not_exists ${MAVEN_MIRROR}/org/apache/commons/commons-pool2/2.12.1/c
 {% endif %}
 {% if ranger_enabled %}
 download_if_not_exists ${APACHE_MIRROR}/ranger/${RANGER_VERSION}/services/admin/ranger-${RANGER_VERSION}-admin.tar.gz
+download_if_not_exists ${APACHE_MIRROR}/ranger/${RANGER_VERSION}/services/pdp/ranger-${RANGER_VERSION}-pdp.tar.gz
 {% endif %}
 {% if ranger_enabled and hdfs_ranger_enabled %}
 download_if_not_exists ${APACHE_MIRROR}/ranger/${RANGER_VERSION}/plugins/hdfs/ranger-${RANGER_VERSION}-hdfs-plugin.tar.gz

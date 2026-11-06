@@ -60,6 +60,7 @@ ENV KYUUBI_HOME=/opt/kyuubi
 ENV KYUUBI_CONF_DIR=/etc/kyuubi/conf
 {% if ranger_enabled %}
 ENV RANGER_HOME=/opt/ranger
+ENV RANGER_PDP_HOME=/opt/ranger-pdp
 {% endif %}
 {% if ranger_enabled and hdfs_ranger_enabled %}
 ENV RANGER_HDFS_PLUGIN_HOME=/opt/ranger-hdfs-plugin
@@ -104,6 +105,7 @@ ADD download/flink-${FLINK_VERSION}-bin-scala_2.12.tgz /opt
 ADD download/apache-kyuubi-${KYUUBI_VERSION}-bin.tgz /opt
 {% if ranger_enabled %}
 ADD download/ranger-${RANGER_VERSION}-admin.tar.gz /opt
+ADD download/ranger-${RANGER_VERSION}-pdp.tar.gz /opt
 {% endif %}
 {% if ranger_enabled and hdfs_ranger_enabled %}
 ADD download/ranger-${RANGER_VERSION}-hdfs-plugin.tar.gz /opt
@@ -182,7 +184,8 @@ RUN ln -s ${HIVE_HOME}/jdbc/hive-jdbc-${HIVE_VERSION}-standalone.jar ${ZEPPELIN_
 {% endif %}
 
 {% if ranger_enabled %}
-RUN ln -snf /opt/ranger-${RANGER_VERSION}-admin ${RANGER_HOME}
+RUN ln -snf /opt/ranger-${RANGER_VERSION}-admin ${RANGER_HOME} && \
+    ln -snf /opt/ranger-${RANGER_VERSION}-pdp ${RANGER_PDP_HOME}
 {% endif %}
 {% if ranger_enabled and hdfs_ranger_enabled %}
 RUN ln -snf /opt/ranger-${RANGER_VERSION}-hdfs-plugin ${RANGER_HDFS_PLUGIN_HOME}
@@ -231,8 +234,11 @@ ADD download/commons-pool2-2.12.1.jar ${SPARK_HOME}/jars/
 {% endif %}
 
 {% if ranger_enabled %}
+RUN cp ${RANGER_PDP_HOME}/conf.dist/* ${RANGER_PDP_HOME}/conf/ && \
+    cp /etc/ranger/pdp/ranger-pdp-site.xml ${RANGER_PDP_HOME}/conf/ && \
+    mkdir -p /var/lib/ranger/pdp/policycache /var/log/ranger/pdp
 # chown would doulbe the size of the image by introduce a new layer, but ranger seems does not work without chmod
-RUN chown -R ranger:hadoop /opt/ranger-${RANGER_VERSION}-admin
+RUN chown -R ranger:hadoop /opt/ranger-${RANGER_VERSION}-admin /opt/ranger-${RANGER_VERSION}-pdp /var/log/ranger /var/lib/ranger
 {% endif %}
 {% if ranger_enabled and hdfs_ranger_enabled %}
 RUN ln -sfn ${RANGER_HDFS_PLUGIN_HOME}/lib/ranger-hdfs-plugin-impl ${HADOOP_HOME}/share/hadoop/hdfs/lib/ranger-hdfs-plugin-impl && \
@@ -274,7 +280,7 @@ EXPOSE 18080
 EXPOSE 8082
 
 {% if ranger_enabled %}
-EXPOSE 6080
+EXPOSE 6080 6500
 {% endif %}
 
 {% if trino_enabled %}
