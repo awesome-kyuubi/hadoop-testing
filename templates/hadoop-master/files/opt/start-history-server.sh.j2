@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -exuo pipefail
+
+# the history dirs under / are created by the hdfs bootstrap, MapReduce would
+# otherwise need a write permission on the root inode to create them itself
+wait-service-ready-mark -s hdfs
+{% if ranger_enabled and hdfs_ranger_enabled %}
+# without the Ranger policies in place the name node denies the WRITE on /mr-history
+# that the history server needs to create its own directories
+wait-service-ready-mark -s ranger-agent-ready -t ${RANGER_AGENT_READY_TIMEOUT_SEC:-600}
+{% endif %}
+
+exec mapred historyserver
