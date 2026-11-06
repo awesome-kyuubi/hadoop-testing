@@ -77,7 +77,7 @@ download_if_not_exists ${MAVEN_MIRROR}/org/apache/spark/spark-token-provider-kaf
 download_if_not_exists ${MAVEN_MIRROR}/org/apache/commons/commons-pool2/2.12.1/commons-pool2-2.12.1.jar
 {% endif %}
 {% if ranger_enabled %}
-download_if_not_exists https://github.com/pan3793/ranger/releases/download/release-ranger-${RANGER_VERSION}/ranger-${RANGER_VERSION}-admin.tar.gz
+download_if_not_exists ${APACHE_MIRROR}/ranger/${RANGER_VERSION}/services/admin/ranger-${RANGER_VERSION}-admin.tar.gz
 {% endif %}
 {% if trino_enabled %}
 download_if_not_exists https://github.com/trinodb/trino/releases/download/${TRINO_VERSION}/trino-server-${TRINO_VERSION}.tar.gz

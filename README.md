@@ -45,7 +45,7 @@ The supported components are listed below:
 | Spark Thrift Server  | 4.1.2   | Yes             | Yes      | No              | spark_thrift_server_enabled            |
 | Flink                | 1.20.4  | Yes             | Yes      | No              | flink_enabled                          |
 | Trino                | 477     | Not Yet         | Yes      | No              | trino_enabled                          |
-| Ranger               | 2.4.0   | Not Yet         | Yes      | No              | ranger_enabled                         |
+| Ranger               | 2.9.0   | Not Yet         | Yes      | No              | ranger_enabled                         |
 | Zeppelin             | 0.12.0  | Not Yet         | Yes      | No              | zeppelin_enabled, zeppelin_custom_name |
 | Kafka                | 3.9.2   | Yes             | Yes      | No              | kafka_enabled                          |
 | Kafka UI             | 1.4.2   | Not Applicable  | Yes      | No              | kafka_ui_enabled                       |
