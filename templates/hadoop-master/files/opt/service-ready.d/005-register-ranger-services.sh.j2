@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+
+set -exuo pipefail
+
+{% if ranger_enabled and hdfs_ranger_enabled %}
+RANGER_ADMIN_URL=http://hadoop-master1.orb.local:6080
+RANGER_ADMIN_USER=admin
+RANGER_ADMIN_PASSWORD=Ranger@admin123
+REPOSITORY_NAME=service_hdfs
+
+for _ in $(seq 1 ${RANGER_ADMIN_READY_RETRIES:-60}); do
+    if curl -sf -o /dev/null "${RANGER_ADMIN_URL}/index.html"; then
+        break
+    fi
+    sleep 5
+done
+
+curl -sf -o /dev/null "${RANGER_ADMIN_URL}/index.html"
+
+remove-service-ready-mark -s ranger-agent-ready
+
+if curl -sf -o /dev/null -u "${RANGER_ADMIN_USER}:${RANGER_ADMIN_PASSWORD}" \
+      "${RANGER_ADMIN_URL}/service/public/v2/api/service/name/${REPOSITORY_NAME}"; then
+    echo "Ranger service ${REPOSITORY_NAME} already exists, skipping"
+    create-service-ready-mark -s ranger-agent-ready
+    exit 0
+fi
+
+# The repository is registered with one permissive policy on /* so that the sandbox
+# keeps working while exercising the hdfs agent, its policies and its log4j audits.
+cat > /tmp/ranger-hdfs-service.json <<JSON
+{
+  "name": "${REPOSITORY_NAME}",
+  "displayName": "${REPOSITORY_NAME}",
+  "type": "hdfs",
+  "isEnabled": true,
+  "configs": {
+    "username": "hdfs",
+    "password": "hdfs",
+    "fs.default.name": "hdfs://hadoop-master1.orb.local:8020",
+{% if kerberos_enabled %}
+    "hadoop.security.authentication": "kerberos",
+    "hadoop.security.authorization": "true",
+{% else %}
+    "hadoop.security.authentication": "simple",
+    "hadoop.security.authorization": "true",
+{% endif %}
+    "policy.download.auth.users": "hdfs",
+    "setup.additional.default.policies": "true",
+    "create.default.policy.per.hierarchy": "false",
+    "default-policy.1.name": "all users - path - root",
+    "default-policy.1.resource.path": "/",
+    "default-policy.1.policyItem.1.users": "root,hdfs,yarn,mapred,hive,spark,kyuubi,hbase,flink,kafka,trino,zeppelin,hue,ranger",
+    "default-policy.1.policyItem.1.accessTypes": "read,write,execute",
+    "default-policy.2.name": "all users - path - allow",
+    "default-policy.2.resource.path": "/*",
+    "default-policy.2.resource.path.is-recursive": "true",
+    "default-policy.2.policyItem.1.users": "root,hdfs,yarn,mapred,hive,spark,kyuubi,hbase,flink,kafka,trino,zeppelin,hue,ranger",
+    "default-policy.2.policyItem.1.accessTypes": "read,write,execute"
+  }
+}
+JSON
+
+# A failed registration must not take the container down with it
+status=$(curl -s -o /tmp/ranger-hdfs-service-response.json -w '%{http_code}' -X POST \
+     -H "Content-Type: application/json" \
+     -u "${RANGER_ADMIN_USER}:${RANGER_ADMIN_PASSWORD}" \
+     -d @/tmp/ranger-hdfs-service.json \
+     "${RANGER_ADMIN_URL}/service/public/v2/api/service")
+
+case "${status}" in
+  200|201) echo "Ranger service ${REPOSITORY_NAME} registered" ;;
+  *)
+    echo "failed to register Ranger service ${REPOSITORY_NAME}: http ${status}" >&2
+    cat /tmp/ranger-hdfs-service-response.json >&2 || true
+    exit 0
+    ;;
+esac
+
+create-service-ready-mark -s ranger-agent-ready
+{% endif %}

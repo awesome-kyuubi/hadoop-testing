@@ -91,6 +91,10 @@ function build_hadoop_master_image() {
   {% if ranger_enabled %}
   $CP download/ranger-${RANGER_VERSION}-admin.tar.gz hadoop-master${INDEX}/download/ranger-${RANGER_VERSION}-admin.tar.gz
   {% endif %}
+  {% if ranger_enabled and hdfs_ranger_enabled %}
+  $CP download/ranger-${RANGER_VERSION}-hdfs-plugin.tar.gz hadoop-master${INDEX}/download/ranger-${RANGER_VERSION}-hdfs-plugin.tar.gz
+  $CP download/ranger-audit-dest-log4j-${RANGER_VERSION}.jar hadoop-master${INDEX}/download/ranger-audit-dest-log4j-${RANGER_VERSION}.jar
+  {% endif %}
   {% if spark_enabled %}
   $CP download/kyuubi-spark-connector-tpch_${SPARK_SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar hadoop-master${INDEX}/download/kyuubi-spark-connector-tpch_${SPARK_SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar
   $CP download/kyuubi-spark-connector-tpcds_${SPARK_SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar hadoop-master${INDEX}/download/kyuubi-spark-connector-tpcds_${SPARK_SCALA_BINARY_VERSION}-${KYUUBI_VERSION}.jar

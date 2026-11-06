@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <property>
+    <name>ranger.plugin.hdfs.service.name</name>
+    <value>service_hdfs</value>
+  </property>
+  <property>
+    <name>ranger.plugin.hdfs.policy.source.impl</name>
+    <value>org.apache.ranger.admin.client.RangerAdminRESTClient</value>
+  </property>
+  <property>
+    <name>ranger.plugin.hdfs.policy.rest.url</name>
+    <value>http://hadoop-master1.orb.local:6080</value>
+  </property>
+  <property>
+    <name>ranger.plugin.hdfs.policy.cache.dir</name>
+    <value>/etc/ranger/service_hdfs/policycache</value>
+  </property>
+  <property>
+    <name>ranger.plugin.hdfs.policy.rest.client.username</name>
+    <value>admin</value>
+  </property>
+  <property>
+    <name>ranger.plugin.hdfs.policy.rest.client.password</name>
+    <value>Ranger@admin123</value>
+  </property>
+  <property>
+    <name>ranger.plugin.hdfs.policy.pollIntervalMs</name>
+    <value>30000</value>
+  </property>
+  <property>
+    <name>ranger.plugin.hdfs.policy.rest.client.connection.timeoutMs</name>
+    <value>120000</value>
+  </property>
+  <property>
+    <name>ranger.plugin.hdfs.policy.rest.client.read.timeoutMs</name>
+    <value>30000</value>
+  </property>
+</configuration>

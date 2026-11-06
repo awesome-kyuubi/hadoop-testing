@@ -79,6 +79,10 @@ download_if_not_exists ${MAVEN_MIRROR}/org/apache/commons/commons-pool2/2.12.1/c
 {% if ranger_enabled %}
 download_if_not_exists ${APACHE_MIRROR}/ranger/${RANGER_VERSION}/services/admin/ranger-${RANGER_VERSION}-admin.tar.gz
 {% endif %}
+{% if ranger_enabled and hdfs_ranger_enabled %}
+download_if_not_exists ${APACHE_MIRROR}/ranger/${RANGER_VERSION}/plugins/hdfs/ranger-${RANGER_VERSION}-hdfs-plugin.tar.gz
+download_if_not_exists ${MAVEN_MIRROR}/org/apache/ranger/ranger-audit-dest-log4j/${RANGER_VERSION}/ranger-audit-dest-log4j-${RANGER_VERSION}.jar
+{% endif %}
 {% if trino_enabled %}
 download_if_not_exists https://github.com/trinodb/trino/releases/download/${TRINO_VERSION}/trino-server-${TRINO_VERSION}.tar.gz
 download_if_not_exists https://github.com/trinodb/trino/releases/download/${TRINO_VERSION}/trino-cli-${TRINO_VERSION}

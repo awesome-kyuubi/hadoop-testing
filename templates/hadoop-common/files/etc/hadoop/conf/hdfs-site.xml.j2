@@ -60,8 +60,27 @@
   </property>
   <property>
     <name>dfs.permissions.enabled</name>
+{% if ranger_enabled and hdfs_ranger_enabled %}
+    <!-- the Ranger hdfs agent only gets consulted when native permission checks are on -->
+    <value>true</value>
+{% else %}
     <value>false</value>
+{% endif %}
   </property>
+{% if ranger_enabled and hdfs_ranger_enabled %}
+  <property>
+    <name>dfs.namenode.inode.attributes.provider.class</name>
+    <value>org.apache.ranger.authorization.hadoop.RangerHdfsAuthorizer</value>
+  </property>
+  <property>
+    <name>dfs.namenode.inode.attributes.provider.bypass.users</name>
+    <value>hdfs</value>
+  </property>
+  <property>
+    <name>dfs.permissions.ContentSummary.subAccess</name>
+    <value>true</value>
+  </property>
+{% endif %}
   <!-- This property explicitly forbids datanode to enter safe mode which results in 30 s penalty on environment startup -->
   <property>
     <name>dfs.safemode.threshold.pct</name>

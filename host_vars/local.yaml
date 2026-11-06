@@ -60,6 +60,7 @@ kyuubi_hadoop_version: 3.3.6
 
 ranger_enabled: false
 ranger_version: 2.9.0
+hdfs_ranger_enabled: true
 
 trino_enabled: false
 trino_version: 477

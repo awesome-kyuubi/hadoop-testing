@@ -335,3 +335,19 @@ log4j.appender.EWMA.maxUniqueMessages=${yarn.ewma.maxUniqueMessages}
 
 # Log levels of third-party libraries
 log4j.logger.org.apache.commons.beanutils=WARN
+{% if ranger_enabled and hdfs_ranger_enabled %}
+
+#
+# Ranger audit logging: the hdfs agent logs audit events through this logger,
+# see xasecure.audit.destination.log4j.logger in ranger-hdfs-audit.xml
+#
+log4j.logger.xaaudit=INFO,RFAAUDITLOGGER
+log4j.additivity.xaaudit=false
+log4j.appender.RFAAUDITLOGGER=org.apache.log4j.RollingFileAppender
+log4j.appender.RFAAUDITLOGGER.File=${hadoop.log.dir}/ranger-hdfs-audit.log
+log4j.appender.RFAAUDITLOGGER.Append=true
+log4j.appender.RFAAUDITLOGGER.MaxFileSize=64MB
+log4j.appender.RFAAUDITLOGGER.MaxBackupIndex=3
+log4j.appender.RFAAUDITLOGGER.layout=org.apache.log4j.PatternLayout
+log4j.appender.RFAAUDITLOGGER.layout.ConversionPattern=%m%n
+{% endif %}
