@@ -15,7 +15,10 @@ for _ in $(seq 1 ${RANGER_ADMIN_READY_RETRIES:-60}); do
     sleep 5
 done
 
-curl -sf -o /dev/null "${RANGER_ADMIN_URL}/index.html"
+if ! curl -sf -o /dev/null "${RANGER_ADMIN_URL}/index.html"; then
+    echo "Ranger admin ${RANGER_ADMIN_URL} is not ready, skip registering ${REPOSITORY_NAME}" >&2
+    exit 0
+fi
 
 remove-service-ready-mark -s ranger-agent-ready
 
@@ -61,21 +64,40 @@ cat > /tmp/ranger-hdfs-service.json <<JSON
 }
 JSON
 
-# A failed registration must not take the container down with it
-status=$(curl -s -o /tmp/ranger-hdfs-service-response.json -w '%{http_code}' -X POST \
-     -H "Content-Type: application/json" \
-     -u "${RANGER_ADMIN_USER}:${RANGER_ADMIN_PASSWORD}" \
-     -d @/tmp/ranger-hdfs-service.json \
-     "${RANGER_ADMIN_URL}/service/public/v2/api/service")
+# 4xx responses come from the service definition below and are not retried;
+# connection errors and 5xx responses are, because the admin can still be
+# finishing its own startup even after it serves index.html.
+RESPONSE_FILE=/tmp/ranger-hdfs-service-response.json
+status=000
+for attempt in $(seq 1 ${RANGER_REGISTER_RETRIES:-5}); do
+    status=$(curl -s -o "${RESPONSE_FILE}" -w '%{http_code}' -X POST \
+         -H "Content-Type: application/json" \
+         -u "${RANGER_ADMIN_USER}:${RANGER_ADMIN_PASSWORD}" \
+         -d @/tmp/ranger-hdfs-service.json \
+         "${RANGER_ADMIN_URL}/service/public/v2/api/service" || true)
+    case "${status}" in
+      200|201)
+        echo "Ranger service ${REPOSITORY_NAME} registered"
+        break
+        ;;
+      ""|000|408|429|5*)
+        echo "Ranger admin request failed at attempt ${attempt}: http ${status}" >&2
+        sleep $((attempt * 2))
+        ;;
+      *)
+        echo "Ranger rejected the service definition: http ${status}" >&2
+        break
+        ;;
+    esac
+done
 
-case "${status}" in
-  200|201) echo "Ranger service ${REPOSITORY_NAME} registered" ;;
-  *)
-    echo "failed to register Ranger service ${REPOSITORY_NAME}: http ${status}" >&2
-    cat /tmp/ranger-hdfs-service-response.json >&2 || true
+# A failed registration must not take the container down with it. The mark is
+# only created on success, and hadoop-master1 is unhealthy without it, so the
+# failure shows up in docker compose ps instead of silently denying every access
+if [[ "${status}" != 200 && "${status}" != 201 ]]; then
+    cat "${RESPONSE_FILE}" >&2 || true
     exit 0
-    ;;
-esac
+fi
 
 create-service-ready-mark -s ranger-agent-ready
 {% endif %}

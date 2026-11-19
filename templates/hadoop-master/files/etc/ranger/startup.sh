@@ -16,22 +16,20 @@
 set -xe
 
 function setup_ranger() {
-    cp /etc/ranger/conf/* ${RANGER_HOME}/
-    sed -i 's/__REPLACE_MYSQL_JDBC_VERSION__/'"${MYSQL_JDBC_VERSION}"'/g' "${RANGER_HOME}/install.properties"
-
-    cd ${RANGER_HOME}
-    # verifies the schema and the db patches, sets the admin accounts and
-    # publishes the embedded service definitions to the db
+    cd ${RANGER_ADMIN_HOME}
+    # install.properties is a symlink to /etc/ranger/conf created at build time
+    # setup.sh verifies the schema and the db patches, sets the admin accounts
+    # and publishes the embedded service definitions to the db
     sh setup.sh
 
-    touch ${RANGER_HOME}/.setupDone
+    touch ${RANGER_ADMIN_HOME}/.setupDone
 }
 
-if [ ! -e ${RANGER_HOME}/.setupDone ]; then
+if [ ! -e ${RANGER_ADMIN_HOME}/.setupDone ]; then
     setup_ranger
 fi
 
-cd ${RANGER_HOME}
+cd ${RANGER_ADMIN_HOME}
 sh ews/ranger-admin-services.sh restart
 
 RANGER_ADMIN_PID=`ps -ef | grep -v grep | grep -i "org.apache.ranger.server.tomcat.EmbeddedServer" | awk '{print $2}'`

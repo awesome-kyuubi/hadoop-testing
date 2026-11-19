@@ -21,6 +21,8 @@ jdk25_version: 25.0.5.1
 s3_enabled: false
 aws_java_sdk_version: 1.12.620
 
+mysql_jdbc_version: 8.0.33
+
 # components
 kerberos_enabled: false
 

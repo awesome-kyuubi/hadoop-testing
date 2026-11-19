@@ -59,11 +59,9 @@ ENV FLINK_CONF_DIR=/etc/flink/conf
 ENV KYUUBI_HOME=/opt/kyuubi
 ENV KYUUBI_CONF_DIR=/etc/kyuubi/conf
 {% if ranger_enabled %}
-ENV RANGER_HOME=/opt/ranger
-ENV RANGER_PDP_HOME=/opt/ranger-pdp
-{% endif %}
-{% if ranger_enabled and hdfs_ranger_enabled %}
-ENV RANGER_HDFS_PLUGIN_HOME=/opt/ranger-hdfs-plugin
+ENV RANGER_ADMIN_HOME=/opt/ranger/admin
+ENV RANGER_PDP_HOME=/opt/ranger/pdp
+ENV RANGER_PDP_CONF_DIR=/etc/ranger/pdp
 {% endif %}
 {% if trino_enabled %}
 ENV TRINO_HOME=/opt/trino
@@ -184,11 +182,15 @@ RUN ln -s ${HIVE_HOME}/jdbc/hive-jdbc-${HIVE_VERSION}-standalone.jar ${ZEPPELIN_
 {% endif %}
 
 {% if ranger_enabled %}
-RUN ln -snf /opt/ranger-${RANGER_VERSION}-admin ${RANGER_HOME} && \
-    ln -snf /opt/ranger-${RANGER_VERSION}-pdp ${RANGER_PDP_HOME}
+# setup.sh and its helpers read install.properties from the install dir; a
+# symlink keeps /etc/ranger/conf the only copy
+RUN mkdir -p /opt/ranger && \
+    ln -snf /opt/ranger-${RANGER_VERSION}-admin ${RANGER_ADMIN_HOME} && \
+    ln -snf /opt/ranger-${RANGER_VERSION}-pdp ${RANGER_PDP_HOME} && \
+    ln -sfn /etc/ranger/conf/install.properties ${RANGER_ADMIN_HOME}/install.properties
 {% endif %}
 {% if ranger_enabled and hdfs_ranger_enabled %}
-RUN ln -snf /opt/ranger-${RANGER_VERSION}-hdfs-plugin ${RANGER_HDFS_PLUGIN_HOME}
+RUN ln -snf /opt/ranger-${RANGER_VERSION}-hdfs-plugin /opt/ranger/hdfs-plugin
 # ranger 2.9.0 ships the hdfs plugin without the log4j audit destination
 ADD download/ranger-audit-dest-log4j-${RANGER_VERSION}.jar /opt/ranger-${RANGER_VERSION}-hdfs-plugin/lib/ranger-hdfs-plugin-impl/
 {% endif %}
@@ -198,7 +200,7 @@ RUN ln -snf /opt/trino-server-${TRINO_VERSION} ${TRINO_HOME}
 
 ADD download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar ${HIVE_HOME}/lib/
 {% if ranger_enabled %}
-ADD download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar ${RANGER_HOME}/
+ADD download/mysql-connector-j-${MYSQL_JDBC_VERSION}.jar ${RANGER_ADMIN_HOME}/
 {% endif %}
 {% if spark_enabled and iceberg_enabled %}
 ADD download/iceberg-spark-runtime-${SPARK_BINARY_VERSION}_${SPARK_SCALA_BINARY_VERSION}-${ICEBERG_VERSION}.jar ${SPARK_HOME}/jars/
@@ -234,21 +236,22 @@ ADD download/commons-pool2-2.12.1.jar ${SPARK_HOME}/jars/
 {% endif %}
 
 {% if ranger_enabled %}
-RUN cp ${RANGER_PDP_HOME}/conf.dist/* ${RANGER_PDP_HOME}/conf/ && \
-    cp /etc/ranger/pdp/ranger-pdp-site.xml ${RANGER_PDP_HOME}/conf/ && \
+# the PDP reads its configuration from RANGER_PDP_CONF_DIR, only the upstream
+# logback default is copied next to it
+RUN install -m 644 ${RANGER_PDP_HOME}/conf.dist/logback.xml ${RANGER_PDP_CONF_DIR}/logback.xml && \
     mkdir -p /var/lib/ranger/pdp/policycache /var/log/ranger/pdp
 # chown would doulbe the size of the image by introduce a new layer, but ranger seems does not work without chmod
 RUN chown -R ranger:hadoop /opt/ranger-${RANGER_VERSION}-admin /opt/ranger-${RANGER_VERSION}-pdp /var/log/ranger /var/lib/ranger
 {% endif %}
 {% if ranger_enabled and hdfs_ranger_enabled %}
-RUN ln -sfn ${RANGER_HDFS_PLUGIN_HOME}/lib/ranger-hdfs-plugin-impl ${HADOOP_HOME}/share/hadoop/hdfs/lib/ranger-hdfs-plugin-impl && \
-    ln -sfn ${RANGER_HDFS_PLUGIN_HOME}/lib/ranger-hdfs-plugin-shim-${RANGER_VERSION}.jar ${HADOOP_HOME}/share/hadoop/hdfs/lib/ranger-hdfs-plugin-shim-${RANGER_VERSION}.jar && \
-    ln -sfn ${RANGER_HDFS_PLUGIN_HOME}/lib/ranger-plugin-classloader-${RANGER_VERSION}.jar ${HADOOP_HOME}/share/hadoop/hdfs/lib/ranger-plugin-classloader-${RANGER_VERSION}.jar && \
+RUN ln -sfn /opt/ranger/hdfs-plugin/lib/ranger-hdfs-plugin-impl ${HADOOP_HOME}/share/hadoop/hdfs/lib/ranger-hdfs-plugin-impl && \
+    ln -sfn /opt/ranger/hdfs-plugin/lib/ranger-hdfs-plugin-shim-${RANGER_VERSION}.jar ${HADOOP_HOME}/share/hadoop/hdfs/lib/ranger-hdfs-plugin-shim-${RANGER_VERSION}.jar && \
+    ln -sfn /opt/ranger/hdfs-plugin/lib/ranger-plugin-classloader-${RANGER_VERSION}.jar ${HADOOP_HOME}/share/hadoop/hdfs/lib/ranger-plugin-classloader-${RANGER_VERSION}.jar && \
     test -f ${HADOOP_HOME}/share/hadoop/hdfs/lib/ranger-hdfs-plugin-shim-${RANGER_VERSION}.jar && \
     cp /etc/ranger/hdfs/ranger-hdfs-security.xml /etc/ranger/hdfs/ranger-hdfs-audit.xml ${HADOOP_CONF_DIR}/ && \
     mkdir -p /etc/ranger/service_hdfs/policycache && \
     mkdir -p /var/log/hadoop-hdfs && touch /var/log/hadoop-hdfs/ranger-hdfs-audit.log && \
-    chown -R hdfs:hadoop /etc/ranger
+    chown -R hdfs:hadoop /etc/ranger/hdfs /etc/ranger/service_hdfs
 {% endif %}
 
 RUN /opt/hadoop-init.d/init-hdfs.sh

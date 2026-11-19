@@ -51,14 +51,21 @@ services:
       - 10099:10099
       - 18080:18080
       - 19888:19888
+{% if ranger_enabled %}
       - 6080:6080
       - 6500:6500
+{% endif %}
 {% if hbase_enabled %}
       - 16010:16010
 {% endif %}
     healthcheck:
       # The hdfs ready mark is created after the NameNode is up and HDFS dirs are created.
+{% if ranger_enabled and hdfs_ranger_enabled %}
+      # The ranger agent mark is created after the hdfs repository is registered in Ranger.
+      test: ["CMD-SHELL", "test -f /share/marks/ready.d/hdfs && test -f /share/marks/ready.d/ranger-agent-ready"]
+{% else %}
       test: ["CMD", "test", "-f", "/share/marks/ready.d/hdfs"]
+{% endif %}
       interval: 5s
       timeout: 3s
       retries: 60
