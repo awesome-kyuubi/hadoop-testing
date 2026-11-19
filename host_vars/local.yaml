@@ -1,22 +1,22 @@
 project_version: 1-SNAPSHOT
 
 # base
-zulu8_version: 8.94.0.17
-jdk8_version: 8.0.492
+zulu8_version: 8.98.0.201
+jdk8_version: 8.0.514
 
-zulu11_version: 11.88.17
-jdk11_version: 11.0.31
+zulu11_version: 11.92.201
+jdk11_version: 11.0.33.1
 
-zulu17_version: 17.66.15
-jdk17_version: 17.0.19
+zulu17_version: 17.70.201
+jdk17_version: 17.0.21.1
 
 jdk21_enabled: false
-zulu21_version: 21.50.19
-jdk21_version: 21.0.11
+zulu21_version: 21.54.201
+jdk21_version: 21.0.13.1
 
 jdk25_enabled: false
-zulu25_version: 25.34.17
-jdk25_version: 25.0.3
+zulu25_version: 25.38.201
+jdk25_version: 25.0.5.1
 
 s3_enabled: false
 aws_java_sdk_version: 1.12.620
@@ -29,6 +29,7 @@ hadoop_version: 3.4.3
 hive_version: 2.3.10
 hive_server2_enabled: true
 hive_iceberg_version: 1.7.2
+mysql_jdbc_version: 8.0.33
 
 zeppelin_enabled: false
 zeppelin_version: 0.12.0
